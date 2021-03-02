@@ -58,7 +58,7 @@ CREATE TABLE "user" (
     "lastname" TEXT NOT NULL DEFAULT '',
     "firstname" TEXT NOT NULL DEFAULT '',
     "avatar" TEXT NOT NULL DEFAULT '',
-    "reward_count" TEXT NOT NULL DEFAULT '',
+    "reward_count" INTEGER NOT NULL DEFAULT 0,
     "admin" BOOLEAN DEFAULT 'false',
     "user_grade_id" INTEGER NOT NULL REFERENCES user_grade("id"),
     "user_place_id" INTEGER NOT NULL REFERENCES user_place("id"),
@@ -104,14 +104,14 @@ CREATE TABLE "user_has_sport" (
   "id" SERIAL PRIMARY KEY,
   "user_id" INTEGER NOT NULL REFERENCES "user"("id"), 
   "sport_id" INTEGER NOT NULL REFERENCES sport("id") ON DELETE CASCADE,
-  "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW() 
+  "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 );
 
 CREATE TABLE "user_has_activity" (
   "id" SERIAL PRIMARY KEY,
   "user_id" INTEGER NOT NULL REFERENCES "user"("id"),
   "activity_id" INTEGER NOT NULL REFERENCES activity("id") ON DELETE CASCADE,
-  "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 );
 
 INSERT INTO "sport" ("name", "icon") VALUES

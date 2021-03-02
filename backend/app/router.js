@@ -1,21 +1,17 @@
-const express = require('express');
-const { Router } = require('express');
+const express = require("express");
+const { Router } = require("express");
 const router = express.Router();
 
-//const quizController = require('./controllers/quizController');
+const test = require("./controllers/test");
 
-router.get('/', (req, res) => {
-    res.send('hello');
+router.get("/", (req, res) => {
+  res.send("hello");
 });
 
-/*
-router.get('/quiz', quizController.getAllQuiz);
-router.post('/quiz', quizController.createQuiz);
-*/
+router.get("/test", test.getAllActivityWithPlace);
 
 router.use((req, res) => {
-    res.status(404).send('Service does not exists here ...');
+  res.status(404).send("Service does not exists here ...");
 });
 
 module.exports = router;
-
