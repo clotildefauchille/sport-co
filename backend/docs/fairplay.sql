@@ -158,5 +158,10 @@ VALUES ('super cette partie, mais j''aurai pas dû manger un kebab juste avt', 1
 ('attend de voir mon smash', 2, 2),
 ('Vous voulez vous retrouver vers quelle heure ?', 2, 2);
 
+INSERT INTO "user_has_sport" ("user_id", "sport_id")
+VALUES (1, 3), (1, 4), (2, 1), (3, 2);
+
+INSERT INTO "user_has_activity" ("user_id", "activity_id") VALUES
+(1, 1), (1, 2), (2, 2), (3, 2);
 
 COMMIT;
