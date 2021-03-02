@@ -1,9 +1,12 @@
 import React from 'react';
+import Header from 'src/components/Header';
+import Footer from 'src/components/Footer';
 
 const Accueil = () => (
-  <div className="app">
-    <h1>Composant : App</h1>
-  </div>
+  <>
+    <Header />
+    <Footer />
+  </>
 );
 
 export default Accueil;

@@ -1,0 +1,69 @@
+@use 'src/styles/_vars.scss';
+
+.header {
+  width: 100%;
+  padding: 30px 90px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  &__logo {
+    height: 41px;
+    object-fit: contain;
+    margin-bottom: 25px;
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__login {
+    margin-right: 50px;
+    display: flex;
+    align-items: center;
+    color: vars.$darkColor;
+    font-weight: 500;
+  }
+
+  &__icon {
+    height: 20px;
+    margin-right: 10px;
+  }
+  &__signup {
+    background-color: vars.$primaryColor;
+    padding: 12px 30px;
+    border-radius: 25px;
+    color: white;
+    font-weight: 500;
+  }
+  &__user {
+    width: 40px;
+    margin-right: -9px;
+    z-index: 0;
+  }
+  &__grade {
+    width: 40px;
+    margin-right: 12px;
+    
+  }
+  &__buttons li:nth-child(0) {
+    z-index: 0;
+  }
+  &__buttons li:nth-child(1) {
+    z-index: 1;
+  }
+  &__disconnect {
+    color: vars.$darkColor;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 511px) {  
+  .header {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
