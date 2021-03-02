@@ -1,0 +1,8 @@
+{
+  "name": "projet-sport-co",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:O-clock-Nemo/projet-sport-co.git",
+  "author": "jeremy-mairey <jeremymai.nemo@gmail.com>",
+  "license": "MIT"
+}
