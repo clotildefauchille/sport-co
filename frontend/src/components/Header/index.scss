@@ -20,7 +20,7 @@
   }
 
   &__login {
-    margin-right: 50px;
+    margin-right: 25px;
     display: flex;
     align-items: center;
     color: vars.$darkColor;
@@ -37,7 +37,13 @@
     border-radius: 25px;
     color: white;
     font-weight: 500;
+    transition: all 0.3s;
   }
+
+  &__signup:hover {
+    box-shadow: vars.$shadow;
+  }
+
   &__user {
     width: 40px;
     margin-right: -9px;
@@ -64,6 +70,7 @@
   .header {
     flex-direction: column;
     justify-content: center;
+    padding: 30px 0;
   }
 }
 

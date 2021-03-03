@@ -1,10 +1,10 @@
 import React from 'react';
-import logo from 'src/assets/fairplay.png';
+import logo from 'src/assets/fairplay logo.svg';
 import userIcon from 'src/assets/account_circle.svg';
 import gradeIcon from 'src/assets/grade.svg';
 import './index.scss';
 
-const isLogged = true;
+const isLogged = false;
 
 const Header = () => {
   switch (isLogged) {
@@ -21,7 +21,7 @@ const Header = () => {
                 <a><img className="header__grade" src={gradeIcon} alt="l'icone de son grade" /></a>
               </li>
               <li>
-                <a className="header__disconnect">Déconnexion</a>
+                <a href="#" className="header__disconnect">Déconnexion</a>
               </li>
             </ul>
           </nav>
@@ -34,10 +34,10 @@ const Header = () => {
           <nav className="header__nav">
             <ul className="header__buttons">
               <li>
-                <a className="header__login"><img className="header__icon" src={userIcon} alt="l'icone de l'utilisateur" /> connexion</a>
+                <a href="#" className="header__login"><img className="header__icon" src={userIcon} alt="l'icone de l'utilisateur" /> connexion</a>
               </li>
               <li>
-                <a className="header__signup">Inscription</a>
+                <a href="#" className="header__signup">Inscription</a>
               </li>
             </ul>
           </nav>
