@@ -106,12 +106,12 @@ Message.belongsTo(User, {
 });
 
 User.hasMany(Activity, {
-  foreignKey: "user_id",
+  foreignKey: "creator_id",
   as: "creator_activities",
 });
 
 Activity.belongsTo(User, {
-  foreignKey: "user_id",
+  foreignKey: "creator_id",
   as: "creator",
 });
 
