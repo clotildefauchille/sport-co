@@ -121,7 +121,7 @@ INSERT INTO "sport" ("name", "icon") VALUES
 ('basketball', 'basketball');
 
 INSERT INTO "activity_place" ("address", "city", "zip_code", "department", "region", "google_place_key", "lat", "lng", "private", "indoor") VALUES
-('38 Rue René Alazard', 'Bagnolet', '93170', 'Seine-Saint_Denis', 'Ile-de-France', 'ChIJX-N1XXNt5kcRZM_FklimsmQ', 48.87370931491529, 2.4195904982846748, true, true), 
+('38 Rue René Alazard', 'Bagnolet', '93170', 'Seine-Saint-Denis', 'Ile-de-France', 'ChIJX-N1XXNt5kcRZM_FklimsmQ', 48.87370931491529, 2.4195904982846748, true, true), 
 ('10 Place de la Comédie', 'Montpellier', '34000', 'Hérault', 'Occitanie','ChIJmwSMR6evthIReIYsyxaF9qs', 43.609406065437526, 3.879749211605195, false, false),
 ('Promenade du Peyrou', 'Montpellier', '34000', 'Hérault', 'Occitanie', 'ChIJtW9UagevthIRqBfgUffh-TQ', 43.61125, 3.8707581, true, true);
 
@@ -135,7 +135,7 @@ INSERT INTO "user_grade" ("name", "point") VALUES
 INSERT INTO "user_place" ("address", "city", "zip_code", "department", "region", "google_place_key", "lat", "lng") VALUES
 ('25 Rue Gabriel Marie', 'Marseille', '13010','Provence-Alpes-Côte d''Azur', 'Bouches-du-Rhône', 'ChIJUWddC1G_yRIRrCeWrpgJsig', 43.28572709923827, 5.401447882759161),
 ('2-38 Rue des Pervenches', 'Montpellier', '34000', 'Hérault', 'Occitanie', 'Ei8yIFJ1ZSBkZXMgUGVydmVuY2hlcywgMzQwMDAgTW9udHBlbGxpZXIsIEZyYW5jZSJQEk4KNAoyCafStBi9r7YSEUaddh24ThFxGh4LEO7B7qEBGhQKEgnvrrIOm6-2EhHQ4oxpJIgHHAwQAioUChIJp9K0GL2vthIREdCGsK2HxIY', 43.599436353996595, 3.8843637994919),
-('38 Rue René Alazard', 'Bagnolet', '93170', 'Seine-Saint_Denis', 'Ile-de-France', 'ChIJX-N1XXNt5kcRZM_FklimsmQ', 48.87370931491529, 2.4195904982846748), 
+('38 Rue René Alazard', 'Bagnolet', '93170', 'Seine-Saint-Denis', 'Ile-de-France', 'ChIJX-N1XXNt5kcRZM_FklimsmQ', 48.87370931491529, 2.4195904982846748), 
 ('10 Place de la Comédie', 'Montpellier', '34000', 'Hérault', 'Occitanie','ChIJmwSMR6evthIReIYsyxaF9qs', 43.609406065437526, 3.879749211605195),
 ('Promenade du Peyrou', 'Montpellier', '34000', 'Hérault', 'Occitanie', 'ChIJtW9UagevthIRqBfgUffh-TQ', 43.61125, 3.8707581);
 

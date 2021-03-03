@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/activities?', activityController.getLastActivity);
+router.get('/activities/place?', activityController.getActivityByPlace);
 
 router.use((req, res) => {
   res.status(404).send("Service does not exists here ...");
