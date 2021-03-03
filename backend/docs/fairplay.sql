@@ -1,5 +1,4 @@
 
-
 BEGIN;
 
 DROP TABLE IF EXISTS "user_has_activity", "user_has_sport", "user", "activity", "sport", "message", "user_place", "user_grade", "activity_statut", "activity_place";
@@ -150,16 +149,16 @@ VALUES ('passed'), ('canceled'), ('ongoing');
 
 INSERT INTO "activity" ("title", "description", "illustration", "date", "time", "duration", "participant_count", "min_participant", "creator_id", "activity_place_id", "activity_status_id", "sport_id")
 VALUES 
-('foot énervé 1', 'partie de foot au stade des Guillants, mettez votre plus beau maillot', '', '01/05/2021', '18:00', '2:30', 2, 8, 3, 1, 3, 1), 
-('Double tennis 2', 'on est chaud du revers', '', '07/05/2021', '14:30', '1:00', 1, 4, 2, 2, 3, 2),
-('activité 3', 'partie de foot au stade des Guillants, mettez votre plus beau maillot', '', '01/05/2021', '18:00', '2:30', 2, 8, 3, 1, 3, 1), 
+('foot énervé 1B', 'partie de foot au stade des Guillants, mettez votre plus beau maillot', '', '01/05/2021', '18:00', '2:30', 2, 8, 3, 1, 3, 1), 
+('Double tennis 2', 'on est chaud du revers', '', '07/05/2021', '14:30', '1:00', 1, 4, 2, 2, 1, 2),
+('activité 3', 'partie de foot au stade des Guillants, mettez votre plus beau maillot', '', '12/05/2021', '18:00', '2:30', 2, 8, 3, 1, 3, 1), 
 ('activité 4', 'on est chaud du revers', '', '07/05/2021', '14:30', '1:00', 1, 4, 2, 2, 3, 2),
-('activité 5', 'partie de foot au stade des Guillants, mettez votre plus beau maillot', '', '01/05/2021', '18:00', '2:30', 2, 8, 3, 1, 3, 1), 
-('activité 6', 'on est chaud du revers', '', '07/05/2021', '14:30', '1:00', 1, 4, 2, 2, 3, 2),
-('activité 7', 'partie de foot au stade des Guillants, mettez votre plus beau maillot', '', '01/05/2021', '18:00', '2:30', 2, 8, 3, 1, 3, 1), 
-('activité 8', 'on est chaud du revers', '', '07/05/2021', '14:30', '1:00', 1, 4, 2, 2, 3, 2),
-('activité 9', 'partie de foot au stade des Guillants, mettez votre plus beau maillot', '', '01/05/2021', '18:00', '2:30', 2, 8, 3, 1, 3, 1), 
-('activité 10', 'on est chaud du revers', '', '07/05/2021', '14:30', '1:00', 1, 4, 2, 2, 3, 2);
+('activité 5', 'partie de foot au stade des Guillants, mettez votre plus beau maillot', '', '01/05/2021', '18:00', '2:30', 2, 8, 3, 3, 3, 1), 
+('activité 6', 'on est chaud du revers', '', '07/05/2021', '14:30', '1:00', 1, 4, 2, 3, 2, 2),
+('activité 7', 'partie de foot au stade des Guillants, mettez votre plus beau maillot', '', '01/06/2021', '18:00', '2:30', 2, 8, 3, 1, 3, 1), 
+('activité 8', 'on est chaud du revers', '', '07/05/2021', '14:30', '1:00', 1, 4, 2, 2, 1, 2),
+('activité 9', 'partie de foot au stade des Guillants, mettez votre plus beau maillot', '', '14/08/2021', '18:00', '2:30', 2, 8, 3, 1, 3, 1), 
+('activité 10', 'on est chaud du revers', '', '07/05/2021', '14:30', '1:00', 1, 4, 2, 2, 1, 2);
 
 INSERT INTO "message" ("comment", "user_id", "activity_id")
 VALUES ('super cette partie, mais j''aurai pas dû manger un kebab juste avt', 1, 1),
