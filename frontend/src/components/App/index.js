@@ -4,15 +4,21 @@ import { Route, Switch } from 'react-router-dom';
 
 // == Import
 import Accueil from 'src/components/Accueil';
+import Header from 'src/components/Header';
+import Footer from 'src/components/Footer';
 import './styles.css';
 
 // == Composant
 const App = () => (
-  <Switch>
-    <Route path="/" exact>
-      <Accueil />
-    </Route>
-  </Switch>
+  <>
+    <Header />
+    <Switch>
+      <Route path="/" exact>
+        <Accueil />
+      </Route>
+    </Switch>
+    <Footer />
+  </>
 );
 
 // == Export

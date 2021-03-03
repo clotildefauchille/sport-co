@@ -1,12 +1,14 @@
 import React from 'react';
-import Header from 'src/components/Header';
-import Footer from 'src/components/Footer';
+import Cards from 'src/components/Cards';
+import './style.scss';
 
 const Accueil = () => (
-  <>
-    <Header />
-    <Footer />
-  </>
+  <div className="home">
+    <Cards />
+    <Cards />
+    <Cards />
+    <Cards />
+  </div>
 );
 
 export default Accueil;
