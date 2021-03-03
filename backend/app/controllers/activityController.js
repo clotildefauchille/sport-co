@@ -34,8 +34,6 @@ const activityController = {
   },
 
   getPlaceByUserLocalisation: async (req, res) => {
-    console.log("-------> getActivityByPlace 000");
-
     const { lat, lng } = req.query;
     let page = parseInt(req.query.page);
 
@@ -53,75 +51,59 @@ const activityController = {
     }
 
     try {
-      const dist = 1000; // en km
+      const distanceLimit = 1000; // en km
 
-      /*
-      const query = `
-        SELECT * FROM (
-            SELECT *, 
-                (
-                    (
-                        (
-                            acos( sin(( ${lat} * pi() / 180))
-                            * sin(( "lat" * pi() / 180)) + cos(( ${lat} * pi() /180 ))
-                            * cos(( "lat" * pi() / 180)) * cos((( ${lng} - "lng") * pi()/180)))
-                        ) * 180/pi()
-                    ) * 60 * 1.1515 * 1.609344
-                )
-            as distance FROM "activity_place"
-        ) activity_place
-        INNER JOIN activity ON activity.activity_place_id = activity_place.id
-        WHERE distance <= ${dist} AND activity.activity_status_id = 3
-        ORDER BY distance;
-     `;
-     */
-      /*
-    activity.id,
-            activity_place.city,
-            activity.title,
-            activity.date,
-            activity.description,
-            activity.illustration  
-            */
+      /**
+       * Formule mathématique pour le calcul de distance entre 2 points A et B sur terre avec lat et lng,
+       * 6371 est le rayon de la terre en km :
+       *
+       * x = (lngB - lngA) * cos((latA + latB)/2)
+       * y = latA - latB
+       * distance = sqrt(pow(x) + pow(y)) * 6371
+       *
+       * mais /!\ il faut convertir et remplacer les lat et lng en radian :
+       * latInRad = lat * pi() / 180
+       * lngInRad = lng * pi() / 180
+       *
+       * besoin d'utiliser une sous requete avec alias pour calcul et recup la distance :
+       * https://sql.sh/cours/sous-requete
+       *
+       * ADAPTATION SQL :
+       */
 
       const query = `
         SELECT
+            lat, 
+            lng,
+            distance,
+            city,
             activity.id,
-            activity_place.city,
             activity.title,
             activity.date,
             activity.description,
             activity.illustration,
-            distance
+            "user".pseudo
         FROM (
-            SELECT *, 
-                (
-                    (
-                        (
-                            acos( sin(( ${lat} * pi() / 180))
-                            * sin(( "lat" * pi() / 180)) + cos(( ${lat} * pi() /180 ))
-                            * cos(( "lat" * pi() / 180)) * cos((( ${lng} - "lng") * pi()/180)))
-                        ) * 180/pi()
-                    ) * 60 * 1.1515 * 1.609344
-                )
-            as distance FROM "activity_place"
-        ) activity_place
+            SELECT id, lat, lng, city, (
+                SQRT(
+                    POW (
+                        (("lng" * pi() / 180) - ( ${lng} * pi() / 180))
+                        * COS((( "lat" * pi() / 180) + ( ${lat} * pi() / 180)) / 2), 2
+                    ) 
+                    + POW (
+                        ("lat" * pi() / 180) - ( ${lat} * pi() / 180), 2
+                    )
+                ) * 6371
+            ) AS distance
+            FROM activity_place
+        ) AS activity_place
         INNER JOIN activity ON activity.activity_place_id = activity_place.id
-        WHERE distance <= ${dist} AND activity.activity_status_id = 3
-        
+        INNER JOIN "user" ON "user".id = activity.creator_id
+        WHERE distance <= ${distanceLimit} AND activity.activity_status_id = 3
         ORDER BY distance
         LIMIT ${activityController.numCardInPage} 
         OFFSET ${(page - 1) * activityController.numCardInPage}
         ;`;
-
-      // test :
-      // ORDER BY distance;
-      // ORDER BY activity.date;
-      // INNER JOIN activity ON activity_place.id = activity.activity_place_id
-      // WHERE distance <= ${dist} AND activity.activity_status_id = 3
-      // JOIN activity ON activity_place_id = activity.activity_place_id
-      // LIMIT ${activityController.numCardInPage};
-
       const activitiesPlaces = await sequelize.query(query, {
         type: QueryTypes.SELECT,
       });
@@ -132,22 +114,6 @@ const activityController = {
       }
 
       res.json(activitiesPlaces);
-
-      /*
-      const formatedResult = activitiesPlaces.map((activity) => {
-        return {
-          id: activity.id,
-          address: activity.address,
-          distance: activity.distance,
-          title: activity.title,
-          date: activity.date,
-          city: activity.city,
-          activity_place_id: activity.activity_place_id,
-          activity_status_id: activity.activity_status_id,
-        };
-      });
-      res.json(formatedResult);
-      */
     } catch (error) {
       console.trace(error);
       res.status(500).json(error.toString());
