@@ -5,7 +5,7 @@ const sequelize = require("../database.js");
 const { QueryTypes } = require("sequelize");
 
 const activityController = {
-  numCardInPage: 8,
+  numCardInPage: 3,
 
   getLastActivity: async (req, res) => {
     let page = parseInt(req.query.page);
@@ -108,8 +108,11 @@ const activityController = {
         ) activity_place
         INNER JOIN activity ON activity.activity_place_id = activity_place.id
         WHERE distance <= ${dist} AND activity.activity_status_id = 3
-        ORDER BY distance;
-        `;
+        
+        ORDER BY distance
+        LIMIT ${activityController.numCardInPage} 
+        OFFSET ${(page - 1) * activityController.numCardInPage}
+        ;`;
 
       // test :
       // ORDER BY distance;
