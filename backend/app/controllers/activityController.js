@@ -53,8 +53,9 @@ const activityController = {
     }
 
     try {
-      const dist = 2000; // en km
+      const dist = 1000; // en km
 
+      /*
       const query = `
         SELECT * FROM (
             SELECT *, 
@@ -70,15 +71,52 @@ const activityController = {
             as distance FROM "activity_place"
         ) activity_place
         INNER JOIN activity ON activity.activity_place_id = activity_place.id
-        WHERE distance <= ${dist} 
+        WHERE distance <= ${dist} AND activity.activity_status_id = 3
         ORDER BY distance;
      `;
+     */
+      /*
+    activity.id,
+            activity_place.city,
+            activity.title,
+            activity.date,
+            activity.description,
+            activity.illustration  
+            */
 
+      const query = `
+        SELECT
+            activity.id,
+            activity_place.city,
+            activity.title,
+            activity.date,
+            activity.description,
+            activity.illustration,
+            distance
+        FROM (
+            SELECT *, 
+                (
+                    (
+                        (
+                            acos( sin(( ${lat} * pi() / 180))
+                            * sin(( "lat" * pi() / 180)) + cos(( ${lat} * pi() /180 ))
+                            * cos(( "lat" * pi() / 180)) * cos((( ${lng} - "lng") * pi()/180)))
+                        ) * 180/pi()
+                    ) * 60 * 1.1515 * 1.609344
+                )
+            as distance FROM "activity_place"
+        ) activity_place
+        INNER JOIN activity ON activity.activity_place_id = activity_place.id
+        WHERE distance <= ${dist} AND activity.activity_status_id = 3
+        ORDER BY distance;
+        `;
+
+      // test :
+      // ORDER BY distance;
+      // ORDER BY activity.date;
       // INNER JOIN activity ON activity_place.id = activity.activity_place_id
       // WHERE distance <= ${dist} AND activity.activity_status_id = 3
-
       // JOIN activity ON activity_place_id = activity.activity_place_id
-
       // LIMIT ${activityController.numCardInPage};
 
       const activitiesPlaces = await sequelize.query(query, {
@@ -90,57 +128,22 @@ const activityController = {
         return;
       }
 
+      res.json(activitiesPlaces);
+
+      /*
       const formatedResult = activitiesPlaces.map((activity) => {
-        //console.log()
         return {
           id: activity.id,
           address: activity.address,
           distance: activity.distance,
           title: activity.title,
+          date: activity.date,
+          city: activity.city,
           activity_place_id: activity.activity_place_id,
           activity_status_id: activity.activity_status_id,
         };
       });
-
-      //console.log("-------------------------> COUNT : ", formatedResult.length);
-
       res.json(formatedResult);
-
-      /*
-      const placeIdArray = activitiesPlaces.map((activitiePlace) => {
-        return activitiePlace.id;
-      });
-
-      const activities = await Activity.findAll({
-        include: [
-          {
-            model: ActivityStatut,
-            as: "activity_statut",
-            attributes: ["name"],
-            where: {
-              name: "ongoing",
-            },
-          },
-          {
-            model: ActivityPlace,
-            as: "activity_place",
-            attributes: ["city"],
-            where: {
-              id: {
-                [Sequelize.Op.in]: placeIdArray,
-              },
-            },
-          },
-        ],
-        offset: (page - 1) * activityController.numCardInPage,
-        limit: activityController.numCardInPage,
-        //order: [["date"]],
-      });
-      if (!activities) {
-        res.status(404).json("Error : can't find Activity");
-      } else {
-        res.json(activities);
-      }
       */
     } catch (error) {
       console.trace(error);
