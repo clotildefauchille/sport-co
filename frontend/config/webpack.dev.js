@@ -1,38 +1,44 @@
-const paths = require('./paths');
-const webpack = require('webpack');
-const { merge } = require('webpack-merge');
-const common = require('./webpack.common.js');
+const paths = require("./paths");
+const webpack = require("webpack");
+const { merge } = require("webpack-merge");
+const common = require("./webpack.common.js");
 
 const port = 8080;
 
 module.exports = merge(common, {
-  mode: 'development',
-  devtool: 'inline-source-map',
+  mode: "development",
+  plugins: [
+    // API backend LOCALHOST
+    new webpack.DefinePlugin({
+      "process.env.API_URL": JSON.stringify("http://localhost:4000"),
+    }),
+  ],
+  devtool: "inline-source-map",
   module: {
     rules: [
       // Styles
       {
         test: /\.(s?css)$/,
         use: [
-          'style-loader',
+          "style-loader",
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               sourceMap: true,
               importLoaders: 2,
             },
           },
           {
-            loader: 'postcss-loader',
+            loader: "postcss-loader",
             options: {
               sourceMap: true,
             },
           },
           {
-            loader: 'sass-loader',
+            loader: "sass-loader",
             options: {
               sourceMap: true,
-              implementation: require('sass'),
+              implementation: require("sass"),
             },
           },
         ],
@@ -43,9 +49,9 @@ module.exports = merge(common, {
   devServer: {
     historyApiFallback: true,
     contentBase: paths.build,
-    clientLogLevel: 'warn',
+    clientLogLevel: "warn",
     overlay: true,
-    stats: 'minimal',
+    stats: "minimal",
     open: true,
     compress: true,
     hot: true,
