@@ -41,14 +41,17 @@ const activityController = {
       } else {
         activities.forEach((activity) => {
           const formatedaActivity = activity.dataValues;
+          formatedaActivity.time = dayjs(`${formatedaActivity.date}T${formatedaActivity.time}`)
+            .format("HH:mm");
+          formatedaActivity.duration = dayjs(`${formatedaActivity.date}T${formatedaActivity.duration}`)
+            .format("HH:mm");
           formatedaActivity.date = dayjs(formatedaActivity.date)
             .locale("fr")
             .format("D MMM YYYY");
-
           return formatedaActivity;
         });
-
-        res.json(activities);
+        
+                res.json(activities);
       }
     } catch (error) {
       console.trace(error);
