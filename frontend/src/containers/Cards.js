@@ -1,8 +1,8 @@
-import { connect } from 'react-redux';
-import Cards from 'src/components/Cards';
+import { connect } from "react-redux";
+import Cards from "src/components/Cards";
 
 const mapStateToProps = (state) => ({
-  cards: state.Cards,
+  cards: state.cards,
 });
 
 const mapDispatchToProps = (dispatch) => ({});

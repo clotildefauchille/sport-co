@@ -11,9 +11,9 @@ const Cards = ({ cards }) => {
   console.log(cards);
   const cardsCreated = cards.map((oneCard) => <Card key={oneCard.id} card={oneCard} />);
   return (
-    <>
+    <section className='cards'>
       {cardsCreated}
-    </>
+    </section>
   );
 };
 
