@@ -1,0 +1,91 @@
+@use 'src/styles/_vars.scss';
+
+.searchbar {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: vars.$shadow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    margin-bottom: 40px;
+
+    &__container {
+        position: relative;
+    }
+
+    &__input {
+        border-radius: 25px 0 0 25px;
+        border: 1px solid #dedede;
+        border-right: none;
+        padding: 15px 40px;
+        margin-right: -5px;
+        width: 30vw;
+        outline: none;
+        font-size: 16px;
+    }
+
+    &__button {
+        border-radius: 0 25px 25px 0;
+        border-left: none;
+        padding: 16px 40px;
+        border: none;
+        background-color: #ec7253;
+        color: white;
+        outline: none;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    &__icon {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        height: 25px;
+    }
+
+    &__link {
+        border-radius: 25px;
+        padding: 16px 40px;
+        color: white;
+        background-color: #5ab4a9;
+        text-decoration: none;
+        font-size: 16px;
+    }
+    &__spacer {
+        margin: 30px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 925px) {
+    .searchbar {
+        flex-direction: column;
+        margin: 0 20px;
+        &__input {
+            width: 40vw;
+        }
+    }
+}
+
+@media (max-width: 567px) {
+    .searchbar {
+        flex-direction: column;
+
+        &__button {
+            border-radius: 0 0 25px 25px;
+        }
+
+        &__input {
+            border-radius: 25px 25px 0 0;
+            width: 60vw;
+            margin: 0;
+            border: 1px solid #dedede;
+        }
+
+        &__container {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
