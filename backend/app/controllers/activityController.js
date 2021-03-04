@@ -12,7 +12,8 @@ const sequelize = require("../database.js");
 const { QueryTypes } = require("sequelize");
 
 const activityController = {
-  numCardInPage: 3,
+  defaultNumCardInPage: 3,
+  defaultLimitDistance: 10, // en km
 
   getLastActivity: async (req, res) => {
     let page = parseInt(req.query.page);
@@ -25,8 +26,8 @@ const activityController = {
           activity_status_id: 3,
         },
         include: ["activity_statut", "sport", "activity_place"],
-        offset: (page - 1) * activityController.numCardInPage,
-        limit: activityController.numCardInPage,
+        offset: (page - 1) * activityController.defaultNumCardInPage,
+        limit: activityController.defaultNumCardInPage,
         order: [["created_at", "DESC"]],
       });
 
@@ -42,20 +43,13 @@ const activityController = {
         res.defaultStatus(404).json("Error : can't find Activity");
       } else {
         activities.forEach((activity) => {
+          // recupération des data avec activity.dataValues
           const formatedaActivity = activity.dataValues;
-          formatedaActivity.time = formatTime(
-            formatedaActivity.date,
-            formatedaActivity.time
-          );
-          formatedaActivity.duration = formatTime(
-            formatedaActivity.date,
-            formatedaActivity.duration
-          );
+          formatedaActivity.time = formatTime(formatedaActivity.time);
+          formatedaActivity.duration = formatTime(formatedaActivity.duration);
           formatedaActivity.date = formatDate(formatedaActivity.date);
-
           return formatedaActivity;
         });
-
         res.json(activities);
       }
     } catch (error) {
@@ -82,8 +76,6 @@ const activityController = {
     }
 
     try {
-      const distanceLimit = 1000; // en km
-
       /**
        * Formule mathématique pour le calcul de distance entre 2 points A et B sur terre avec lat et lng,
        * 6371 est le rayon de la terre en km :
@@ -113,6 +105,8 @@ const activityController = {
             activity.date,
             activity.description,
             activity.illustration,
+            activity.time,
+            activity.duration,     
             "user".pseudo
         FROM (
             SELECT id, lat, lng, city, (
@@ -130,21 +124,29 @@ const activityController = {
         ) AS activity_place
         INNER JOIN activity ON activity.activity_place_id = activity_place.id
         INNER JOIN "user" ON "user".id = activity.creator_id
-        WHERE distance <= ${distanceLimit} AND activity.activity_status_id = 3
+        WHERE distance <= ${
+          activityController.defaultLimitDistance
+        } AND activity.activity_status_id = 3
         ORDER BY distance
-        LIMIT ${activityController.numCardInPage} 
-        OFFSET ${(page - 1) * activityController.numCardInPage}
+        LIMIT ${activityController.defaultNumCardInPage} 
+        OFFSET ${(page - 1) * activityController.defaultNumCardInPage}
         ;`;
-      const activitiesPlaces = await sequelize.query(query, {
+      const activities = await sequelize.query(query, {
         type: QueryTypes.SELECT,
       });
 
-      if (!activitiesPlaces) {
+      if (!activities) {
         res.defaultStatus(404).json("Error : can't find Activity");
         return;
       }
-
-      res.json(activitiesPlaces);
+      activities.forEach((activity) => {
+        // avec query SQL recupération des data avec activity.dataValues
+        activity.time = formatTime(activity.time);
+        activity.duration = formatTime(activity.duration);
+        activity.date = formatDate(activity.date);
+        return activity;
+      });
+      res.json(activities);
     } catch (error) {
       console.trace(error);
       res.status(500).json(error.toString());
@@ -189,8 +191,8 @@ const activityController = {
             },
           },
         ],
-        offset: (page - 1) * activityController.numCardInPage,
-        limit: activityController.numCardInPage,
+        offset: (page - 1) * activityController.defaultNumCardInPage,
+        limit: activityController.defaultNumCardInPage,
         order: [["date"]],
       });
       if (!activities) {
@@ -209,20 +211,11 @@ const activityController = {
     const { sportId } = req.params;
     console.log("sport", sportId);
 
-    // coordonnées Bagnolet
-    // const lat = 48.87370931491529;
-    // const lng = 2.4195904982846748;
-    // coordonnées Montpellier
-    // const lat = 43.61125;
-    // const lng = 3.8707581;
-
     if (!page) {
       page = 1;
     }
 
     try {
-      const distanceLimit = 10; // en km
-
       const query = `
         SELECT
             lat, 
@@ -234,6 +227,8 @@ const activityController = {
             activity.date,
             activity.description,
             activity.illustration,
+            activity.time,
+            activity.duration,     
             "user".pseudo,
             sport.name AS sport
         FROM (
@@ -253,22 +248,29 @@ const activityController = {
         INNER JOIN activity ON activity.activity_place_id = activity_place.id
         INNER JOIN "user" ON "user".id = activity.creator_id
         FULL JOIN sport ON sport.id=activity.sport_id
-        
-        WHERE distance <= ${distanceLimit} AND activity.activity_status_id = 3 AND activity.sport_id=${sportId}
+        WHERE distance <= ${
+          activityController.defaultLimitDistance
+        } AND activity.activity_status_id = 3 AND activity.sport_id=${sportId}
         ORDER BY distance
-        LIMIT ${activityController.numCardInPage} 
-        OFFSET ${(page - 1) * activityController.numCardInPage}
+        LIMIT ${activityController.defaultNumCardInPage} 
+        OFFSET ${(page - 1) * activityController.defaultNumCardInPage}
         ;`;
-      const activitiesPlaces = await sequelize.query(query, {
+      const activities = await sequelize.query(query, {
         type: QueryTypes.SELECT,
       });
 
-      if (!activitiesPlaces) {
+      if (!activities) {
         res.defaultStatus(404).json("Error : can't find Activity");
         return;
       }
-
-      res.json(activitiesPlaces);
+      activities.forEach((activity) => {
+        console.log("activities", activities);
+        activity.time = formatTime(activity.time);
+        activity.duration = formatTime(activity.duration);
+        activity.date = formatDate(activity.date);
+        return activity;
+      });
+      res.json(activities);
     } catch (error) {
       console.trace(error);
       res.status(500).json(error.toString());

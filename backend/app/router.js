@@ -22,7 +22,9 @@ router.get(
 );
 
 //homepage user not connected searched by any place (google map API) and by sport
-router.get("/activities/sport/:sportId?", activityController.getActivitesByUserLocalisationAndSport
+router.get(
+  "/activities/sport/:sportId?",
+  activityController.getActivitesByUserLocalisationAndSport
 );
 
 router.use((req, res) => {

@@ -16,9 +16,28 @@ const formatDate = (date) => {
 //   .slice(0, 2)
 //   .join(":");
 
+const formatTime = (time) => {
+  console.log("time -->", time);
+  const newTime = time.split(":").slice(0, 2).join(":");
+  return newTime;
+};
+
+/*
 const formatTime = (date, time) => {
   newTime = dayjs(`${date}T${time}`).format("HH:mm");
   return newTime;
 };
+*/
+
+/*
+solution with duration :
+const splittedDuration = formatedaActivity.duration.split(":");
+formatedaActivity.duration3 = dayjs
+.duration({
+    minutes: splittedDuration[0],
+    hours: splittedDuration[1],
+})
+.format("HH:mm");
+*/
 
 module.exports = { formatDate, formatTime };
