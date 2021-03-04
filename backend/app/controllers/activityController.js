@@ -1,5 +1,7 @@
 const { Activity, Sport, ActivityStatut, ActivityPlace } = require("../models");
 
+const { formatDate, formatTime } = require("../selectors/formatDate");
+
 const dayjs = require("dayjs");
 require("dayjs/locale/fr");
 var duration = require("dayjs/plugin/duration");
@@ -29,7 +31,7 @@ const activityController = {
       });
 
       /*
-      piste pour formatage dans sequelize
+      piste à test pour formatage dans sequelize
       attributes: [
           'id',
           [sequelize.fn('strftime', sequelize.col('date'), '%Y-%m-%d'), 'date']
@@ -41,17 +43,20 @@ const activityController = {
       } else {
         activities.forEach((activity) => {
           const formatedaActivity = activity.dataValues;
-          formatedaActivity.time = dayjs(`${formatedaActivity.date}T${formatedaActivity.time}`)
-            .format("HH:mm");
-          formatedaActivity.duration = dayjs(`${formatedaActivity.date}T${formatedaActivity.duration}`)
-            .format("HH:mm");
-          formatedaActivity.date = dayjs(formatedaActivity.date)
-            .locale("fr")
-            .format("D MMM YYYY");
+          formatedaActivity.time = formatTime(
+            formatedaActivity.date,
+            formatedaActivity.time
+          );
+          formatedaActivity.duration = formatTime(
+            formatedaActivity.date,
+            formatedaActivity.duration
+          );
+          formatedaActivity.date = formatDate(formatedaActivity.date);
+
           return formatedaActivity;
         });
-        
-                res.json(activities);
+
+        res.json(activities);
       }
     } catch (error) {
       console.trace(error);
@@ -201,10 +206,8 @@ const activityController = {
   getActivitesByUserLocalisationAndSport: async (req, res) => {
     const { lat, lng } = req.query;
     let page = parseInt(req.query.page);
-    const {sportId} = req.params;
-    console.log('sport', sportId);
-
- 
+    const { sportId } = req.params;
+    console.log("sport", sportId);
 
     // coordonnées Bagnolet
     // const lat = 48.87370931491529;
