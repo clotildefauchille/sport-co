@@ -16,10 +16,10 @@ router.get("/activities?", activityController.getLastActivity);
 router.get("/place?", activityController.getActivitiesByUserLocalisation);
 
 //homepage user not connected searched by department
-router.get(
-  "/activities/:department?",
-  activityController.getActivityByDepartment
-);
+// router.get(
+//   "/activities/:department?",
+//   activityController.getActivityByDepartment
+// );
 
 //homepage user not connected searched by any place (google map API) and by sport
 router.get(

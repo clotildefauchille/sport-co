@@ -17,7 +17,6 @@ const formatDate = (date) => {
 //   .join(":");
 
 const formatTime = (time) => {
-  console.log("time -->", time);
   const newTime = time.split(":").slice(0, 2).join(":");
   return newTime;
 };

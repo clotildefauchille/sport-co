@@ -16,6 +16,7 @@ const activityController = {
   defaultLimitDistance: 10, // en km
 
   getLastActivity: async (req, res) => {
+    console.log("----------> getLastActivity");
     let page = parseInt(req.query.page);
     if (!page) {
       page = 1;
@@ -40,7 +41,7 @@ const activityController = {
       */
 
       if (!activities) {
-        res.defaultStatus(404).json("Error : can't find Activity");
+        res.status(404).json("Error : can't find Activity");
       } else {
         activities.forEach((activity) => {
           // recupération des data avec activity.dataValues
@@ -59,10 +60,9 @@ const activityController = {
   },
 
   getActivitiesByUserLocalisation: async (req, res) => {
+    console.log("----------> getActivitiesByUserLocalisation");
     const { lat, lng } = req.query;
     let page = parseInt(req.query.page);
-
-    console.log("----> ", lat, lng);
 
     // coordonnées Bagnolet
     // const lat = 48.87370931491529;
@@ -70,6 +70,10 @@ const activityController = {
     // coordonnées Montpellier
     // const lat = 43.61125;
     // const lng = 3.8707581;
+
+    if (!lat || !lng) {
+      res.status(404).json("Error : can't find Activity without Localisation");
+    }
 
     if (!page) {
       page = 1;
@@ -136,11 +140,11 @@ const activityController = {
       });
 
       if (!activities) {
-        res.defaultStatus(404).json("Error : can't find Activity");
+        res.status(404).json("Error : can't find Activity");
         return;
       }
       activities.forEach((activity) => {
-        // avec query SQL recupération des data avec activity.dataValues
+        // /!\ avec query SQL pas de activity.dataValues
         activity.time = formatTime(activity.time);
         activity.duration = formatTime(activity.duration);
         activity.date = formatDate(activity.date);
@@ -153,7 +157,94 @@ const activityController = {
     }
   },
 
+  getActivitesByUserLocalisationAndSport: async (req, res) => {
+    console.log("----------> getActivitesByUserLocalisationAndSport");
+    const { lat, lng } = req.query;
+    let page = parseInt(req.query.page);
+    const { sportId } = req.params;
+
+    if (!lat || !lng) {
+      res.status(404).json("Error : can't find Activity without Localisation");
+      return;
+    }
+
+    console.log("sportId  ------> ", sportId);
+    if (!sportId) {
+      res
+        .status(404)
+        .json("Error : can't filter Activity by sport without sport");
+      return;
+    }
+
+    if (!page) {
+      page = 1;
+    }
+
+    try {
+      const query = `
+        SELECT
+            lat, 
+            lng,
+            distance,
+            city,
+            activity.id,
+            activity.title,
+            activity.date,
+            activity.description,
+            activity.illustration,
+            activity.time,
+            activity.duration,     
+            "user".pseudo,
+            sport.name AS sport
+        FROM (
+            SELECT id, lat, lng, city, (
+                SQRT(
+                    POW (
+                        (("lng" * pi() / 180) - ( ${lng} * pi() / 180))
+                        * COS((( "lat" * pi() / 180) + ( ${lat} * pi() / 180)) / 2), 2
+                    ) 
+                    + POW (
+                        ("lat" * pi() / 180) - ( ${lat} * pi() / 180), 2
+                    )
+                ) * 6371
+            ) AS distance
+            FROM activity_place
+        ) AS activity_place
+        INNER JOIN activity ON activity.activity_place_id = activity_place.id
+        INNER JOIN "user" ON "user".id = activity.creator_id
+        FULL JOIN sport ON sport.id=activity.sport_id
+        WHERE distance <= ${
+          activityController.defaultLimitDistance
+        } AND activity.activity_status_id = 3 AND activity.sport_id=${sportId}
+        ORDER BY distance
+        LIMIT ${activityController.defaultNumCardInPage} 
+        OFFSET ${(page - 1) * activityController.defaultNumCardInPage}
+        ;`;
+      const activities = await sequelize.query(query, {
+        type: QueryTypes.SELECT,
+      });
+
+      if (!activities) {
+        res.status(404).json("Error : can't find Activity");
+        return;
+      }
+      activities.forEach((activity) => {
+        // /!\ avec query SQL pas de activity.dataValues
+        activity.time = formatTime(activity.time);
+        activity.duration = formatTime(activity.duration);
+        activity.date = formatDate(activity.date);
+        return activity;
+      });
+      res.json(activities);
+    } catch (error) {
+      console.trace(error);
+      res.status(500).json(error.toString());
+    }
+  },
+
+  /*
   getActivityByDepartment: async (req, res) => {
+    console.log("----------> getActivityByDepartment");
     let page = parseInt(req.query.page);
     let department = req.params.department;
 
@@ -205,77 +296,8 @@ const activityController = {
       res.status(500).json(error.toString());
     }
   },
-  getActivitesByUserLocalisationAndSport: async (req, res) => {
-    const { lat, lng } = req.query;
-    let page = parseInt(req.query.page);
-    const { sportId } = req.params;
-    console.log("sport", sportId);
+  */
 
-    if (!page) {
-      page = 1;
-    }
-
-    try {
-      const query = `
-        SELECT
-            lat, 
-            lng,
-            distance,
-            city,
-            activity.id,
-            activity.title,
-            activity.date,
-            activity.description,
-            activity.illustration,
-            activity.time,
-            activity.duration,     
-            "user".pseudo,
-            sport.name AS sport
-        FROM (
-            SELECT id, lat, lng, city, (
-                SQRT(
-                    POW (
-                        (("lng" * pi() / 180) - ( ${lng} * pi() / 180))
-                        * COS((( "lat" * pi() / 180) + ( ${lat} * pi() / 180)) / 2), 2
-                    ) 
-                    + POW (
-                        ("lat" * pi() / 180) - ( ${lat} * pi() / 180), 2
-                    )
-                ) * 6371
-            ) AS distance
-            FROM activity_place
-        ) AS activity_place
-        INNER JOIN activity ON activity.activity_place_id = activity_place.id
-        INNER JOIN "user" ON "user".id = activity.creator_id
-        FULL JOIN sport ON sport.id=activity.sport_id
-        WHERE distance <= ${
-          activityController.defaultLimitDistance
-        } AND activity.activity_status_id = 3 AND activity.sport_id=${sportId}
-        ORDER BY distance
-        LIMIT ${activityController.defaultNumCardInPage} 
-        OFFSET ${(page - 1) * activityController.defaultNumCardInPage}
-        ;`;
-      const activities = await sequelize.query(query, {
-        type: QueryTypes.SELECT,
-      });
-
-      if (!activities) {
-        res.defaultStatus(404).json("Error : can't find Activity");
-        return;
-      }
-      activities.forEach((activity) => {
-        console.log("activities", activities);
-        activity.time = formatTime(activity.time);
-        activity.duration = formatTime(activity.duration);
-        activity.date = formatDate(activity.date);
-        return activity;
-      });
-      res.json(activities);
-    } catch (error) {
-      console.trace(error);
-      res.status(500).json(error.toString());
-    }
-  },
 };
 
 module.exports = activityController;
