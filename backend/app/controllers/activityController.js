@@ -1,4 +1,6 @@
 const { Activity, Sport, ActivityStatut, ActivityPlace } = require("../models");
+const dayjs = require("dayjs");
+require("dayjs/locale/fr");
 
 const Sequelize = require("sequelize");
 const sequelize = require("../database.js");
@@ -22,10 +24,56 @@ const activityController = {
         limit: activityController.numCardInPage,
         order: [["created_at", "DESC"]],
       });
+
+      /*
+      attributes: [
+          'id',
+          [sequelize.fn('strftime', sequelize.col('date'), '%Y-%m-%d'), 'date']
+        ],
+      */
+
       if (!activities) {
         res.defaultStatus(404).json("Error : can't find Activity");
       } else {
+        /*
+        const test = JSON.parse(activities);
+        console.log(test);
+        */
+        /*
+        const formatedActivities = activities.map((activity) => {
+          const dateFormat = dayjs(activity.date)
+            .locale("fr")
+            .format("D MMM YYYY");
+
+          return {
+            ...activity
+            //date: dayjs(activity.date).locale("fr").format("D MMM YYYY"),
+          };
+        });
+        */
+        /*
+        activities.forEach((activity) => {
+          // console.log(activity);
+
+          console.log(activity.date);
+
+          const dateFormat = dayjs(activity.date)
+            .locale("fr")
+            .format("D MMM YYYY");
+
+          console.log(dateFormat);
+
+          activity.newDate = dateFormat;
+
+          console.log(activity.newDate);
+
+          activity.toJSON()
+        });
+        */
+        //console.log(activities[0]);
+
         res.json(activities);
+
       }
     } catch (error) {
       console.trace(error);
@@ -175,3 +223,5 @@ const activityController = {
 };
 
 module.exports = activityController;
+
+// dayjs().format();

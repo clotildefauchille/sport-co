@@ -18,6 +18,8 @@ router.get('/place?', activityController.getPlaceByUserLocalisation);
 //homepage user not connected searched by department
 router.get('/activities/:department?', activityController.getActivityByDepartment);
 
+//homepage user not connected
+
 
 router.use((req, res) => {
   res.status(404).send("Service does not exists here ...");
