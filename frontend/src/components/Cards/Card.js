@@ -1,5 +1,6 @@
 // == Import npm
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // == Import
 import './style.scss';
@@ -31,6 +32,10 @@ const Card = ({ card }) => (
     <button className="card__join" type="button">Rejoindre</button>
   </article>
 );
+
+Card.propTypes = {
+  card: PropTypes.object.isRequired,
+};
 
 // == Export
 export default Card;

@@ -1,4 +1,4 @@
-import { SAVE_LAST_ACTIVITIES } from 'src/actions/cards'
+import { SAVE_LAST_ACTIVITIES } from 'src/actions/cards';
 
 const initialState = [];
 

@@ -8,10 +8,9 @@ import './style.scss';
 
 // == Composant
 const Cards = ({ cards }) => {
-  console.log(cards);
   const cardsCreated = cards.map((oneCard) => <Card key={oneCard.id} card={oneCard} />);
   return (
-    <section className='cards'>
+    <section className="cards">
       {cardsCreated}
     </section>
   );

@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 
 // == Import
 import Accueil from 'src/containers/Accueil';
-import Header from 'src/components/Header';
+import Header from 'src/containers/Header';
 import Footer from 'src/components/Footer';
 import './styles.css';
 

@@ -6,7 +6,6 @@ const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => ({
   fetchData: () => {
-    console.log('gg');
     dispatch(fetchLastActivities());
   },
 });

@@ -1,12 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import logo from 'src/assets/fairplay logo.svg';
 import userIcon from 'src/assets/account_circle.svg';
 import gradeIcon from 'src/assets/grade.svg';
 import './index.scss';
 
-const isLogged = false;
-
-const Header = () => {
+const Header = ({ isLogged }) => {
+  // console.log(isLogged);
   switch (isLogged) {
     case true:
       return (
@@ -44,6 +44,10 @@ const Header = () => {
         </header>
       );
   }
+};
+
+Header.propTypes = {
+  isLogged: PropTypes.bool.isRequired,
 };
 
 export default Header;
