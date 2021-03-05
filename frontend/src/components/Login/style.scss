@@ -1,0 +1,47 @@
+@use 'src/styles/_vars.scss';
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 90px;
+
+  &__title {
+    font-size: 32px;
+    margin-bottom: 45px;
+    color: vars.$darkColor;
+  }
+
+  &__input {
+    margin-bottom: 15px;
+    border-radius: 25px;
+    border: none;
+    padding: 10px;
+    box-shadow: vars.$shadow;
+    font-size: 16px;
+    padding: 15px 25px;
+    width: 340px;
+
+  }
+
+  &__button {
+    background-color: vars.$primaryColor;
+    color: white;
+    padding: 10px;
+    border-radius: 25px;
+    border: none;
+    box-shadow: vars.$shadow;
+    font-size: 16px;
+    width: 340px;
+    margin-top: 30px;
+    text-align: center;
+    margin-bottom: 25px;
+    padding: 15px 0;
+  }
+
+  &__noAccount {
+    font-size: 16px;
+    color: vars.$LightDarkColor;
+  }
+  
+}

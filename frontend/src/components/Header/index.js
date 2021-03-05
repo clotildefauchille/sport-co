@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import logo from 'src/assets/fairplay logo.svg';
 import userIcon from 'src/assets/account_circle.svg';
 import gradeIcon from 'src/assets/grade.svg';
+import { Link } from 'react-router-dom';
 import './index.scss';
 
 const Header = ({ isLogged }) => {
@@ -34,10 +35,10 @@ const Header = ({ isLogged }) => {
           <nav className="header__nav">
             <ul className="header__buttons">
               <li>
-                <a href="#" className="header__login"><img className="header__icon" src={userIcon} alt="l'icone de l'utilisateur" /> connexion</a>
+                <Link to="/connexion" className="header__login"><img className="header__icon" src={userIcon} alt="l'icône de l'utilisateur" />Connexion</Link>
               </li>
               <li>
-                <a href="#" className="header__signup">Inscription</a>
+                <Link to="/inscription" className="header__signup">Inscription</Link>
               </li>
             </ul>
           </nav>
