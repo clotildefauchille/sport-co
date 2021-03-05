@@ -6,7 +6,7 @@ import { Route, Switch } from 'react-router-dom';
 import Accueil from 'src/containers/Accueil';
 import Header from 'src/containers/Header';
 import Footer from 'src/components/Footer';
-import Login from 'src/components/Login';
+import Login from 'src/containers/Login';
 import './styles.css';
 
 // == Composant

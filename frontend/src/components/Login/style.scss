@@ -30,13 +30,17 @@
     padding: 10px;
     border-radius: 25px;
     border: none;
-    box-shadow: vars.$shadow;
+    transition: all 0.3s;
     font-size: 16px;
     width: 340px;
     margin-top: 30px;
     text-align: center;
     margin-bottom: 25px;
     padding: 15px 0;
+  }
+
+  &__button:hover {
+    box-shadow: vars.$shadow;
   }
 
   &__noAccount {
