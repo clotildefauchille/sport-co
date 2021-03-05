@@ -19,4 +19,4 @@ export const saveAutocompletionList = (data) => ({
 
 export const fetchActivitiesByLocalisation = () => ({
   type: FETCH_ACTIVITIES_BY_LOCALISATION,
-})
+}); 

@@ -22,10 +22,10 @@ const searchBar = (store) => (next) => (action) => {
                 if (element.type !== 'venue') {
                   formatedData.push({
                     name: element.name,
-                    city: element.locality,
+                    // city: element.locality,
                     reg: element.region,
                     lat: element.latitude,
-                    lon: element.longitude,
+                    lng: element.longitude,
                   });
                 }
               });
