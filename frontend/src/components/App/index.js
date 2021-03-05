@@ -9,17 +9,21 @@ import Footer from 'src/components/Footer';
 import './styles.css';
 
 // == Composant
-const App = () => (
+const App = () => {
+
+ return (
   <>
     <Header />
     <Switch>
+
       <Route path="/" exact>
         <Accueil />
       </Route>
+
     </Switch>
     <Footer />
   </>
-);
+)};
 
 // == Export
 export default App;

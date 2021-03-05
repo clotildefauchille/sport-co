@@ -12,7 +12,7 @@ const sequelize = require("../database.js");
 const { QueryTypes } = require("sequelize");
 
 const activityController = {
-  defaultNumCardInPage: 3,
+  defaultNumCardInPage: 8,
   defaultLimitDistance: 10, // en km
 
   getLastActivity: async (req, res) => {
