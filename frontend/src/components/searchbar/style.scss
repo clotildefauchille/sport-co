@@ -18,7 +18,7 @@
         border-radius: 25px 0 0 25px;
         border: 1px solid #dedede;
         border-right: none;
-        padding: 15px 40px;
+        padding: 15px 0 15px 40px;
         margin-right: -5px;
         width: 30vw;
         outline: none;
@@ -56,6 +56,24 @@
         margin: 30px;
         font-size: 16px;
     }
+}
+
+.autocomplete {
+  position: absolute;
+  width: 100%;
+  padding: 1rem;
+  background: #eee;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0,0,0,.2);
+
+  & > * {
+    padding: .25rem;
+  }
+
+  span {
+    font-size: .8em;
+    opacity: .5;
+  }
 }
 
 @media (max-width: 925px) {

@@ -11,7 +11,7 @@ const Accueil = ({ fetchData }) => {
   return (
     <main className="home">
       <div>
-        <SearchBar />
+        <SearchBar inputValue="default value" />
         <Cards />
       </div>
     </main>
