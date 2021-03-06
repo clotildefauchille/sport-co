@@ -1,7 +1,6 @@
 /* eslint-disable arrow-body-style */
 // == Import npm
-import React from 'react';
-import { useState } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 // import { Link } from 'react-router-dom';
 
@@ -16,20 +15,31 @@ import pin from 'src/assets/pin.svg';
 const SearchBar = ({
   inputValue,
   listAutocompleteData,
-  changeValue,fetchAutocompleteData,
+  changeValue,
+  fetchAutocompleteData,
+  fetchOnePlacesAutoCompletion,
   fetchActivityByLocalisation,
+  clearListAutocompleteData,
 }) => {
+  
+  const timer = useRef(null)
 
   const handleOnChange = (e) => {
     const value = e.target.value;
     changeValue(value);
 
-    // A VOIR : limiter les appels trop successifs
-
-    // pas de réponse api autocomplete (https://positionstack.com/documentation) si <= 3
-    if (value.length > 3) {
-      fetchAutocompleteData();
-    }
+    /*
+    // timer pour déclencher le fetch après 1s sans onchange dans l'input
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      // pas de réponse api (https://positionstack.com/documentation) si <= 2
+      if (value.length > 2) {
+        fetchAutocompleteData();
+      } else {
+        clearListAutocompleteData();
+      }
+    }, 1000);
+    */
   };
 
   const handleOnSubmit = (e) => {
@@ -44,23 +54,9 @@ const SearchBar = ({
     });
     */
 
-    fetchActivityByLocalisation(); 
-  };
-
-  const fetchDataActivity = (lat, lng) => {
-    fetch(`http://localhost:4000/place?lat=${lat}&lng=${lng}&page=1`, {
-      //mode: 'no-cors',
-      method: 'GET',
-      headers: {
-        Accept: '*/*',
-        //  "Access-Control-Allow-Origin" : "*",
-        //  "Access-Control-Allow-Credentials" : true
-      },
-    }).then((response) => {
-      response.json().then((res) => {
-        // console.log(res);
-      });
-    });
+    if (inputValue.length > 2) {
+      fetchOnePlacesAutoCompletion();
+    }
   };
 
   return (
@@ -77,12 +73,14 @@ const SearchBar = ({
 
         {listAutocompleteData.length > 0 && (
           <ul className="autocomplete">
-            {listAutocompleteData.map((el) => {
-              return (
-                <li key={el.lat}>
-                  {el.name}, <span>{el.reg}</span>
-                </li>
-              );
+            {listAutocompleteData.map((el) => { 
+              //if(el.name) {
+                return (
+                  <li key={`${el.lat}${el.lng}${el.id}`}>
+                    {el.name}, <span>{el.reg}</span>
+                  </li>
+                );
+              //}
             })}
           </ul>
         )}
@@ -110,6 +108,8 @@ SearchBar.propTypes = {
   changeValue: PropTypes.func.isRequired,
   fetchAutocompleteData: PropTypes.func.isRequired,
   fetchActivityByLocalisation: PropTypes.func.isRequired,
+  clearListAutocompleteData: PropTypes.func.isRequired,
+  fetchOnePlacesAutoCompletion: PropTypes.func.isRequired,
 };
 
 

@@ -4,7 +4,8 @@
 .footer {
   width: 100%;
   padding: 30px 90px;
-  background-color: white;
+  //background-color: white;
+  border-top: 1px solid rgba(0,0,0,.1);
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;

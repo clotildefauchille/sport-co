@@ -2,8 +2,10 @@ import { connect } from 'react-redux';
 import SearchBar from 'src/components/SearchBar';
 import {
   fetchPlacesAutoCompletion,
+  fetchOnePlacesAutoCompletion,
   changeInputValueSearchBar,
   fetchActivitiesByLocalisation,
+  clearListAutocompleteData,
 } from 'src/actions/searchBar';
 
 const mapStateToProps = (state) => ({
@@ -18,9 +20,15 @@ const mapDispatchToProps = (dispatch) => ({
   fetchAutocompleteData: () => {
     dispatch(fetchPlacesAutoCompletion());
   },
+  fetchOnePlacesAutoCompletion: () => {
+    dispatch(fetchOnePlacesAutoCompletion());
+  },
   fetchActivityByLocalisation: () => {
     dispatch(fetchActivitiesByLocalisation());
   },
+  clearListAutocompleteData: () => {
+    dispatch(clearListAutocompleteData());
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

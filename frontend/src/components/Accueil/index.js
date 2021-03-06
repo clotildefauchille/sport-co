@@ -10,10 +10,10 @@ const Accueil = ({ fetchData }) => {
   }, []);
   return (
     <main className="home">
-      <div>
+      {/* <div> */}
         <SearchBar />
         <Cards />
-      </div>
+      {/* </div> */}
     </main>
   );
 };
