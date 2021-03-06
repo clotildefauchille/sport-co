@@ -23,6 +23,7 @@ const activityController = {
     }
     try {
       const activities = await Activity.findAll({
+        // raw: true,
         where: {
           activity_status_id: 3,
         },
@@ -45,11 +46,21 @@ const activityController = {
       } else {
         activities.forEach((activity) => {
           // recupération des data avec activity.dataValues
+          
           const formatedaActivity = activity.dataValues;
           formatedaActivity.time = formatTime(formatedaActivity.time);
           formatedaActivity.duration = formatTime(formatedaActivity.duration);
           formatedaActivity.date = formatDate(formatedaActivity.date);
-          return formatedaActivity;
+          
+
+          /*
+          // ajout raw: true,
+          activity.time = formatTime(activity.time);
+          activity.duration = formatTime(activity.duration);
+          activity.date = formatDate(activity.date);
+          */
+          
+          return activity;
         });
         res.json(activities);
       }
