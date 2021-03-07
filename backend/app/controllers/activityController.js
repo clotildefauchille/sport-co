@@ -7,7 +7,7 @@ require("dayjs/locale/fr");
 var duration = require("dayjs/plugin/duration");
 dayjs.extend(duration);
 
-const Sequelize = require("sequelize");
+//const Sequelize = require("sequelize");
 const sequelize = require("../database.js");
 const { QueryTypes } = require("sequelize");
 
@@ -23,11 +23,11 @@ const activityController = {
     }
     try {
       const activities = await Activity.findAll({
-        // raw: true,
+        //raw: true,
         where: {
           activity_status_id: 3,
         },
-        include: ["activity_statut", "sport", "activity_place"],
+        include: ["activity_statut", "sport", "activity_place", "creator"],
         offset: (page - 1) * activityController.defaultNumCardInPage,
         limit: activityController.defaultNumCardInPage,
         order: [["created_at", "DESC"]],
@@ -44,25 +44,34 @@ const activityController = {
       if (!activities) {
         res.status(404).json("Error : can't find Activity");
       } else {
-        activities.forEach((activity) => {
+        const formatedaActivities = activities.map((activity) => {
           // recupération des data avec activity.dataValues
-          
+          /*
           const formatedaActivity = activity.dataValues;
           formatedaActivity.time = formatTime(formatedaActivity.time);
           formatedaActivity.duration = formatTime(formatedaActivity.duration);
           formatedaActivity.date = formatDate(formatedaActivity.date);
-          
-
+          */
           /*
           // ajout raw: true,
           activity.time = formatTime(activity.time);
           activity.duration = formatTime(activity.duration);
           activity.date = formatDate(activity.date);
           */
-          
-          return activity;
+         
+          return {
+            id: activity.id,
+            city: activity.activity_place.city,
+            title: activity.title,
+            date: formatDate(activity.date),
+            description: activity.description,
+            illustration: activity.illustration,
+            time: formatTime(activity.time),
+            duration: formatTime(activity.duration),
+            pseudo: activity.creator.pseudo,
+          };
         });
-        res.json(activities);
+        res.json(formatedaActivities);
       }
     } catch (error) {
       console.trace(error);
@@ -111,11 +120,9 @@ const activityController = {
 
       const query = `
         SELECT
-            lat, 
-            lng,
+            activity.id,
             distance,
             city,
-            activity.id,
             activity.title,
             activity.date,
             activity.description,
