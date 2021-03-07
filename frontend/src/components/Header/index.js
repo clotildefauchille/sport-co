@@ -5,13 +5,17 @@ import userIcon from 'src/assets/account_circle.svg';
 import gradeIcon from 'src/assets/grade.svg';
 import './index.scss';
 
+import {
+  Link
+} from "react-router-dom";
+
 const Header = ({ isLogged }) => {
   // console.log(isLogged);
   switch (isLogged) {
     case true:
       return (
         <header className="header">
-          <img className="header__logo" src={logo} alt="le logo" />
+          <Link to="/" className="header__logo"><img src={logo} alt="le logo" /></Link>
           <nav className="header__nav">
             <ul className="header__buttons">
               <li>
@@ -30,7 +34,7 @@ const Header = ({ isLogged }) => {
     default:
       return (
         <header className="header">
-          <img className="header__logo" src={logo} alt="le logo" />
+          <Link to="/" className="header__logo"><img src={logo} alt="le logo" /></Link>
           <nav className="header__nav">
             <ul className="header__buttons">
               <li>

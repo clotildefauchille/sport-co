@@ -2,93 +2,111 @@ import axios from "axios";
 import {
   FETCH_PLACES_AUTOCOMPLETION,
   FETCH_ONE_PLACES_AUTOCOMPLETION,
-  fetchActivitiesByLocalisation,
   saveAutocompletionList,
   saveValidLocalisation,
   clearListAutocompleteData,
+  noResultInVerifLocalisation,
+  confirmValidLocalisation,
 } from 'src/actions/searchBar';
 
 // verif à stocker ailleur :
 const apiKey = `82a0b22e81932aad65c97e8bcc2f192a`;
 
 const searchBar = (store) => (next) => (action) => {
-    switch (action.type) {
+  let inputValue = store.getState().searchBar.inputValue;
+  
+  switch (action.type) {
+      case FETCH_PLACES_AUTOCOMPLETION:
+        // ne pas relancer la recherche avec l'API si la liste autocompletion est déjà enregistré sur la même inputValue
+        let lastAutocompleteQuery = store.getState().searchBar.autocomplete.query;
+        if(inputValue.toLowerCase().trim() !== lastAutocompleteQuery.toLowerCase().trim()) {
+          axios
+          .get(
+            `http://api.positionstack.com/v1/forward?access_key=${apiKey}&country=FR&query=${inputValue}`,
+          )
+          .then((response) => {
+            const localisations = response.data.data;
+
+            console.log('FETCH_PLACES_AUTOCOMPLETION response.data.data', response.data.data);
+
+            if(localisations.length > 0) {
+              const formatedData = [];
+              localisations.forEach((element) => {
+                // garde que les résultats avec un name et non de type "venue" (nom approximatif de lieu)
+                if (element.type !== 'venue' && element.name) {
+                  formatedData.push({
+                    query: inputValue,
+                    name: element.name,
+                    city: element.locality,
+                    reg: element.region,
+                    lat: element.latitude,
+                    lng: element.longitude,
+                  });
+                }
+              });
+              store.dispatch(saveAutocompletionList(formatedData));
+            } else {
+              store.dispatch(clearListAutocompleteData());
+            }
+          })
+          .catch((error) => {
+            console.log('error', error);
+          });
+        }
+      break;
+
       
-        case FETCH_PLACES_AUTOCOMPLETION:
-            const inputValue = store.getState().searchBar.inputValue;
-            console.log('FETCH', inputValue );
+      case FETCH_ONE_PLACES_AUTOCOMPLETION:
+        // ne pas relancer la verif avec l'API si l'adresse à déjà été enregistré sur la même inputValue
+        let lastValidLocalisationQuery = store.getState().searchBar.validLocalisation.query;
+        if(inputValue.toLowerCase().trim() !== lastValidLocalisationQuery.toLowerCase().trim()) {
+          console.log('FETCH_ONE_PLACES_AUTOCOMPLETION ', inputValue );
 
-            axios
-            .get(
-              `http://api.positionstack.com/v1/forward?access_key=${apiKey}&country=FR&query=${inputValue}`,
-            )
-            .then((response) => {
-              const localisations = response.data.data;
+          axios
+          .get(
+            `http://api.positionstack.com/v1/forward?access_key=${apiKey}&country=FR&limit=1&query=${inputValue}`,
+          )
+          .then((response) => {
+            const localisation = response.data.data[0];
 
-              if(localisations.length > 0) {
+            // /!\ verif si vide no result -> ALERT ? ...
+            if(localisation) {
 
-                const formatedData = [];
-                localisations.forEach((element,index) => {
-                  // garde que les résultats avec un name et non de type "venue" (nom de lieu)
-                  if (element.type !== 'venue' && element.name) {
-                    formatedData.push({
-                      id: index,
-                      name: element.name,
-                      city: element.locality,
-                      reg: element.region,
-                      lat: element.latitude,
-                      lng: element.longitude,
-                    });
-                  }
-                });
-                store.dispatch(saveAutocompletionList(formatedData));
+              console.log('RESULTAT POUR RECHERCHE ----->>>', inputValue, localisation)
 
-              } else {
-                // Prevoir info pour UX
-                store.dispatch(clearListAutocompleteData());
-              }
-            })
-            .catch((error) => {
-              console.log('error', error);
-            });
-        break;
+              const validLocalisation = {
+                query: inputValue,
+                name: localisation.name,
+                city: localisation.locality,
+                reg: localisation.region,
+                lat: localisation.latitude,
+                lng: localisation.longitude,
+              };
 
+              store.dispatch(saveValidLocalisation(validLocalisation));
 
-        case FETCH_ONE_PLACES_AUTOCOMPLETION:
-            const inputValue2 = store.getState().searchBar.inputValue;
+            } else {
+              
+              console.log('PAS DE RESULTAT ----->>>')
+              store.dispatch(noResultInVerifLocalisation());
 
-            console.log('FETCH fetchOnePlacesAutoCompletion ', inputValue2 );
+            }
 
-            axios
-            .get(
-              `http://api.positionstack.com/v1/forward?access_key=${apiKey}&country=FR&limit=1&query=${inputValue2}`,
-            )
-            .then((response) => {
-              const localisation = response.data.data[0];
+          })
+          .catch((error) => {
+            console.log('error', error);
+          });
+        } else {
 
-              // /!\ verif si vide no result -> ALERT ? ...
-              if(localisation) {
-                const validLocalisation = {
-                  id: 0,
-                  name: localisation.name,
-                  city: localisation.locality,
-                  reg: localisation.region,
-                  lat: localisation.latitude,
-                  lng: localisation.longitude,
-                };
-                store.dispatch(saveValidLocalisation(validLocalisation));
-                store.dispatch(fetchActivitiesByLocalisation());
-              }
+          console.log('RESULTAT POUR RECHERCHE  2 ----->>>', inputValue)
+          store.dispatch(confirmValidLocalisation());
 
-            })
-            .catch((error) => {
-              console.log('error', error);
-            });
-        break;
+        }
+      break;
 
-    default:
-        next(action);
-    } 
+  default:
+      next(action);
+  } 
 };
 
 export default searchBar;

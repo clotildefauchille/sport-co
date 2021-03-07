@@ -4,13 +4,17 @@ import {
   fetchPlacesAutoCompletion,
   fetchOnePlacesAutoCompletion,
   changeInputValueSearchBar,
-  fetchActivitiesByLocalisation,
+  changeValidLocalisation,
   clearListAutocompleteData,
+  changeSearchQueryInProcessStatut,
 } from 'src/actions/searchBar';
 
 const mapStateToProps = (state) => ({
   inputValue: state.searchBar.inputValue,
-  listAutocompleteData: state.searchBar.autocompleteList,
+  listAutocompleteData: state.searchBar.autocomplete.list,
+  errorLocalisation: state.searchBar.errorLocalisation,
+  validLocalisation: state.searchBar.validLocalisation,
+  searchQueryInProcess: state.searchBar.searchQueryInProcess,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -23,11 +27,14 @@ const mapDispatchToProps = (dispatch) => ({
   fetchOnePlacesAutoCompletion: () => {
     dispatch(fetchOnePlacesAutoCompletion());
   },
-  fetchActivityByLocalisation: () => {
-    dispatch(fetchActivitiesByLocalisation());
+  changeValidLocalisation: (index) => {
+    dispatch(changeValidLocalisation(index));
   },
   clearListAutocompleteData: () => {
     dispatch(clearListAutocompleteData());
+  },
+  changeSearchQueryInProcessStatut: () => {
+    dispatch(changeSearchQueryInProcessStatut());
   }
 });
 

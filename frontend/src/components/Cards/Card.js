@@ -13,7 +13,7 @@ import sports from './sports';
 
 // == Composant
 const Card = ({ card }) => {
-  console.log(card);
+  console.log('CARD', card);
   return (
   <article className="card">
     <a href="#" className="card__link">
@@ -26,16 +26,12 @@ const Card = ({ card }) => {
         </div>
         <div className="card__container">
           <img src={pin} alt="" className="card__icon" />
-
-          {/* modifier api back pour renvoyer toujours même format de json
-          <p className="card__text">{card.activity_place.city}</p> */}
-          {card.activity_place && 
-            <p className="card__text">{card.activity_place.city}</p>
-          }
-          {card.city && 
-            <p className="card__text">{card.city}</p>
-          }
-
+          <p className="card__text">
+            {card.city}
+            {card.distance && (
+              <><br />({parseFloat(card.distance).toFixed(1)} km)</>
+            )}
+          </p>
         </div>
       </div>
       <p className="card__description">{card.description}</p>

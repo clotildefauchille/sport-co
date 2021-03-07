@@ -10,9 +10,11 @@ import './style.scss';
 const Cards = ({ cards }) => {
   const cardsCreated = cards.map((oneCard) => <Card key={oneCard.id} card={oneCard} />);
   return (
+    <>
     <section className="container cards">
       {cardsCreated}
     </section>
+    </>
   );
 };
 

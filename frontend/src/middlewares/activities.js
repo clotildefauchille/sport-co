@@ -2,11 +2,9 @@ import axios from 'axios';
 
 import {
   FETCH_LAST_ACTIVITIES,
+  FETCH_ACTIVITIES_BY_LOCALISATION,
   saveActivities
 } from 'src/actions/cards';
-import {
-  FETCH_ACTIVITIES_BY_LOCALISATION,
-} from 'src/actions/searchBar';
 
 const activities = (store) => (next) => (action) => {
   switch (action.type) {
@@ -24,7 +22,9 @@ const activities = (store) => (next) => (action) => {
       break;
 
     case FETCH_ACTIVITIES_BY_LOCALISATION:
-      const {lat, lng} = store.getState().searchBar.validLocalisation;
+      console.log('action.query ----> ', action.query);
+      const lat = parseFloat(action.query.lat);
+      const lng = parseFloat(action.query.lng);
       if(lat && lng) {
         console.log('FETCH_ACTIVITIES_BY_LOCALISATION');
         axios

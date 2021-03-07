@@ -12,6 +12,7 @@ const Accueil = ({ fetchData }) => {
     <main className="home">
       {/* <div> */}
         <SearchBar />
+        <h2 className="heading-2">Explorez les dernières activités proposées :</h2>
         <Cards />
       {/* </div> */}
     </main>
