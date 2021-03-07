@@ -13,7 +13,7 @@ const { QueryTypes } = require("sequelize");
 
 const activityController = {
   defaultNumCardInPage: 8,
-  defaultLimitDistance: 10, // en km
+  defaultLimitDistance: 100, // en km
 
   getLastActivity: async (req, res) => {
     console.log("----------> getLastActivity");
