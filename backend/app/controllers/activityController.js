@@ -29,7 +29,7 @@ const activityController = {
       });
 
       if (!activities) {
-        res.status(404).json("Error : can't find Activity");
+        res.status(204).json("Error : can't find Activity");
       } else {
         formatedaActivities = formatActivities(activities);
         res.json(formatedaActivities);
@@ -111,13 +111,13 @@ const activityController = {
       });
 
       if (!activities) {
-        res.status(404).json("Error : can't find Activity");
+        res.status(204).json("Error : can't find Activity");
         return;
       }
 
       formatedaActivities = formatActivitiesFilterByDistance(activities, activityController.defaultLimitDistance);
       if(formatedaActivities.length < 1) {
-        res.status(404).json("Error : can't find Activity");
+        res.status(204).json("Error : can't find Activity");
         return;
       }
 
@@ -192,13 +192,13 @@ const activityController = {
       });
 
       if (!activities) {
-        res.status(404).json("Error : can't find Activity");
+        res.status(204).json("Error : can't find Activity");
         return;
       }
 
       formatedaActivities = formatActivitiesFilterByDistance(activities, activityController.defaultLimitDistance);
       if(formatedaActivities.length < 1) {
-        res.status(404).json("Error : can't find Activity");
+        res.status(204).json("Error : can't find Activity");
         return;
       }
 

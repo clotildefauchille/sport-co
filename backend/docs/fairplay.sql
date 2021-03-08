@@ -145,10 +145,10 @@ INSERT INTO "user_place" ("address", "city", "zip_code", "department", "region",
 ('Promenade du Peyrou', 'Montpellier', '34000', 'Hérault', 'Occitanie', 'ChIJtW9UagevthIRqBfgUffh-TQ', 43.61125, 3.8707581);
 
 INSERT INTO "user" ("email", "pseudo", "password", "firstname", "lastname", "avatar", "reward_count", "admin", "user_grade_id", "user_place_id") VALUES
-('russobenjamin45@gmail.com', 'Benj', 'pass', 'Benjamin', 'Russo', 'https://cliniquecmi.com/wp-content/uploads/cmi-physiotherapie-sportive-opt.jpg', 10, false, 1, 1),
-('clotildefauchille@gmail.com', 'Clo', 'pass', 'Clotilde', 'Fauchille', 'https://cliniquecmi.com/wp-content/uploads/cmi-physiotherapie-sportive-opt.jpg', 20, true, 4, 2),
-('mairey.jeremy@hotmail.fr', 'Jerem', 'pass', 'Jeremy', 'Mairey', '', 200, true, 2, 3),
-('couderc.boris@gmail.com', 'bo', 'pass', 'Boris', 'Couderc', '', 0, false, 3, 3);
+('russobenjamin45@gmail.com', 'Benj', '$2a$10$3eH4dUp9vclyed0jjqj/3OqobYntWA1X6xPhqUm/NyykEJu03RpRC', 'Benjamin', 'Russo', 'https://cliniquecmi.com/wp-content/uploads/cmi-physiotherapie-sportive-opt.jpg', 10, false, 1, 1),
+('clotildefauchille@gmail.com', 'Clo', '$2a$10$3eH4dUp9vclyed0jjqj/3OqobYntWA1X6xPhqUm/NyykEJu03RpRC', 'Clotilde', 'Fauchille', 'https://cliniquecmi.com/wp-content/uploads/cmi-physiotherapie-sportive-opt.jpg', 20, true, 4, 2),
+('mairey.jeremy@hotmail.fr', 'Jerem', '$2a$10$3eH4dUp9vclyed0jjqj/3OqobYntWA1X6xPhqUm/NyykEJu03RpRC', 'Jeremy', 'Mairey', '', 200, true, 2, 3),
+('couderc.boris@gmail.com', 'bo', '$2a$10$3eH4dUp9vclyed0jjqj/3OqobYntWA1X6xPhqUm/NyykEJu03RpRC', 'Boris', 'Couderc', '', 0, false, 3, 3);
 
 INSERT INTO "activity_statut" ("name")
 VALUES ('passed'), ('canceled'), ('ongoing');
