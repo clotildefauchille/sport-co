@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Header from 'src/components/Header';
-import { Disconnect } from 'src/actions/login';
+import { disconnect } from 'src/actions/login';
 
 const mapStateToProps = (state) => ({
   isLogged: state.header.isLogged,
@@ -8,7 +8,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   DisconnectOnClick: () => {
-    dispatch(Disconnect());
+    dispatch(disconnect());
   },
 });
 

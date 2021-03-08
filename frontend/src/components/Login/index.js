@@ -13,12 +13,14 @@ const Login = ({
   user,
   OnChangeValue,
   OnClickLoginForm,
+  error,
 }) => {
   switch (user.pseudo) {
     case undefined:
       return (
         <section className="login">
           <h1 className="login__title">Connexion</h1>
+          {error && <p className="login__error">Adresse email ou mot de passe invalide</p>}
           <input className="login__input" type="email" placeholder="Votre adresse email" value={email} onChange={OnChangeValue} />
           <input className="login__input" type="password" placeholder="Votre mot de passe" value={password} onChange={OnChangeValue} />
           <button type="button" className="login__button" onClick={OnClickLoginForm}>Connexion</button>
@@ -38,6 +40,7 @@ Login.propTypes = {
   user: PropTypes.object.isRequired,
   OnChangeValue: PropTypes.func.isRequired,
   OnClickLoginForm: PropTypes.func.isRequired,
+  error: PropTypes.bool.isRequired,
 };
 
 // == Export

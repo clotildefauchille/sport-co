@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_LOGIN, saveConnexionStatut } from 'src/actions/login';
+import { FETCH_LOGIN, saveConnexionStatut, loginError } from 'src/actions/login';
 
 const connexion = (store) => (next) => (action) => {
   switch (action.type) {
@@ -17,6 +17,7 @@ const connexion = (store) => (next) => (action) => {
         })
         .catch((error) => {
           console.log('error', error);
+          store.dispatch(loginError());
         });
       break;
     }

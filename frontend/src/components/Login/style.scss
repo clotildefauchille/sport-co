@@ -47,5 +47,10 @@
     font-size: 16px;
     color: vars.$LightDarkColor;
   }
+
+  &__error {
+    color: rgb(247, 8, 8);
+    margin-bottom: 15px;
+  }
   
 }
