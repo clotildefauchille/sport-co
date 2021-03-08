@@ -17,7 +17,7 @@ const Card = ({ card }) => {
   return (
   <article className="card">
     <a href="#" className="card__link">
-      <img src={sports.golf} alt="" className="card__image" />
+      <img src={sports[card.title]} alt="" className="card__image" />
       <h2 className="card__title">{card.title}</h2>
       <div className="card__infos">
         <div className="card__container">
