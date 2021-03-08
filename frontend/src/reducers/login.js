@@ -1,8 +1,9 @@
-import { SAVE_LOGIN } from 'src/actions/login';
+import { SAVE_LOGIN, SAVE_CONNEXION_STATUT, DISCONNECT } from 'src/actions/login';
 
 const initialState = {
   email: '',
   password: '',
+  user: {},
 };
 
 const login = (state = initialState, action = {}) => {
@@ -12,6 +13,13 @@ const login = (state = initialState, action = {}) => {
         ...state,
         [action.input]: action.value,
       };
+    case SAVE_CONNEXION_STATUT:
+      return {
+        ...state,
+        user: action.data,
+      };
+    case DISCONNECT:
+      return initialState;
     default:
       return state;
   }
