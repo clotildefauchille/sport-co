@@ -13,7 +13,7 @@ const Header = ({ isLogged, DisconnectOnClick }) => {
       return (
         <header className="header">
           <Link to="/" className="header__home">
-            <img className="header__logo" src={logo} alt="le logo" />
+            <img className="header__logo" src={logo} alt="FairPlay" />
           </Link>
           <nav className="header__nav">
             <ul className="header__buttons">
@@ -34,7 +34,7 @@ const Header = ({ isLogged, DisconnectOnClick }) => {
       return (
         <header className="header">
           <Link to="/" className="header__home">
-            <img className="header__logo" src={logo} alt="le logo" />
+            <img className="header__logo" src={logo} alt="FairPlay" />
           </Link>
           <nav className="header__nav">
             <ul className="header__buttons">

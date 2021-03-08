@@ -1,14 +1,16 @@
-@use 'src/styles/_vars.scss';
+@use 'src/styles/_vars.scss' as v;
 
 .searchbar {
     background-color: white;
     border-radius: 16px;
-    box-shadow: vars.$shadow;
+    box-shadow: v.$shadow;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px;
-    margin-bottom: 40px;
+    padding: 30px;
+    margin: 40px 20px;
+    width: calc(100% - 40px);
+    max-width: 1240px;
 
     &__container {
         position: relative;
@@ -18,7 +20,7 @@
         border-radius: 25px 0 0 25px;
         border: 1px solid #dedede;
         border-right: none;
-        padding: 15px 40px;
+        padding: 15px 0 15px 40px;
         margin-right: -5px;
         width: 30vw;
         outline: none;
@@ -30,7 +32,7 @@
         border-left: none;
         padding: 16px 40px;
         border: none;
-        background-color: #ec7253;
+        background-color: v.$primaryColor;
         color: white;
         outline: none;
         cursor: pointer;
@@ -48,14 +50,46 @@
         border-radius: 25px;
         padding: 16px 40px;
         color: white;
-        background-color: #5ab4a9;
+        background-color: v.$secondaryColor;
         text-decoration: none;
         font-size: 16px;
     }
+
     &__spacer {
         margin: 30px;
         font-size: 16px;
     }
+
+    &__error {
+      padding-top: .75rem;
+      text-align: center;
+      color: v.$primaryColor;
+      font-size: .9em;
+    }
+}
+
+.autocomplete {
+  position: absolute;
+  width: 100%;
+  padding: 1rem;
+  background: #eee;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0,0,0,.2);
+
+  &__item {
+    padding: .375rem 1rem .375rem 1.5rem;
+    border-radius: 100em;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(0,0,0,.05);
+    }
+  }
+
+  &__detail {
+    font-size: .8em;
+    opacity: .5;
+  }
 }
 
 @media (max-width: 925px) {

@@ -1,13 +1,13 @@
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from 'src/reducers';
-import lastActivities from 'src/middlewares/lastActivities';
+
+import activities from 'src/middlewares/activities';
 import connexion from 'src/middlewares/connexion';
+import searchBar from 'src/middlewares/searchBar';
 
 const store = createStore(reducer, composeWithDevTools(
-  applyMiddleware(lastActivities),
-  applyMiddleware(connexion),
-  // other store enhancers if any
+  applyMiddleware(activities, searchBar, connexion),
 ));
 
 export default store;

@@ -1,5 +1,5 @@
 @use 'reset';
-@use 'vars';
+@use 'vars' as v;
 
 @font-face {
   font-family: 'Poppins';
@@ -7,11 +7,27 @@
 }
 
 #root {
-  font-family: 'Poppins', sans-serif;
+  font-family: v.$fontHeading;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  background-color: vars.$backgroundColor;
+  background-color: v.$backgroundColor;
+}
+
+.container {
+  max-width: 1280px;
+}
+
+.heading-2 {
+  font-family: v.$fontHeading;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: v.$darkColor;
+  padding-bottom: 1rem;
+  padding-top: 2rem;
+
+  &__txt-color {
+    color: v.$primaryColor;
+  }
 }
 
