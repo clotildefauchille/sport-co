@@ -1,20 +1,26 @@
-const paths = require('./paths');
-const { merge } = require('webpack-merge');
-const common = require('./webpack.common.js');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const TerserJSPlugin = require('terser-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const { BundleStatsWebpackPlugin } = require('bundle-stats-webpack-plugin');
+const paths = require("./paths");
+const { merge } = require("webpack-merge");
+const common = require("./webpack.common.js");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserJSPlugin = require("terser-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const { BundleStatsWebpackPlugin } = require("bundle-stats-webpack-plugin");
 
 module.exports = merge(common, {
-  mode: 'production',
+  mode: "production",
   devtool: false,
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'css/[name].css',
+      filename: "css/[name].css",
     }),
     // Stats bundle
     new BundleStatsWebpackPlugin(),
+    // API backend ONLINE
+    new webpack.DefinePlugin({
+      "process.env.API_URL": JSON.stringify(
+        "http://ec2-54-160-66-108.compute-1.amazonaws.com:4000"
+      ),
+    }),
   ],
   module: {
     rules: [
@@ -23,18 +29,18 @@ module.exports = merge(common, {
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
-            options: { publicPath: '../' },
+            options: { publicPath: "../" },
           },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: { importLoaders: 3 },
           },
-          'postcss-loader',
-          'resolve-url-loader',
+          "postcss-loader",
+          "resolve-url-loader",
           {
-            loader: 'sass-loader',
+            loader: "sass-loader",
             options: {
-              implementation: require('sass'),
+              implementation: require("sass"),
             },
           },
         ],
@@ -52,9 +58,9 @@ module.exports = merge(common, {
 
   optimization: {
     minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
-    runtimeChunk: 'single',
+    runtimeChunk: "single",
     splitChunks: {
-      chunks: 'all',
+      chunks: "all",
     },
   },
   performance: {

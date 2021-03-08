@@ -1,5 +1,9 @@
 .home{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: flex-start;
+  align-items: center;
   flex-wrap: wrap;
+  margin-bottom: 40px;
 }
