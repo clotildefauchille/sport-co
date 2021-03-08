@@ -5,6 +5,7 @@ const connexion = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_LOGIN: {
       const { login } = store.getState();
+      console.log('gg');
       axios
         .post(`${process.env.API_URL}/api/connexion`, {
           email: login.email,
