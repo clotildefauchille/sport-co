@@ -69,8 +69,7 @@ const searchBar = (store) => (next) => (action) => {
           .then((response) => {
             const localisation = response.data.data[0];
 
-            // /!\ verif si vide no result -> ALERT ? ...
-            if(localisation) {
+            if(localisation && localisation.name) {
 
               console.log('RESULTAT POUR RECHERCHE ----->>>', inputValue, localisation)
 
@@ -86,10 +85,8 @@ const searchBar = (store) => (next) => (action) => {
               store.dispatch(saveValidLocalisation(validLocalisation));
 
             } else {
-              
               console.log('PAS DE RESULTAT ----->>>')
               store.dispatch(noResultInVerifLocalisation());
-
             }
 
           })
