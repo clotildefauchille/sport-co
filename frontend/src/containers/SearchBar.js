@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
   changeValue: (value) => {
     dispatch(changeInputValueSearchBar(value));
   },
-  fetchAutocompleteData: () => {
+  fetchPlacesAutoCompletion: () => {
     dispatch(fetchPlacesAutoCompletion());
   },
   fetchOnePlacesAutoCompletion: () => {
@@ -35,7 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeSearchQueryInProcessStatut: () => {
     dispatch(changeSearchQueryInProcessStatut());
-  }
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

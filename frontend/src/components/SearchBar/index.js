@@ -17,7 +17,7 @@ const SearchBar = ({
   listAutocompleteData,
   validLocalisation,
   changeValue,
-  fetchAutocompleteData,
+  fetchPlacesAutoCompletion,
   fetchOnePlacesAutoCompletion,
   changeValidLocalisation,
   clearListAutocompleteData,
@@ -31,7 +31,9 @@ const SearchBar = ({
   const history = useHistory();
 
   useEffect(() => {
-    if(searchQueryInProcess) {
+  // verification que la recherche vient bien d'être lancée après la verification des coordonnées grace à l'api stacklocation
+  // searchQueryInProcess est à true si la lat et lng a bien été recupérée grace au midddleware et stockée dans le state
+  if(searchQueryInProcess) {
       changeSearchQueryInProcessStatut();
       history.push(`/search?lat=${validLocalisation.lat}&lng=${validLocalisation.lng}&query=${inputValue}`);
     }
@@ -47,7 +49,7 @@ const SearchBar = ({
     timer.current = setTimeout(() => {
       // pas de réponse api (https://positionstack.com/documentation) si <= 2
       if (value.length > 2) {
-        fetchAutocompleteData();
+        fetchPlacesAutoCompletion();
       } else {
         clearListAutocompleteData();
       }
@@ -120,7 +122,7 @@ SearchBar.propTypes = {
   inputValue: PropTypes.string,
   listAutocompleteData: PropTypes.array.isRequired,
   changeValue: PropTypes.func.isRequired,
-  fetchAutocompleteData: PropTypes.func.isRequired,
+  fetchPlacesAutoCompletion: PropTypes.func.isRequired,
   changeValidLocalisation: PropTypes.func.isRequired,
   clearListAutocompleteData: PropTypes.func.isRequired,
   fetchOnePlacesAutoCompletion: PropTypes.func.isRequired,

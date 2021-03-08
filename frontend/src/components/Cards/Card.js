@@ -13,7 +13,7 @@ import sports from './sports';
 
 // == Composant
 const Card = ({ card }) => {
-  console.log('CARD', card);
+  // console.log('CARD', card);
   return (
   <article className="card">
     <a href="#" className="card__link">

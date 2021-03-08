@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+
 import PropTypes from 'prop-types';
 import Cards from 'src/containers/Cards';
 
@@ -15,7 +16,7 @@ const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 }
 
-const Search = ({ fetchData }) => {
+const Search = ({ fetchActivitiesByLocalisation }) => {
   const query = useQuery();
   
   const queryString = query.get("query");
@@ -23,7 +24,7 @@ const Search = ({ fetchData }) => {
   const lng = query.get("lng");
 
   useEffect(() => { 
-    fetchData({queryString, lat, lng});
+    fetchActivitiesByLocalisation({queryString, lat, lng});
   }, [lat, lng, queryString]);
 
   return (
@@ -35,4 +36,7 @@ const Search = ({ fetchData }) => {
   );
 };
 
+Search.propTypes = {
+  fetchActivitiesByLocalisation: PropTypes.func.isRequired,
+};
 export default Search;

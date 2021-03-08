@@ -5,7 +5,7 @@ import { fetchActivitiesByLocalisation } from 'src/actions/cards';
 const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchData: (query) => {
+  fetchActivitiesByLocalisation: (query) => {
     dispatch(fetchActivitiesByLocalisation(query));
   },
 });

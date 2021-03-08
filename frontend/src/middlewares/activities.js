@@ -13,7 +13,7 @@ const activities = (store) => (next) => (action) => {
       axios
         .get(`${process.env.API_URL}/activities`)
         .then((response) => {
-          console.log('response last activity', response);
+          // console.log('response last activity', response);
           store.dispatch(saveActivities(response.data));
         })
         .catch((error) => {
