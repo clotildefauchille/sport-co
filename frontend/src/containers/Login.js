@@ -13,7 +13,8 @@ const mapDispatchToProps = (dispatch) => ({
   OnChangeValue: (event) => {
     dispatch(saveLogin(event.target.value, event.target.type));
   },
-  OnClickLoginForm: () => {
+  OnClickLoginForm: (event) => {
+    event.preventDefault();
     dispatch(fetchLogin());
   },
 });
