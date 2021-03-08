@@ -3,11 +3,14 @@ const { Router } = require('express');
 const router = express.Router();
 
 // const test = require("./controllers/test");
-const activityController = require('./controllers/activityController');
+const activityController = require("./controllers/activityController");
+const connectionController = require("./controllers/connectionController");
 
 router.get('/', (req, res) => {
   res.send('hello');
 });
+
+router.post("/api/connexion", connectionController.getUser);
 
 //homepage user not connected
 router.get('/activities?', activityController.getLastActivity);

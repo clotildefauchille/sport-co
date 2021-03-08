@@ -3,19 +3,18 @@ import PropTypes from 'prop-types';
 import logo from 'src/assets/fairplay logo.svg';
 import userIcon from 'src/assets/account_circle.svg';
 import gradeIcon from 'src/assets/grade.svg';
+import { Link } from 'react-router-dom';
 import './index.scss';
 
-import {
-  Link
-} from "react-router-dom";
-
-const Header = ({ isLogged }) => {
+const Header = ({ isLogged, DisconnectOnClick }) => {
   // console.log(isLogged);
   switch (isLogged) {
     case true:
       return (
         <header className="header">
-          <Link to="/" className="header__logo"><img src={logo} alt="le logo" /></Link>
+          <Link to="/" className="header__home">
+            <img className="header__logo" src={logo} alt="FairPlay" />
+          </Link>
           <nav className="header__nav">
             <ul className="header__buttons">
               <li>
@@ -25,7 +24,7 @@ const Header = ({ isLogged }) => {
                 <a><img className="header__grade" src={gradeIcon} alt="l'icone de son grade" /></a>
               </li>
               <li>
-                <a href="#" className="header__disconnect">Déconnexion</a>
+                <button type="button" className="header__disconnect" onClick={DisconnectOnClick}>Déconnexion</button>
               </li>
             </ul>
           </nav>
@@ -34,14 +33,16 @@ const Header = ({ isLogged }) => {
     default:
       return (
         <header className="header">
-          <Link to="/" className="header__logo"><img src={logo} alt="le logo" /></Link>
+          <Link to="/" className="header__home">
+            <img className="header__logo" src={logo} alt="FairPlay" />
+          </Link>
           <nav className="header__nav">
             <ul className="header__buttons">
               <li>
-                <a href="#" className="header__login"><img className="header__icon" src={userIcon} alt="l'icone de l'utilisateur" /> connexion</a>
+                <Link to="/connexion" className="header__login"><img className="header__icon" src={userIcon} alt="l'icône de l'utilisateur" />Connexion</Link>
               </li>
               <li>
-                <a href="#" className="header__signup">Inscription</a>
+                <Link to="/inscription" className="header__signup">Inscription</Link>
               </li>
             </ul>
           </nav>
@@ -52,6 +53,7 @@ const Header = ({ isLogged }) => {
 
 Header.propTypes = {
   isLogged: PropTypes.bool.isRequired,
+  DisconnectOnClick: PropTypes.func.isRequired,
 };
 
 export default Header;
