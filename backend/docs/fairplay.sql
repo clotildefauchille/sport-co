@@ -117,7 +117,13 @@ INSERT INTO "sport" ("name", "icon") VALUES
 ('foot', 'foot'),
 ('tennis', 'tennis'),
 ('rando', 'rando'),
-('basketball', 'basketball');
+('yoga', 'yoga'),
+('velo', 'velo'),
+('footing', 'footing'),
+('escalade', 'escalade'),
+('basketball', 'basketball'),
+('fitness', 'fitness');
+
 
 INSERT INTO "activity_place" ("address", "city", "zip_code", "department", "region", "google_place_key", "lat", "lng", "private", "indoor") VALUES
 ('38 Rue René Alazard', 'Bagnolet', '93170', 'Seine-Saint-Denis', 'Ile-de-France', 'ChIJX-N1XXNt5kcRZM_FklimsmQ', 48.87370931491529, 2.4195904982846748, true, true), 
@@ -149,16 +155,23 @@ VALUES ('passed'), ('canceled'), ('ongoing');
 
 INSERT INTO "activity" ("title", "description", "illustration", "date", "time", "duration", "participant_count", "min_participant", "creator_id", "activity_place_id", "activity_status_id", "sport_id")
 VALUES 
-('foot énervé 1B2', 'partie de foot au stade des Guillants, mettez votre plus beau maillot', '', '01/05/2021', '18:00', '2:30', 2, 8, 3, 1, 1, 1), 
+('foot énervé', 'partie de foot au stade des Guillants, mettez votre plus beau maillot', '', '01/05/2021', '18:00', '2:30', 2, 8, 3, 1, 1, 1), 
 ('Double tennis 2', 'on est chaud du revers', '', '07/05/2021', '14:30', '1:00', 1, 4, 2, 2, 1, 2),
-('activité 3', 'partie de foot au stade des Guillants, mettez votre plus beau maillot', '', '12/05/2021', '18:00', '2:30', 2, 8, 3, 1, 3, 1), 
-('activité 4', 'on est chaud du revers', '', '07/05/2021', '14:30', '1:00', 1, 4, 2, 2, 3, 2),
-('activité 5', 'partie de foot au stade des Guillants, mettez votre plus beau maillot', '', '01/05/2021', '18:00', '2:30', 2, 8, 3, 3, 3, 1), 
-('activité 6', 'on est chaud du revers', '', '07/05/2021', '14:30', '1:00', 1, 4, 2, 3, 2, 2),
-('activité 7', 'partie de foot au stade des Guillants, mettez votre plus beau maillot', '', '01/06/2021', '18:00', '2:30', 2, 8, 3, 1, 3, 1), 
-('activité 8', 'on est chaud du revers', '', '07/05/2021', '14:30', '1:00', 1, 4, 2, 2, 1, 2),
-('activité 9', 'partie de foot au stade des Guillants, mettez votre plus beau maillot', '', '14/08/2021', '18:00', '2:30', 2, 8, 3, 1, 3, 1), 
-('activité 10', 'on est chaud du revers', '', '07/05/2021', '14:30', '1:00', 1, 4, 2, 2, 1, 2);
+('foot', 'partie de foot au stade Maurice, mettez votre plus beau maillot', '', '12/05/2021', '18:00', '2:30', 2, 8, 3, 1, 3, 1), 
+('tennis', 'tennis en terre battue', '', '10/05/2021', '18:30', '1:00', 3, 4, 2, 2, 3, 2),
+('foot', 'foot au stade', '', '01/05/2021', '18:00', '2:30', 2, 8, 3, 3, 3, 1), 
+('tennis', 'ca va smasher', '', '07/05/2021', '9:30', '1:00', 1, 2, 2, 3, 3, 2),
+('foot', 'foot afterwork', '', '09/12/2021', '19:00', '2:30', 2, 8, 3, 1, 3, 1), 
+('vélo', 'sortie en velo tout terrain', '', '07/05/2021', '14:30', '1:00', 1, 2, 2, 2, 3, 5),
+('randonnée', 'rando près du lac de Patty', '', '14/08/2021', '10:00', '4:30', 2, 2, 3, 1, 3, 3), 
+('yoga', 'initiation au yoga', '', '03/11/2021', '14:30', '1:00', 1, 4, 2, 2, 3, 4),
+('footing', 'footing au cannal saint-Martin', '', '04/11/2021', '17:30', '1:00', 1, 2, 2, 2, 3, 6),
+('escalade', 'escalade de Bloc en forêt ', '', '04/11/2021', '11:30', '1:00', 1, 3, 2, 2, 3, 7),
+('basketball', 'basketball improvisé ', '', '05/11/2021', '11:30', '1:00', 1, 3, 2, 2, 3, 8),
+('fitness', 'fitness en salle ', '', '04/11/2021', '7:30', '1:00', 1, 3, 2, 2, 3, 9);
+
+
+
 
 INSERT INTO "message" ("comment", "user_id", "activity_id")
 VALUES ('super cette partie, mais j''aurai pas dû manger un kebab juste avt', 1, 1),
