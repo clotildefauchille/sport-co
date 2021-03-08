@@ -8,6 +8,7 @@ import Search from 'src/containers/Search';
 import Header from 'src/containers/Header';
 import Footer from 'src/components/Footer';
 import Login from 'src/containers/Login';
+import LoginModal from 'src/containers/LoginModal';
 import './styles.css';
 
 // == Composant
@@ -31,6 +32,8 @@ const App = () => {
 
     </Switch>
     <Footer />
+
+    <LoginModal />
   </>
 )};
 

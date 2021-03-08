@@ -1,0 +1,78 @@
+@use 'src/styles/_vars.scss';
+
+.card {
+  background-color:rgba(255,255,255,.80);
+  border-radius: 16px;
+  box-shadow: vars.$shadow;
+  transition: all 0.3s;
+  width: 280px;
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 40px 0 40px;
+  }
+
+  &__image {
+    width: 200px;
+    object-fit: contain;
+  }
+
+  &__title {
+    font-size: 19px;
+    font-weight: 500;
+    color: vars.$darkColor;
+    margin-bottom: 20px;
+  }
+
+  &__container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+
+  &__text {
+    font-size: 16px;
+    font-weight: 400;
+    color: vars.$primaryColor;
+    line-height: 1.4;
+  }
+
+  &__infos {
+    width: 100%;
+  }
+
+  &__icon {
+    width: 28px;
+    margin-right: 12px;
+  }
+
+  &__description {
+    font-size: 16px;
+    font-weight: 300;
+    color: vars.$LightDarkColor;
+    line-height: 24px;
+    margin: 20px 0 30px 0;
+  }
+
+  &__join {
+    background-color: vars.$primaryColor;
+    padding: 12px 30px;
+    border-radius: 25px;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    transition: all 0.3s;
+    margin: 0 0 40px 0;
+  }
+  &__join:hover{
+    box-shadow: vars.$shadow;
+  }
+}

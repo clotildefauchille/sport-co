@@ -3,6 +3,7 @@ export const FETCH_LOGIN = 'FETCH_LOGIN';
 export const SAVE_CONNEXION_STATUT = 'SAVE_CONNEXION_STATUT';
 export const DISCONNECT = 'DISCONNECT';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const CLOSE_MODAL = 'CLOSE_MODAL';
 
 export const saveLogin = (value, input) => ({
   type: SAVE_LOGIN,
@@ -25,4 +26,8 @@ export const disconnect = () => ({
 
 export const loginError = () => ({
   type: LOGIN_ERROR,
+});
+
+export const closeModal = () => ({
+  type: CLOSE_MODAL,
 });

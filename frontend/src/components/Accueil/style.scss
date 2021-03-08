@@ -1,3 +1,5 @@
+@use 'src/styles/_vars.scss' as v;
+
 .home{
   display: flex;
   flex-direction: column;
@@ -7,3 +9,61 @@
   flex-wrap: wrap;
   margin-bottom: 40px;
 }
+
+.hero {
+  //border: 1px solid grey;
+  padding-top: 6vh;
+  padding-bottom: max(30px, 2vh);
+  margin: 0 20px;
+  width: calc(100% - 40px);
+  max-width: 1240px;
+
+  &__title {
+    font-size: clamp(30px, 3vw, 60px);
+    font-weight: 600;
+    color: v.$darkColor;
+    line-height: 1.15;
+  }
+
+  &__title-color {
+    color: v.$primaryColor;
+  }
+
+  &__sub-title {
+    display: block;
+    padding-top: 2vw;
+    font-size: clamp(15px, 1.25vw, 22px);
+    line-height: 1.5;
+    opacity: .8;
+  }
+}
+
+@media (min-width: 960px) {  
+  .home--img {
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: 2;
+      left: 0;
+      top: 10vh;
+      right: 0;
+      height: 80vh;
+      background-image: url('src/assets/fond_connexion.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: right top;
+      box-shadow: 0 -200px 150px -50px v.$backgroundColor inset;
+    }
+
+    & > * {
+      position: relative;
+      z-index: 2;
+    }
+  }
+  .hero {
+    &__sub-title {
+      width: 50%;
+    }
+  }
+}
+

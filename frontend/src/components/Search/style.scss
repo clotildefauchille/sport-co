@@ -1,0 +1,7 @@
+@use 'src/styles/_vars.scss';
+
+.search {
+  &__no-result {
+    padding-top: 3rem;
+  }
+}

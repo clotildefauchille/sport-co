@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
 import Search from 'src/components/Search';
-import { fetchActivitiesByLocalisation } from 'src/actions/cards';
+import { fetchActivitiesByLocalisation } from 'src/actions/search';
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  activities: state.search.activities,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   fetchActivitiesByLocalisation: (query) => {

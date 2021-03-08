@@ -2,9 +2,13 @@ import axios from 'axios';
 
 import {
   FETCH_LAST_ACTIVITIES,
-  FETCH_ACTIVITIES_BY_LOCALISATION,
   saveActivities
 } from 'src/actions/cards';
+
+import {
+  FETCH_ACTIVITIES_BY_LOCALISATION,
+  saveSearchedActivities
+} from 'src/actions/search';
 
 const activities = (store) => (next) => (action) => {
   switch (action.type) {
@@ -13,7 +17,6 @@ const activities = (store) => (next) => (action) => {
       axios
         .get(`${process.env.API_URL}/activities`)
         .then((response) => {
-          // console.log('response last activity', response);
           store.dispatch(saveActivities(response.data));
         })
         .catch((error) => {
@@ -30,7 +33,7 @@ const activities = (store) => (next) => (action) => {
         axios
         .get(`${process.env.API_URL}/place?lat=${lat}&lng=${lng}&page=1`)
         .then((response) => {
-          store.dispatch(saveActivities(response.data));
+          store.dispatch(saveSearchedActivities(response.data));
         })
         .catch((error) => {
           console.log('error', error);

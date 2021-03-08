@@ -6,13 +6,13 @@ import PropTypes from 'prop-types';
 import './style.scss';
 
 // images sport
-import pin from 'src/assets/pin.svg';
-import clock from 'src/assets/clock.svg';
+import pin from 'src/assets/icons/pin.svg';
+import clock from 'src/assets/icons/clock.svg';
 
 import sports from './sports';
 
 // == Composant
-const Card = ({ card, showLoginModal }) => {
+const Card = ({ card, isLogged, showLoginModal }) => {
   // console.log('CARD', card);
   return (
     <article className="card">
@@ -40,9 +40,17 @@ const Card = ({ card, showLoginModal }) => {
         </div>
         <p className="card__description">{card.description}</p>
       </a>
-      <button onClick={showLoginModal} className="card__join" type="button">
-        Rejoindre
-      </button>
+
+      {isLogged ? (
+        <button className="card__join" type="button">
+          Rejoindre
+        </button>
+      ) : (
+        <button onClick={showLoginModal} className="card__join" type="button">
+          Rejoindre
+        </button>
+      )}
+      
     </article>
   );
 };
@@ -50,6 +58,7 @@ const Card = ({ card, showLoginModal }) => {
 Card.propTypes = {
   card: PropTypes.object.isRequired,
   showLoginModal: PropTypes.func.isRequired,
+  isLogged: PropTypes.bool.isRequired,
 };
 
 // == Export

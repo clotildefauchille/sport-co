@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import logo from 'src/assets/fairplay logo.svg';
-import userIcon from 'src/assets/account_circle.svg';
-import gradeIcon from 'src/assets/grade.svg';
+import userIcon from 'src/assets/icons/account_circle.svg';
+import gradeIcon from 'src/assets/icons/grade.svg';
 import { Link } from 'react-router-dom';
 import './index.scss';
 

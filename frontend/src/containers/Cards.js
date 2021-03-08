@@ -3,7 +3,6 @@ import Cards from 'src/components/Cards';
 
 const mapStateToProps = (state) => ({
   cards: state.cards,
-  
 });
 
 const mapDispatchToProps = (dispatch) => ({});

@@ -94,10 +94,8 @@ const searchBar = (store) => (next) => (action) => {
             console.log('error', error);
           });
         } else {
-
           console.log('RESULTAT POUR RECHERCHE  2 ----->>>', inputValue)
           store.dispatch(confirmValidLocalisation());
-
         }
       break;
 

@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 // == Import
 import './style.scss';
 
-import pin from 'src/assets/pin.svg';
+import pin from 'src/assets/icons/pin.svg';
 
 // == Composant
 const SearchBar = ({

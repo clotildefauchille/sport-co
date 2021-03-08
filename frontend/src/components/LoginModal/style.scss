@@ -7,6 +7,7 @@
 
 .modal {
   position: fixed;
+  z-index: 10000;
   left: 0;
   top: 0;
   right: 0;
@@ -19,10 +20,11 @@
   backdrop-filter: blur(2px);
 
   &__container {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem;
+    padding: 3rem 2rem;
     background-color: white;
     text-align: center;
     color: v.$primaryColor;
@@ -30,13 +32,13 @@
     z-index: 1;
     border: 0.2em black;
     border-radius: 1em;
-    font-weight: 600;
+    //font-weight: 600;
   }
   
   &__login {
     margin-top:1.5rem;
     background-color: v.$backgroundColor;
-    padding: 12px 50px;
+    padding: 15px 50px;
     border-radius: 25px;
     //color: white;
     font-weight: 500;
@@ -46,10 +48,26 @@
   &__signup {
     margin-top:1.5rem;
     background-color: v.$primaryColor;
-    padding: 12px 50px;
+    padding: 15px 50px;
     border-radius: 25px;
     color: white;
     font-weight: 500;
     transition: all 0.3s;
+  }
+
+  &__bt-close {
+    align-self: flex-end;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 640px) {  
+  .modal {
+    &__container {
+      padding: 3rem 5rem;
+    }
   }
 }

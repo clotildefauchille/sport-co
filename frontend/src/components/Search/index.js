@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
-
-import PropTypes from 'prop-types';
-import Cards from 'src/containers/Cards';
-
 import { useLocation } from "react-router-dom";
+import PropTypes from 'prop-types';
 
+import Card from 'src/containers/Card';
 import SearchBar from 'src/containers/SearchBar';
 
-//import './style.scss';
+import './style.scss';
 
 // https://reactrouter.com/web/example/query-parameters
 // A custom hook that builds on useLocation to parse
@@ -16,7 +14,7 @@ const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 }
 
-const Search = ({ fetchActivitiesByLocalisation }) => {
+const Search = ({ activities, fetchActivitiesByLocalisation }) => {
   const query = useQuery();
   
   const queryString = query.get("query");
@@ -31,12 +29,20 @@ const Search = ({ fetchActivitiesByLocalisation }) => {
     <main className="home search">
         <SearchBar />
         <h2 className="heading-2">Dernières activités proche de : <span className="heading-2__txt-color">{query.get("query")}</span></h2>
-        <Cards />
+        <section className="container cards">
+          {activities.length > 0 ? (activities.map((activity) => (
+            <Card key={activity.id} card={activity} />
+          ))) : (
+            <div className="search__no-result">Désolé aucune activité trouvée :(</div>
+          )}
+        </section>
     </main>
   );
 };
 
 Search.propTypes = {
+  activities: PropTypes.array.isRequired,
   fetchActivitiesByLocalisation: PropTypes.func.isRequired,
 };
+
 export default Search;

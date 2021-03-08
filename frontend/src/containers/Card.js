@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
-import Card from 'src/components/Cards/Card';
+import Card from 'src/components/Card';
 import {showLoginModal} from 'src/actions/cards'
 
-
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  isLogged: state.header.isLogged
+});
 
 const mapDispatchToProps = (dispatch) => ({
   showLoginModal: () => {
