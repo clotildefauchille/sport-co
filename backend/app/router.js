@@ -13,7 +13,8 @@ router.get('/', (req, res) => {
 router.post("/api/connexion", connectionController.getUser);
 
 //homepage user not connected
-router.get('/api/activities?', activityController.getLastActivity);
+router.get('/api/activities?', activityController.getLastActivities);
+router.get('/api/activity/:id', activityController.getOneActivity);
 
 //homepage user not connected searched by any place (google map API)
 router.get('/api/place?', activityController.getActivitiesByUserLocalisation);
