@@ -10,7 +10,7 @@ module.exports = merge(common, {
   plugins: [
     // API backend LOCALHOST
     new webpack.DefinePlugin({
-      "process.env.API_URL": JSON.stringify("http://localhost:4000/"),
+      "process.env.API_URL": JSON.stringify("http://localhost:4000"),
     }),
   ],
   devtool: "inline-source-map",
