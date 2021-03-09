@@ -13,29 +13,33 @@ import './styles.css';
 
 // == Composant
 const App = () => {
- return (
-  <>
-    <Header />
-    <Switch>
+  return (
+    <>
+      <Header />
+      <Switch>
+        <Route path="/" exact>
+          <Accueil />
+        </Route>
 
-      <Route path="/" exact>
-        <Accueil />
-      </Route>
-      
-      <Route path="/connexion" exact>
-        <Login />
-      </Route>
+        <Route path="/connexion" exact>
+          <Login />
+        </Route>
 
-      <Route path="/search">
-        <Search />
-      </Route>
+        <Route path="/search">
+          <Search />
+        </Route>
 
-    </Switch>
-    <Footer />
+        <Route path="/creation">
+          <CreationPage />
+        </Route>
+        
+      </Switch>
+      <Footer />
 
-    <LoginModal />
-  </>
-)};
+      <LoginModal />
+    </>
+  );
+};
 
 // == Export
 export default App;
