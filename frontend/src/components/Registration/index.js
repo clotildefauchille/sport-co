@@ -1,15 +1,18 @@
 // == Import npm
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // == Import
 import './style.scss';
 
 // == Composant
-const Registration = () => (
+const Registration = ({
+  OnSubmitForm,
+}) => (
   <section className="registration">
     <h1 className="registration__title">Inscription</h1>
-    <form className="registration__form">
+    <form className="registration__form" onSubmit={OnSubmitForm}>
       <label htmlFor="pseudo" className="registration__label">
         <h2 className="registration__inputName">
           Pseudo<span className="registration__required">*</span>
@@ -46,7 +49,6 @@ const Registration = () => (
         <input
           className="registration__input password"
           type="password"
-          id="password"
           name="password"
           placeholder="entrez votre mot de passe"
           required
@@ -54,7 +56,6 @@ const Registration = () => (
         <input
           className="registration__input password"
           type="password"
-          id="password"
           name="password"
           placeholder="confirmez votre mot de passe"
           required
@@ -121,6 +122,10 @@ const Registration = () => (
     </form>
   </section>
 );
+
+Registration.propTypes = {
+  OnSubmitForm: PropTypes.func.isRequired,
+};
 
 // == Export
 export default Registration;
