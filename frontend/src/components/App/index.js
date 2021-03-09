@@ -9,6 +9,7 @@ import Header from 'src/containers/Header';
 import Footer from 'src/components/Footer';
 import Login from 'src/containers/Login';
 import LoginModal from 'src/containers/LoginModal';
+import CreationPage from 'src/containers/CreationPage';
 import './styles.css';
 
 // == Composant
@@ -32,7 +33,7 @@ const App = () => {
         <Route path="/creation">
           <CreationPage />
         </Route>
-        
+
       </Switch>
       <Footer />
 
