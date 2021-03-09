@@ -9,11 +9,11 @@ import Header from 'src/containers/Header';
 import Footer from 'src/components/Footer';
 import Login from 'src/containers/Login';
 import LoginModal from 'src/containers/LoginModal';
+import Registration from 'src/components/Registration';
 import './styles.css';
 
 // == Composant
-const App = () => {
- return (
+const App = () => (
   <>
     <Header />
     <Switch>
@@ -21,9 +21,13 @@ const App = () => {
       <Route path="/" exact>
         <Accueil />
       </Route>
-      
+
       <Route path="/connexion" exact>
         <Login />
+      </Route>
+
+      <Route path="/inscription" exact>
+        <Registration />
       </Route>
 
       <Route path="/search">
@@ -35,7 +39,7 @@ const App = () => {
 
     <LoginModal />
   </>
-)};
+);
 
 // == Export
 export default App;
