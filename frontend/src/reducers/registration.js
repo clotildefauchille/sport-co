@@ -1,4 +1,4 @@
-import { SAVE_REGISTRATION_VALUE } from 'src/actions/registration';
+import { SAVE_REGISTRATION_VALUE, PASSWORD_ERROR } from 'src/actions/registration';
 
 const initialState = {
   pseudo: '',
@@ -18,6 +18,12 @@ const registration = (state = initialState, action = {}) => {
       return {
         ...state,
         [action.input]: action.value,
+      };
+    case PASSWORD_ERROR:
+      return {
+        ...state,
+        error: true,
+        confirmPassword: '',
       };
     default:
       return state;

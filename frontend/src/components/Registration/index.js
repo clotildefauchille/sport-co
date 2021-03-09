@@ -16,6 +16,7 @@ const Registration = ({
   lastname,
   city,
   presentation,
+  error,
 
   OnSubmitForm,
   OnChangeValue,
@@ -59,6 +60,7 @@ const Registration = ({
       >
         <h2 className="registration__inputName">
           Mot de passe<span className="registration__required">*</span>
+          {error && <span className="registration__error">Les mots de passe de correspondent pas</span>}
         </h2>
         <input
           className="registration__input password"
@@ -161,6 +163,7 @@ Registration.propTypes = {
   lastname: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
   presentation: PropTypes.string.isRequired,
+  error: PropTypes.bool.isRequired,
 };
 
 // == Export
