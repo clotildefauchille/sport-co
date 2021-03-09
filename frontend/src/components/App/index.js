@@ -30,6 +30,10 @@ const App = () => {
         <Search />
       </Route>
 
+      <Route path="/activity:id">
+        {/* <Activity /> */}
+      </Route>
+
     </Switch>
     <Footer />
 
