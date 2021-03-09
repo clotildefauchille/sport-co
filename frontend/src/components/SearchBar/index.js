@@ -35,6 +35,8 @@ const SearchBar = ({
   // searchQueryInProcess est à true si la lat et lng a bien été recupérée grace au midddleware et stockée dans le state
   if(searchQueryInProcess) {
       changeSearchQueryInProcessStatut();
+      clearTimeout(timer.current);
+      clearListAutocompleteData();
       history.push(`/search?lat=${validLocalisation.lat}&lng=${validLocalisation.lng}&query=${inputValue}`);
     }
   });

@@ -163,7 +163,7 @@ VALUES
 ('tennis', 'ca va smasher', '', '07/05/2021', '9:30', '1:00', 1, 2, 2, 3, 3, 2),
 ('foot', 'foot afterwork', '', '09/12/2021', '19:00', '2:30', 2, 8, 3, 1, 3, 1), 
 ('vélo', 'sortie en velo tout terrain', '', '07/05/2021', '14:30', '1:00', 1, 2, 2, 2, 3, 5),
-('randonnée', 'rando près du lac de Patty', '', '14/08/2021', '10:00', '4:30', 2, 2, 3, 1, 3, 3), 
+('randonnee', 'rando près du lac de Patty', '', '14/08/2021', '10:00', '4:30', 2, 2, 3, 1, 3, 3), 
 ('yoga', 'initiation au yoga', '', '03/11/2021', '14:30', '1:00', 1, 4, 2, 2, 3, 4),
 ('footing', 'footing au cannal saint-Martin', '', '04/11/2021', '17:30', '1:00', 1, 2, 2, 2, 3, 6),
 ('escalade', 'escalade de Bloc en forêt ', '', '04/11/2021', '11:30', '1:00', 1, 3, 2, 2, 3, 7),

@@ -1,6 +1,8 @@
 @use 'src/styles/_vars.scss' as v;
 
 .searchbar {
+    position: relative;
+    z-index: 4 !important;
     background-color:rgba(255,255,255,.80);
     border-radius: 16px;
     box-shadow: v.$shadow;

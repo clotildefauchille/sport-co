@@ -15,7 +15,7 @@ const activities = (store) => (next) => (action) => {
 
     case FETCH_LAST_ACTIVITIES: 
       axios
-        .get(`${process.env.API_URL}/activities`)
+        .get(`${process.env.API_URL}/api/activities`)
         .then((response) => {
           store.dispatch(saveActivities(response.data));
         })
@@ -31,7 +31,7 @@ const activities = (store) => (next) => (action) => {
       if(lat && lng) {
         console.log('FETCH_ACTIVITIES_BY_LOCALISATION');
         axios
-        .get(`${process.env.API_URL}/place?lat=${lat}&lng=${lng}&page=1`)
+        .get(`${process.env.API_URL}/api/place?lat=${lat}&lng=${lng}&page=1`)
         .then((response) => {
           store.dispatch(saveSearchedActivities(response.data));
         })
