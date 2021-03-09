@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Registration from 'src/components/Registration';
-import { saveRegistrationValue } from 'src/actions/registration';
+import { saveRegistrationValue, fetchRegistrationForm } from 'src/actions/registration';
 
 const mapStateToProps = (state) => ({
   pseudo: state.registration.pseudo,
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   OnSubmitForm: (event) => {
     event.preventDefault();
-    console.log('je veux envoyer le formulaire au middleware');
+    dispatch(fetchRegistrationForm());
   },
 });
 

@@ -5,10 +5,13 @@ const router = express.Router();
 // const test = require("./controllers/test");
 const activityController = require("./controllers/activityController");
 const connectionController = require("./controllers/connectionController");
+const registrationController = require("./controllers/registrationController");
 
 router.get('/', (req, res) => {
   res.send('hello');
 });
+
+router.post("/api/registration", registrationController.addUser);
 
 router.post("/api/connexion", connectionController.getUser);
 
