@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Registration from 'src/components/Registration';
-import { saveLogin, fetchLogin } from 'src/actions/login';
+import { saveRegistrationValue } from 'src/actions/registration';
 
 const mapStateToProps = (state) => ({
   pseudo: state.registration.pseudo,
@@ -17,7 +17,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   OnChangeValue: (event) => {
-    dispatch(saveLogin(event.target.value, event.target.type));
+    dispatch(saveRegistrationValue(event.target.value, event.target.name));
   },
   OnSubmitForm: (event) => {
     event.preventDefault();

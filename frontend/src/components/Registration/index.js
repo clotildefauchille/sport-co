@@ -8,7 +8,17 @@ import './style.scss';
 
 // == Composant
 const Registration = ({
+  pseudo,
+  email,
+  password,
+  confirmPassword,
+  firstname,
+  lastname,
+  city,
+  presentation,
+
   OnSubmitForm,
+  OnChangeValue,
 }) => (
   <section className="registration">
     <h1 className="registration__title">Inscription</h1>
@@ -24,6 +34,8 @@ const Registration = ({
           type="text"
           placeholder="entrez votre pseudo"
           required
+          value={pseudo}
+          onChange={OnChangeValue}
         />
       </label>
       <label htmlFor="email" className="registration__label">
@@ -37,6 +49,8 @@ const Registration = ({
           type="email"
           placeholder="entrez votre adresse email"
           required
+          value={email}
+          onChange={OnChangeValue}
         />
       </label>
       <label
@@ -52,13 +66,17 @@ const Registration = ({
           name="password"
           placeholder="entrez votre mot de passe"
           required
+          value={password}
+          onChange={OnChangeValue}
         />
         <input
           className="registration__input password"
           type="password"
-          name="password"
+          name="confirmPassword"
           placeholder="confirmez votre mot de passe"
           required
+          value={confirmPassword}
+          onChange={OnChangeValue}
         />
       </label>
       <div className="registration__container">
@@ -73,6 +91,8 @@ const Registration = ({
             type="text"
             placeholder="entrez votre prénom"
             required
+            value={firstname}
+            onChange={OnChangeValue}
           />
         </label>
         <label htmlFor="lastname" className="registration__label">
@@ -86,6 +106,8 @@ const Registration = ({
             type="text"
             placeholder="entrez votre nom"
             required
+            value={lastname}
+            onChange={OnChangeValue}
           />
         </label>
       </div>
@@ -100,6 +122,8 @@ const Registration = ({
           type="text"
           placeholder="entrez votre ville"
           required
+          value={city}
+          onChange={OnChangeValue}
         />
       </label>
       <label htmlFor="presentation" className="registration__label">
@@ -109,6 +133,8 @@ const Registration = ({
           name="presentation"
           className="registration__input registration__textarea"
           placeholder="présentez vous en quelques lignes"
+          value={presentation}
+          onChange={OnChangeValue}
         />
       </label>
       <div className="registration__container">
@@ -125,6 +151,16 @@ const Registration = ({
 
 Registration.propTypes = {
   OnSubmitForm: PropTypes.func.isRequired,
+  OnChangeValue: PropTypes.func.isRequired,
+
+  pseudo: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  confirmPassword: PropTypes.string.isRequired,
+  firstname: PropTypes.string.isRequired,
+  lastname: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
+  presentation: PropTypes.string.isRequired,
 };
 
 // == Export

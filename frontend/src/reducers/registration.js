@@ -1,3 +1,5 @@
+import { SAVE_REGISTRATION_VALUE } from 'src/actions/registration';
+
 const initialState = {
   pseudo: '',
   email: '',
@@ -12,6 +14,11 @@ const initialState = {
 
 const registration = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SAVE_REGISTRATION_VALUE:
+      return {
+        ...state,
+        [action.input]: action.value,
+      };
     default:
       return state;
   }
