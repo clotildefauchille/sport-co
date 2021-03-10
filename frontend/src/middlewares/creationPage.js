@@ -15,12 +15,12 @@ const creationPage = (store) => (next) => (action) => {
 
         axios
           .post(`${process.env.API_URL}/api/newactivity`, {
-            title: creationPage.activityTitle,
+            title: creationPage.title,
             description: creationPage.description,
             date: creationPage.date,
             time: creationPage.time,
             duration: creationPage.duration,
-            min_participant: creationPage.minParticipant,
+            min_participant: creationPage.min_participant,
             creator_id: login.user.id,
             activity_place_id: 1,
             activity_status_id: 3,

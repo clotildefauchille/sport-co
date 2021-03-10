@@ -5,15 +5,15 @@ import {
 } from 'src/actions/creationPage';
 
 const initialState = {
-  activityTitle: '',
+  title: '',
   date: '',
   time: '',
   duration: '',
-  minParticipant: 0,
+  min_participant: 0,
   description: '',
-  adresse: '',
-  codePostal: '',
-  ville: '',
+  adress: '',
+  zip_code: '',
+  city: '',
   sport_id: '',
   sportsData: [],
 };

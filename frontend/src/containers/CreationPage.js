@@ -9,15 +9,15 @@ import {
 } from 'src/actions/creationPage';
 
 const mapStateToProps = (state) => ({
-  activityTitle: state.creationPage.activityTitle,
+  title: state.creationPage.title,
   date: state.creationPage.date,
   duration: state.creationPage.duration,
   time: state.creationPage.time,
-  minParticipant: state.creationPage.minParticipant,
+  min_participant: state.creationPage.min_participant,
   description: state.creationPage.description,
-  adresse: state.creationPage.adresse,
-  codePostal: state.creationPage.codePostal,
-  ville: state.creationPage.ville,
+  adress: state.creationPage.adress,
+  zip_code: state.creationPage.zip_code,
+  city: state.creationPage.city,
   sports: state.creationPage.sportsData,
 });
 

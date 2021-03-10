@@ -1,17 +1,17 @@
 import React, {useEffect} from 'react';
 import './style.scss';
-import Field from './Field';
+// import Field from './Field';
 import PropTypes from 'prop-types';
 
 const CreationPage = ({
-  activityTitle,
+  title,
   date,
   time,
-  minParticipant,
+  min_participant,
   description,
-  adresse,
-  codePostal,
-  ville,
+  adress,
+  zip_code,
+  city,
   duration,
   onChangeForm,
   onChangeFormSelect,
@@ -24,11 +24,18 @@ const CreationPage = ({
   }, []);
 
   const today = new Date();
-  console.log(today);
+  const year = today.getFullYear();
+  const month = ('0' + (today.getMonth() + 1)).slice(-2);
+  const day = ("0" + today.getDate()).slice(-2);
+  const todayFormat = `${year}-${month}-${day}`; 
+  console.log(todayFormat);
 
   const handleSelectInput = (e) => {
     // console.log('handleselect', e.target.value);
     onChangeFormSelect(e.target.value);
+  };
+  const handleChange = (evt) => {
+    onChangeForm(evt.target.value, evt.target.name);
   };
 
   const handleOnSubmit = (e) => {
@@ -40,27 +47,36 @@ const CreationPage = ({
       <form className="create-form__container" onSubmit={handleOnSubmit}>
         <h1 className="create-form__title">Créez ici votre activité :</h1>
 
-        <Field
+        <label htmlFor="title" className="create-form__label">
+          titre :
+        </label>
+        <input
           className="create-form__input create-form__input--large"
           type="text"
           placeholder="nom de l'activité"
-          name="activityTitle"
-          value={activityTitle}
-          onChange={onChangeForm}
+          name="title"
+          value={title}
+          onChange={handleChange}
         />
 
         <div className="create-form__container-inner">
-          <Field
+          <label htmlFor="date" className="create-form__label">
+            date :
+          </label>
+          <input
             className="create-form__input"
             type="date"
             // id="date"
             value={date}
-            min="2021-01-01"
+            min={todayFormat}
             max="2025-12-31"
             name="date"
-            onChange={onChangeForm}
+            onChange={handleChange}
           />
-          <Field
+          <label htmlFor="time" className="create-form__label">
+            horaire :
+          </label>
+          <input
             className="create-form__input"
             type="time"
             // id="time"
@@ -69,9 +85,12 @@ const CreationPage = ({
             // required
             name="time"
             value={time}
-            onChange={onChangeForm}
+            onChange={handleChange}
           />
-          <Field
+          <label htmlFor="duration" className="create-form__label">
+            durée :
+          </label>
+          <input
             className="create-form__input"
             type="time"
             // id="time"
@@ -80,12 +99,12 @@ const CreationPage = ({
             // required
             name="duration"
             value={duration}
-            onChange={onChangeForm}
+            onChange={handleChange}
           />
         </div>
         {/* <h2 className="create-form__subtitle">Information</h2> */}
         <div className="create-form__container-inner">
-          <label className="create-form__label">sport:</label>
+          <label className="create-form__label">sport :</label>
           <select
             className="create-form__input create-form__input--large create-form__input--select "
             name="sport"
@@ -101,56 +120,70 @@ const CreationPage = ({
               );
             })}
           </select>
-          <Field
+          <label htmlFor="minimum participant" className="create-form__label">
+            participants minimum :
+          </label>
+          <input
             className="create-form__input"
             type="number"
             // id="tentacles"
-            name="minParticipant"
+            name="min_participant"
             min="0"
             max="40"
-            value={minParticipant}
-            onChange={onChangeForm}
+            value={min_participant}
+            onChange={handleChange}
           />
         </div>
 
         {/* <textarea id="story" name="story" rows="5" >
           It was a dark and stormy night...
         </textarea> */}
-
-        <Field
+        <label htmlFor="description" className="create-form__label">
+          description :
+        </label>
+        <textarea
           className="create-form__input create-form__input--hight"
           type="textarea"
           placeholder="Description de l'activité proposée"
           name="description"
           rows="5"
           value={description}
-          onChange={onChangeForm}
+          onChange={handleChange}
         />
         {/* <h2 className="create-form__subtitle">Point de départ</h2> */}
-        <Field
+        <label htmlFor="adress" className="create-form__label">
+          adresse :
+        </label>
+        <input
           className="create-form__input create-form__input--large"
           type="text"
           placeholder="Entrez une adresse"
-          name="adresse"
-          value={adresse}
-          onChange={onChangeForm}
+          name="adress"
+          value={adress}
+          onChange={handleChange}
         />
         <div className="create-form__container-inner">
-          <Field
+          <label htmlFor="code postal" className="create-form__label">
+            code-postal :
+          </label>
+          <input
             className="create-form__input"
             type="text"
             placeholder="code postal"
-            name="codePostal"
-            value={codePostal}
-            onChange={onChangeForm}
+            name="zip_code"
+            value={zip_code}
+            onChange={handleChange}
           />
-          <Field
+          <label htmlFor="date" className="create-form__label">
+            ville :
+          </label>
+          <input
             className="create-form__input"
             type="text"
             placeholder="ville"
-            name="ville"
-            value={ville}
-            onChange={onChangeForm}
+            name="city"
+            value={city}
+            onChange={handleChange}
           />
         </div>
         <button
@@ -165,14 +198,14 @@ const CreationPage = ({
 };
 
 CreationPage.propTypes = {
-  activityTitle: PropTypes.string,
+  title: PropTypes.string,
   date: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
-  minParticipant: PropTypes.node.isRequired,
+  min_participant: PropTypes.node.isRequired,
   description: PropTypes.string.isRequired,
-  adresse: PropTypes.string.isRequired,
-  codePostal: PropTypes.string.isRequired,
-  ville: PropTypes.string.isRequired,
+  adress: PropTypes.string.isRequired,
+  zip_code: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
   onChangeForm: PropTypes.func.isRequired,
   fetchSports: PropTypes.func.isRequired,
 };
