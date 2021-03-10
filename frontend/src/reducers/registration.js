@@ -3,6 +3,7 @@ import {
   PASSWORD_ERROR,
   EMAIL_ERROR,
   PSEUDO_ERROR,
+  RESET_ERRORS,
 } from 'src/actions/registration';
 
 const initialState = {
@@ -23,6 +24,13 @@ const initialState = {
 
 const registration = (state = initialState, action = {}) => {
   switch (action.type) {
+    case RESET_ERRORS:
+      return {
+        ...state,
+        passwordError: false,
+        emailError: false,
+        pseudoError: false,
+      };
     case SAVE_REGISTRATION_VALUE:
       return {
         ...state,

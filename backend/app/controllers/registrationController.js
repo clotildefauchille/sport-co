@@ -62,11 +62,11 @@ const registrationController = {
       }
     } else if (emailChecker) {
       res.status(409).json({
-        error: 'Cette adresse email est déjà utilisée',
+        error: 'mail',
       });
     } else {
       res.status(409).json({
-        error: 'Ce pseudo est déjà utilisé',
+        error: 'pseudo',
       });
     }
   },
