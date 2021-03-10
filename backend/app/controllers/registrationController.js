@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const { User, UserPlace } = require('../models');
 
@@ -22,6 +23,7 @@ const registrationController = {
     });
 
     if (!emailChecker && !pseudoChecker) {
+      const hashPassword = await bcrypt.hash(data.password, saltRounds);
       try {
         const newUser = await User.create(
           {
@@ -29,7 +31,7 @@ const registrationController = {
             email: data.email,
             firstname: data.firstname,
             lastname: data.lastname,
-            password: data.password,
+            password: hashPassword,
             avatar: '',
             reward_count: 0,
             admin: false,
