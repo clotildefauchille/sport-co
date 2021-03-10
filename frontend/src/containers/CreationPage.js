@@ -5,6 +5,7 @@ import {
   changeInputCreateForm,
   changeInputCreateFormSelect,
   sendActivityInformation,
+  fetchSports,
 } from 'src/actions/creationPage';
 
 const mapStateToProps = (state) => ({
@@ -17,6 +18,7 @@ const mapStateToProps = (state) => ({
   adresse: state.creationPage.adresse,
   codePostal: state.creationPage.codePostal,
   ville: state.creationPage.ville,
+  sports: state.creationPage.sportsData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -24,13 +26,16 @@ const mapDispatchToProps = (dispatch) => ({
     // console.log('onchange form creation', value, name);
     dispatch(changeInputCreateForm(value, name));
   },
-  onChangeFormSelect: (value) => {
+  onChangeFormSelect: (sportId) => {
     // console.log('onchange form select', value)
-    dispatch(changeInputCreateFormSelect(value));
+    dispatch(changeInputCreateFormSelect(sportId));
   },
   onSubmit: () => {
     // console.log('je veux submit le createform');
     dispatch(sendActivityInformation());
+  },
+  fetchSports: () => {
+dispatch(fetchSports())
   },
 });
 

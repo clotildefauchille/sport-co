@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './style.scss';
 import Field from './Field';
 import PropTypes from 'prop-types';
@@ -16,17 +16,25 @@ const CreationPage = ({
   onChangeForm,
   onChangeFormSelect,
   onSubmit,
+  fetchSports,
+  sports,
 }) => {
+  useEffect(() => {
+    fetchSports();
+  }, []);
+
+  const today = new Date();
+  console.log(today);
 
   const handleSelectInput = (e) => {
     // console.log('handleselect', e.target.value);
     onChangeFormSelect(e.target.value);
   };
 
-const handleOnSubmit = (e) => {
-  e.preventDefault();
-onSubmit()
-};
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    onSubmit();
+  };
   return (
     <section className="create-form">
       <form className="create-form__container" onSubmit={handleOnSubmit}>
@@ -85,22 +93,20 @@ onSubmit()
             onChange={handleSelectInput}
           >
             <option value="">choississez un sport</option>
-            <option value="escalade">escalade</option>
-            <option value="foot">foot</option>
-            <option value="footing">footing</option>
-            <option value="vélo">vélo</option>
-            <option value="randonnee">randonnee</option>
-            <option value="yoga">yoga</option>
-            <option value="basketball">basketball</option>
-            <option value="tennis">tennis</option>
-            <option value="fitness">fitness</option>
+            {sports.map((sport) => {
+              return (
+                <option key={sport.id} value={sport.id}>
+                  {sport.name}
+                </option>
+              );
+            })}
           </select>
           <Field
             className="create-form__input"
             type="number"
             // id="tentacles"
             name="minParticipant"
-            min="1"
+            min="0"
             max="40"
             value={minParticipant}
             onChange={onChangeForm}
@@ -162,12 +168,13 @@ CreationPage.propTypes = {
   activityTitle: PropTypes.string,
   date: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
-  minParticipant: PropTypes.number.isRequired,
+  minParticipant: PropTypes.node.isRequired,
   description: PropTypes.string.isRequired,
   adresse: PropTypes.string.isRequired,
   codePostal: PropTypes.string.isRequired,
   ville: PropTypes.string.isRequired,
   onChangeForm: PropTypes.func.isRequired,
+  fetchSports: PropTypes.func.isRequired,
 };
 
 export default CreationPage;

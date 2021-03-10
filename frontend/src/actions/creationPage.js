@@ -1,7 +1,8 @@
 export const CHANGE_INPUT_CREATE_FORM = 'CHANGE_INPUT_CREATE_FORM';
 export const CHANGE_INPUT_CREATE_FORM_SELECT = 'CHANGE_INPUT_CREATE_FORM_SELECT';
 export const SEND_ACTIVITY_INFORMATION = 'SEND_ACTIVITY_INFORMATION';
-
+export const FETCH_SPORTS = 'FETCH_SPORTS';
+export const SAVE_SPORTS = 'SAVE_SPORTS';
 
 export const changeInputCreateForm = (value, name) => ({
   type: CHANGE_INPUT_CREATE_FORM,
@@ -9,12 +10,20 @@ export const changeInputCreateForm = (value, name) => ({
   name,
 });
 
-export const changeInputCreateFormSelect = (value, name) => ({
+export const changeInputCreateFormSelect = (value) => ({
   type: CHANGE_INPUT_CREATE_FORM_SELECT,
   value,
-  name,
 });
 
 export const sendActivityInformation = () => ({
   type: SEND_ACTIVITY_INFORMATION,
 });
+
+export const fetchSports = () => ({
+  type: FETCH_SPORTS,
+});
+
+export const saveSports = (sportsData) => ({
+  type: SAVE_SPORTS,
+  sportsData,
+})

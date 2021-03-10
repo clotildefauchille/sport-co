@@ -8,6 +8,7 @@ const newActivityController = {
   createNewActivity: async (req, res) => {
     console.log('controller')
     try {
+      const sport_id=parseInt(req.body.sport_id)
       const {
         title,
         description,
@@ -17,7 +18,7 @@ const newActivityController = {
         duration,
         min_participant,
       } = req.body;
-      console.log('------------>', date);
+      console.log('------------>', sport_id);
       let newActivity = await Activity.create({
         title,
         description,
@@ -28,7 +29,7 @@ const newActivityController = {
         creator_id,
         activity_place_id: 1,
         activity_status_id: 3,
-        sport_id: 1,
+        sport_id,
       });
       res.json(newActivity);
     } catch (error) {
