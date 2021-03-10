@@ -111,9 +111,9 @@ const SearchBar = ({
           )}
         </form>
         <p className="searchbar__spacer">OU</p>
-        <a className="searchbar__link" href="">
+        <Link className="searchbar__link" to="/creation">
           Créer une activité
-        </a>
+        </Link>
       </div>
     </section>
   );

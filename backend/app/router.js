@@ -6,15 +6,14 @@ const router = express.Router();
 const activityController = require("./controllers/activityController");
 const connectionController = require("./controllers/connectionController");
 const sportsController = require("./controllers/sportsController");
-const newActivity = require('./controllers/newActivity');
+const newActivityController = require("./controllers/newActivityController");
 
 router.get('/', (req, res) => {
   res.send('hello');
 });
 
 router.post("/api/connexion", connectionController.getUser);
-
-router.post('/api/newactivity', newActivity.createNewActivity);
+router.post('/api/newactivity', newActivityController.createNewActivity);
 
 //homepage user not connected
 router.get('/api/activities?', activityController.getLastActivity);

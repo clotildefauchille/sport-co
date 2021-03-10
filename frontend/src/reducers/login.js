@@ -2,8 +2,8 @@ import { SAVE_LOGIN, SAVE_CONNEXION_STATUT, DISCONNECT, LOGIN_ERROR } from 'src/
 
 const initialState = {
   // id: "",
-  email: 'clotildefauchille@gmail.com',
-  password: 'pass',
+  email: '',
+  password: '',
   user: {},
   error: false,
 };

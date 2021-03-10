@@ -3,8 +3,10 @@ const sequelize = require('../database.js');
 
 const { Activity } = require('../models');
 
-const newActivity = {
+const newActivityController = {
+
   createNewActivity: async (req, res) => {
+    console.log('controller')
     try {
       const {
         title,
@@ -27,8 +29,6 @@ const newActivity = {
         activity_place_id: 1,
         activity_status_id: 3,
         sport_id: 1,
-      }, {
-        include: ["activity_place"]
       });
       res.json(newActivity);
     } catch (error) {
@@ -38,4 +38,4 @@ const newActivity = {
   },
 };
 
-module.exports = newActivity;
+module.exports = newActivityController;
