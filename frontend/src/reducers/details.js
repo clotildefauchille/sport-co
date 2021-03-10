@@ -1,21 +1,14 @@
-//import { SAVE_CONNEXION_STATUT, DISCONNECT } from 'src/actions/login';
+import { SAVE_ACTTIVITY } from 'src/actions/details';
 
-const initialState = {
-    contenuFake: 'test',
-};
+const initialState = {};
 
 const details = (state = initialState, action = {}) => {
   switch (action.type) {
 
-    /*
-    case SAVE_CONNEXION_STATUT:
+    case SAVE_ACTTIVITY:
       return {
-        isLogged: true,
+        ...action.data,
       };
-    case DISCONNECT:
-      return initialState;
-      */
-
     default:
       return state;
   }

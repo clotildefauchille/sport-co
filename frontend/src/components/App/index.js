@@ -31,7 +31,7 @@ const App = () => {
         <Search />
       </Route>
 
-      <Route path="/activity:id">
+      <Route path="/activity/:id">
         <Details />
       </Route>
 

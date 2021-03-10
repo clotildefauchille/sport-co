@@ -3,7 +3,7 @@ import Details from 'src/components/Details';
 import { fetchDataActivity } from 'src/actions/details';
 
 const mapStateToProps = (state) => ({
-    contenuFake: state.details.contenuFake,
+    activity: state.details,
 });
 
 const mapDispatchToProps = (dispatch) => ({
