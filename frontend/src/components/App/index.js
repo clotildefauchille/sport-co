@@ -9,33 +9,38 @@ import Header from 'src/containers/Header';
 import Footer from 'src/components/Footer';
 import Login from 'src/containers/Login';
 import LoginModal from 'src/containers/LoginModal';
+import CreationPage from 'src/containers/CreationPage';
 import './styles.css';
 
 // == Composant
 const App = () => {
- return (
-  <>
-    <Header />
-    <Switch>
+  return (
+    <>
+      <Header />
+      <Switch>
+        <Route path="/" exact>
+          <Accueil />
+        </Route>
 
-      <Route path="/" exact>
-        <Accueil />
-      </Route>
-      
-      <Route path="/connexion" exact>
-        <Login />
-      </Route>
+        <Route path="/connexion" exact>
+          <Login />
+        </Route>
 
-      <Route path="/search">
-        <Search />
-      </Route>
+        <Route path="/search">
+          <Search />
+        </Route>
 
-    </Switch>
-    <Footer />
+        <Route path="/creation">
+          <CreationPage />
+        </Route>
 
-    <LoginModal />
-  </>
-)};
+      </Switch>
+      <Footer />
+
+      <LoginModal />
+    </>
+  );
+};
 
 // == Export
 export default App;
