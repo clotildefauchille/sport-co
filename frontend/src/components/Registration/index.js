@@ -15,6 +15,8 @@ const Registration = ({
   firstname,
   lastname,
   city,
+  postalCode,
+  address,
   presentation,
   error,
 
@@ -113,21 +115,53 @@ const Registration = ({
           />
         </label>
       </div>
-      <label htmlFor="city" className="registration__label">
+      <label htmlFor="address" className="registration__label">
         <h2 className="registration__inputName">
-          Ville<span className="registration__required">*</span>
+          Adresse<span className="registration__required">*</span>
         </h2>
         <input
-          id="city"
-          name="city"
+          id="address"
+          name="address"
           className="registration__input"
           type="text"
-          placeholder="entrez votre ville"
+          placeholder="entrez votre adresse"
           required
-          value={city}
+          value={address}
           onChange={OnChangeValue}
         />
       </label>
+      <div className="registration__container">
+        <label htmlFor="city" className="registration__label">
+          <h2 className="registration__inputName">
+            Ville<span className="registration__required">*</span>
+          </h2>
+          <input
+            id="city"
+            name="city"
+            className="registration__input registration__firsname"
+            type="text"
+            placeholder="entrez votre prénom"
+            required
+            value={city}
+            onChange={OnChangeValue}
+          />
+        </label>
+        <label htmlFor="postal_code" className="registration__label">
+          <h2 className="registration__inputName">
+            Code postal<span className="registration__required">*</span>
+          </h2>
+          <input
+            id="postalCode"
+            name="postalCode"
+            className="registration__input registration__lastname"
+            type="text"
+            placeholder="entrez votre nom"
+            required
+            value={postalCode}
+            onChange={OnChangeValue}
+          />
+        </label>
+      </div>
       <label htmlFor="presentation" className="registration__label">
         <h2 className="registration__inputName">Présentation</h2>
         <textarea
@@ -162,6 +196,8 @@ Registration.propTypes = {
   firstname: PropTypes.string.isRequired,
   lastname: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
+  postalCode: PropTypes.string.isRequired,
+  address: PropTypes.string.isRequired,
   presentation: PropTypes.string.isRequired,
   error: PropTypes.bool.isRequired,
 };

@@ -8,6 +8,8 @@ const initialState = {
   firstname: '',
   lastname: '',
   city: '',
+  postalCode: '',
+  address: '',
   presentation: '',
   error: false,
 };

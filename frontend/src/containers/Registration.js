@@ -10,6 +10,8 @@ const mapStateToProps = (state) => ({
   firstname: state.registration.firstname,
   lastname: state.registration.lastname,
   city: state.registration.city,
+  postalCode: state.registration.postalCode,
+  address: state.registration.address,
   presentation: state.registration.presentation,
 
   error: state.registration.error,
