@@ -15,6 +15,9 @@ const Field = ({ value, type, name, className, placeholder, onChange }) => {
 
   return (
     <>
+      <label htmlFor={inputId} className="create-form__label">
+        {name}
+      </label>
       <input
         // React - state
         value={value}
@@ -23,22 +26,16 @@ const Field = ({ value, type, name, className, placeholder, onChange }) => {
         id={inputId}
         type={type}
         className={className}
-        placeholder={placeholder}
         name={name}
       />
-
-      {/* <label htmlFor={inputId} className="field-label">
-        {placeholder}
-      </label> */}
     </>
   );
 };
 
 Field.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.node,
   type: PropTypes.string,
   name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired,
 };

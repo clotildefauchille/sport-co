@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 
 // == Import
@@ -113,9 +113,9 @@ const SearchBar = ({
       {/* </div> */}
 
       <p className="searchbar__spacer">OU</p>
-      <a className="searchbar__link" href="">
+      <Link className="searchbar__link" to='/creation'>
         Créer une activité
-      </a>
+      </Link>
     </section>
   );
 };

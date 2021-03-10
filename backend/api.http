@@ -1,0 +1,22 @@
+### service indisponible
+############################## LISTS #############################
+
+
+### POST create one activity
+
+POST http://localhost:4000/api/newactivity
+Content-Type: application/json
+
+{
+        "title":"hhh",
+        "description":"dd",
+        "date": "12/03/19",
+        "time":"01:00",
+        "duration":"01:00",
+        "min_participant":2,
+        "creator_id": 2,
+        "activity_place_id": 1,
+        "activity_status_id": 3,
+        "sport_id": 1
+}
+

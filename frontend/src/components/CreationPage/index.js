@@ -12,11 +12,24 @@ const CreationPage = ({
   adresse,
   codePostal,
   ville,
+  duration,
   onChangeForm,
+  onChangeFormSelect,
+  onSubmit,
 }) => {
+
+  const handleSelectInput = (e) => {
+    // console.log('handleselect', e.target.value);
+    onChangeFormSelect(e.target.value);
+  };
+
+const handleOnSubmit = (e) => {
+  e.preventDefault();
+onSubmit()
+};
   return (
     <section className="create-form">
-      <form className="create-form__container">
+      <form className="create-form__container" onSubmit={handleOnSubmit}>
         <h1 className="create-form__title">Créez ici votre activité :</h1>
 
         <Field
@@ -50,13 +63,26 @@ const CreationPage = ({
             value={time}
             onChange={onChangeForm}
           />
+          <Field
+            className="create-form__input"
+            type="time"
+            // id="time"
+            min="00:00"
+            max="10:00"
+            // required
+            name="duration"
+            value={duration}
+            onChange={onChangeForm}
+          />
         </div>
-        <h2 className="create-form__subtitle">Information</h2>
+        {/* <h2 className="create-form__subtitle">Information</h2> */}
         <div className="create-form__container-inner">
+          <label className="create-form__label">sport:</label>
           <select
             className="create-form__input create-form__input--large create-form__input--select "
             name="sport"
             id="sport-select"
+            onChange={handleSelectInput}
           >
             <option value="">choississez un sport</option>
             <option value="escalade">escalade</option>
@@ -94,7 +120,7 @@ const CreationPage = ({
           value={description}
           onChange={onChangeForm}
         />
-        <h2 className="create-form__subtitle">Point de départ</h2>
+        {/* <h2 className="create-form__subtitle">Point de départ</h2> */}
         <Field
           className="create-form__input create-form__input--large"
           type="text"
