@@ -5,6 +5,7 @@ const router = express.Router();
 // const test = require("./controllers/test");
 const activityController = require("./controllers/activityController");
 const connectionController = require("./controllers/connectionController");
+const sportsController = require("./controllers/sportsController");
 const newActivity = require('./controllers/newActivity');
 
 router.get('/', (req, res) => {
@@ -20,6 +21,10 @@ router.get('/api/activities?', activityController.getLastActivity);
 
 //homepage user not connected searched by any place (google map API)
 router.get('/api/place?', activityController.getActivitiesByUserLocalisation);
+
+router.get('/api/sports', sportsController.getSports);
+router.get('/api/sports/localisation?', sportsController.getSportsByLocalisation);
+
 
 //homepage user not connected searched by department
 // router.get(
