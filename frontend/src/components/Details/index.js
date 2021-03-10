@@ -1,10 +1,18 @@
 // == Import npm
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 // == Import
 import './style.scss';
 
-const Details = () => {
+const Details = ({ contenuFake, fetchDataActivity }) => {
+
+  useEffect(() => {
+    fetchDataActivity();
+  }, []);
+
+  console.log('contenuFake', contenuFake);
+
   return (
     <main className="activity">
       <section className="activity__header">
@@ -32,6 +40,10 @@ const Details = () => {
       </section>
     </main>
   )
+};
+
+Details.propTypes = {
+  contenuFake: PropTypes.string.isRequired,
 };
 
 export default Details;

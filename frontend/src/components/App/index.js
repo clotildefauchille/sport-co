@@ -9,7 +9,7 @@ import Header from 'src/containers/Header';
 import Footer from 'src/components/Footer';
 import Login from 'src/containers/Login';
 import LoginModal from 'src/containers/LoginModal';
-import Details from 'src/components/Details';
+import Details from 'src/containers/Details';
 import './styles.css';
 
 // == Composant
