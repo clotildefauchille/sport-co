@@ -16,6 +16,7 @@ const mapStateToProps = (state) => ({
   postalCode: state.registration.postalCode,
   address: state.registration.address,
   presentation: state.registration.presentation,
+  isLogged: state.header.isLogged,
 
   passwordError: state.registration.passwordError,
   emailError: state.registration.emailError,

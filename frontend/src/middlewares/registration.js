@@ -6,6 +6,7 @@ import {
   pseudoError,
   resetErrors,
 } from 'src/actions/registration';
+import { saveConnexionStatut } from 'src/actions/login';
 
 const apiKey = '82a0b22e81932aad65c97e8bcc2f192a';
 
@@ -13,23 +14,18 @@ const registration = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_REGISTRATION_FORM: {
       const formData = store.getState().registration;
-      console.log('registration store', formData);
       store.dispatch(resetErrors());
-      console.log(
-        `http://api.positionstack.com/v1/forward?access_key=${apiKey}&country=FR&query=${formData.address}, ${formData.postalCode} ${formData.city}`,
-      );
       if (formData.password !== formData.confirmPassword) {
         store.dispatch(passwordError());
         break;
-      } else {
+      }
+      else {
         axios
           .get(
             `http://api.positionstack.com/v1/forward?access_key=${apiKey}&country=FR&query=${formData.address},${formData.postalCode},${formData.city}`,
           )
           .then((response) => {
             const responsePlace = response.data.data[0];
-            console.log('response', response.data.data[0]);
-
             axios
               .post(`${process.env.API_URL}/api/registration`, {
                 pseudo: formData.pseudo,
@@ -51,9 +47,10 @@ const registration = (store) => (next) => (action) => {
               })
               .then((APIresponse) => {
                 console.log('response', APIresponse.data);
+                store.dispatch(saveConnexionStatut(APIresponse.data.user));
               })
               .catch((error) => {
-                console.log('error', error.response.data);
+                console.error('error', error.response.data);
                 if (error.response.data.error === 'mail') {
                   store.dispatch(emailError());
                 }
@@ -63,7 +60,7 @@ const registration = (store) => (next) => (action) => {
               });
           })
           .catch((error) => {
-            console.log('error', error.response.data);
+            console.error('error', error.response.data);
           });
 
         break;
