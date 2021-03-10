@@ -5,6 +5,7 @@ import login from './login';
 import searchBar from './searchBar';
 import loginModal from './loginModal';
 import search from './search';
+import creationPage from './creationPage';
 
 const globalReducer = combineReducers({
   cards,
@@ -13,6 +14,7 @@ const globalReducer = combineReducers({
   searchBar,
   loginModal,
   search,
+  creationPage,
 });
 
 export default globalReducer;
