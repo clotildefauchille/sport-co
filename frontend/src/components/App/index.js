@@ -9,6 +9,8 @@ import Header from 'src/containers/Header';
 import Footer from 'src/components/Footer';
 import Login from 'src/containers/Login';
 import LoginModal from 'src/containers/LoginModal';
+import Error404 from 'src/components/Error404';
+import Team from 'src/components/Team';
 import './styles.css';
 
 // == Composant
@@ -28,6 +30,14 @@ const App = () => {
 
       <Route path="/search">
         <Search />
+      </Route>
+
+      <Route path="/equipe">
+        <Team />
+      </Route>
+
+      <Route>
+        <Error404 />
       </Route>
 
     </Switch>
