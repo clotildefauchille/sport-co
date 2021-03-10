@@ -18,7 +18,10 @@ const Registration = ({
   postalCode,
   address,
   presentation,
-  error,
+
+  passwordError,
+  emailError,
+  pseudoError,
 
   OnSubmitForm,
   OnChangeValue,
@@ -29,6 +32,11 @@ const Registration = ({
       <label htmlFor="pseudo" className="registration__label">
         <h2 className="registration__inputName">
           Pseudo<span className="registration__required">*</span>
+          {pseudoError && (
+            <span className="registration__error">
+              Ce pseudo est déjà utilisé
+            </span>
+          )}
         </h2>
         <input
           id="pseudo"
@@ -44,6 +52,11 @@ const Registration = ({
       <label htmlFor="email" className="registration__label">
         <h2 className="registration__inputName">
           Adresse Email<span className="registration__required">*</span>
+          {emailError && (
+            <span className="registration__error">
+              Cette adresse mail est déjà utilisée
+            </span>
+          )}
         </h2>
         <input
           id="email"
@@ -62,7 +75,11 @@ const Registration = ({
       >
         <h2 className="registration__inputName">
           Mot de passe<span className="registration__required">*</span>
-          {error && <span className="registration__error">Les mots de passe de correspondent pas</span>}
+          {passwordError && (
+            <span className="registration__error">
+              Les mots de passe ne correspondent pas
+            </span>
+          )}
         </h2>
         <input
           className="registration__input password"
@@ -199,7 +216,9 @@ Registration.propTypes = {
   postalCode: PropTypes.string.isRequired,
   address: PropTypes.string.isRequired,
   presentation: PropTypes.string.isRequired,
-  error: PropTypes.bool.isRequired,
+  passwordError: PropTypes.bool.isRequired,
+  emailError: PropTypes.bool.isRequired,
+  pseudoError: PropTypes.bool.isRequired,
 };
 
 // == Export

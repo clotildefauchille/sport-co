@@ -1,6 +1,9 @@
 import { connect } from 'react-redux';
 import Registration from 'src/components/Registration';
-import { saveRegistrationValue, fetchRegistrationForm } from 'src/actions/registration';
+import {
+  saveRegistrationValue,
+  fetchRegistrationForm,
+} from 'src/actions/registration';
 
 const mapStateToProps = (state) => ({
   pseudo: state.registration.pseudo,
@@ -14,7 +17,9 @@ const mapStateToProps = (state) => ({
   address: state.registration.address,
   presentation: state.registration.presentation,
 
-  error: state.registration.error,
+  passwordError: state.registration.passwordError,
+  emailError: state.registration.emailError,
+  pseudoError: state.registration.pseudoError,
 });
 
 const mapDispatchToProps = (dispatch) => ({

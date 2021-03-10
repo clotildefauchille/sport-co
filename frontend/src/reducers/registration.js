@@ -1,4 +1,9 @@
-import { SAVE_REGISTRATION_VALUE, PASSWORD_ERROR } from 'src/actions/registration';
+import {
+  SAVE_REGISTRATION_VALUE,
+  PASSWORD_ERROR,
+  EMAIL_ERROR,
+  PSEUDO_ERROR,
+} from 'src/actions/registration';
 
 const initialState = {
   pseudo: '',
@@ -11,7 +16,9 @@ const initialState = {
   postalCode: '',
   address: '',
   presentation: '',
-  error: false,
+  passwordError: false,
+  emailError: false,
+  pseudoError: false,
 };
 
 const registration = (state = initialState, action = {}) => {
@@ -24,8 +31,20 @@ const registration = (state = initialState, action = {}) => {
     case PASSWORD_ERROR:
       return {
         ...state,
-        error: true,
+        passwordError: true,
         confirmPassword: '',
+      };
+    case EMAIL_ERROR:
+      return {
+        ...state,
+        emailError: true,
+        email: '',
+      };
+    case PSEUDO_ERROR:
+      return {
+        ...state,
+        pseudoError: true,
+        pseudo: '',
       };
     default:
       return state;
