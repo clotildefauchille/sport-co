@@ -1,4 +1,3 @@
-
 const express = require('express');
 const { Router } = require('express');
 const router = express.Router();
@@ -19,6 +18,7 @@ router.post('/api/newactivity', newActivityController.createNewActivity);
 
 //homepage user not connected
 router.get('/api/activities?', activityController.getLastActivity);
+router.get('/api/activity/:id', activityController.getOneActivity);
 
 //homepage user not connected searched by any place (google map API)
 router.get('/api/place?', activityController.getActivitiesByUserLocalisation);
@@ -44,4 +44,3 @@ router.use((req, res) => {
 });
 
 module.exports = router;
-

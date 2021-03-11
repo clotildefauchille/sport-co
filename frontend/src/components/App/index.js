@@ -9,8 +9,10 @@ import Header from 'src/containers/Header';
 import Footer from 'src/components/Footer';
 import Login from 'src/containers/Login';
 import LoginModal from 'src/containers/LoginModal';
+import Details from 'src/containers/Details';
 import CreationPage from 'src/containers/CreationPage';
 import Registration from 'src/containers/Registration';
+
 import './styles.css';
 
 // == Composant
@@ -34,6 +36,10 @@ const App = () => {
         <Route path="/search">
           <Search />
         </Route>
+    
+        <Route path="/activity/:id">
+          <Details />
+        </Route>
 
         <Route path="/creation">
           <CreationPage />
@@ -46,7 +52,6 @@ const App = () => {
     </>
   );
 };
-
 
 // == Export
 export default App;
