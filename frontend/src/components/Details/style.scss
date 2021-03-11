@@ -3,14 +3,23 @@
 .activity {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: 25px 15px 300px 15px;
+  align-items: flex-start;
+  padding: 80px 100px 120px 100px;
+  background-repeat: no-repeat;
+  background-position: center right 70px;
+  background-size: contain;
+
+  &__userIcon, &__participantsIcon{
+    width: 20px;
+    margin-bottom: 5px;
+  }
 
   &__header {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-bottom: 80px;
+    margin-bottom: 60px;
+    margin-left: 100px;
+    align-items: flex-start;
   }
 
   &__title {
@@ -35,6 +44,7 @@
 
   &__join {
     background-color: v.$primaryColor;
+    transition: all 0.3s;
     padding: 12px 30px;
     border-radius: 25px;
     color: white;
@@ -50,18 +60,39 @@
   }
 
   &__details {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    align-items: center;
-    max-width: 100%;
-    width: 1240px;
+    // display: grid;
+    // grid-template-columns: 2fr 1fr 1fr;
+    // align-items: center;
+    // max-width: 100%;
+    // width: 1240px;
+
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
   }
 
   &__description {
     font-size: 1.3rem;
     color: v.$darkColor;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 16px;
     line-height: 1.2;
     text-align: justify;
+    flex: 2;
+    padding: 40px;
+    margin-right: 25px;
+  }
+
+  &__descriptionTitle{
+    color: v.$primaryColor;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  &__description span {
+    color: v.$primaryColor;
+    font-weight: 600;
+    margin-bottom: 20px;
   }
 
   &__container {
@@ -71,10 +102,25 @@
 
   &__creator {
     justify-self: center;
+    background-color:  rgba(255, 255, 255, 0.85);
+    border-radius: 16px;
+    padding: 40px;
+    flex: 1;
+    margin-right: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   &__participants {
     justify-self: center;
+    background-color:  rgba(255, 255, 255, 0.85);
+    padding: 40px;
+    border-radius: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   &__pseudo {

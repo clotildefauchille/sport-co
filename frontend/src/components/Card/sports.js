@@ -8,7 +8,6 @@ import yoga from 'src/assets/sports/yoga.svg';
 import basketball from 'src/assets/sports/basketball.svg';
 import fitness from 'src/assets/sports/fitness.svg';
 
-
 export default {
   escalade,
   foot,
