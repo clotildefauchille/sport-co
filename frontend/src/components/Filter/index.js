@@ -11,7 +11,8 @@ const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 }
 
-const Filter = ({ fetchFilterSports, sportsList }) => {
+const Filter = ({ fetchFilterSportsByLocalisation, sportsList }) => {
+
   const [sportsFilter, setSportsFilter] = useState([]);
 
   const history = useHistory();
@@ -21,27 +22,29 @@ const Filter = ({ fetchFilterSports, sportsList }) => {
   const lat = query.get("lat");
   const lng = query.get("lng");
 
+  // check si sports ids dans url pour bien les selectionner sur une nouvelle recherche ou refresh
+  let querySports = query.get("sports");
+  if(querySports) { querySports.split(',') }
+
   useEffect(() => {
-    fetchFilterSports();
-  }, [])
+    console.log('fetchFilterSportsByLocalisation');
+    fetchFilterSportsByLocalisation({lat, lng});
+  }, [lat, lng])
 
   useEffect(() => {
     setSportsFilter (
-      sportsList.map(sport => (
-        {
+      sportsList.map(sport => {
+        const updatedSport = {
           ...sport,
           isChecked: false,
         }
-      ))
+        if(querySports && querySports.includes(sport.id)) {
+          updatedSport.isChecked = true;
+        }
+        return updatedSport;
+      })
     )
-  }, [sportsList, lat, lng])
-
-  /*
-  useEffect(() => {
-    console.log(sports);
-  }, [sports]);
-  */
-  //console.log('sports', sportsList);
+  }, [sportsList])
 
   const handleCheck = (index) => {
     console.log('handleCheck');
@@ -54,10 +57,6 @@ const Filter = ({ fetchFilterSports, sportsList }) => {
     setSportsFilter(updatedSport)
   }
 
-  useEffect(() => {
-    console.log('sports3', sportsFilter);
-  }, [sportsFilter]);
-  
   const handleOnClick = () => {
     console.log('handleOnClick');
     const selectedSportIds = [];
@@ -74,15 +73,15 @@ const Filter = ({ fetchFilterSports, sportsList }) => {
     <>
     {sportsFilter.length > 0 && (
       <div className="filter">
-        {sportsFilter.map((sport, index) => (
+        {sportsFilter.map((sport, index) => ( 
           <div className="filter__item" key={`sport${sport.id}`}>
             <input
               type="checkbox" 
               name={`sport${sport.id}`} 
               id={`sport${sport.id}`} 
               className="filter__checkbox"
-              onClick={() => handleCheck(index)}
-              //defaultChecked={sport.isChecked}
+              checked={sport.isChecked}
+              onChange={() => handleCheck(index)}
             />
             <label htmlFor={`sport${sport.id}`} className="filter__label">
               <img src={sports[sport.icon]} alt="" className="filter__picture" />

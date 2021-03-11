@@ -1,5 +1,5 @@
 import escalade from 'src/assets/sports/escalade.svg';
-import vélo from 'src/assets/sports/vélo.svg';
+import velo from 'src/assets/sports/velo.svg';
 import foot from 'src/assets/sports/foot.svg';
 import footing from 'src/assets/sports/footing.svg';
 import randonnee from 'src/assets/sports/randonnee.svg';
@@ -13,7 +13,7 @@ export default {
   escalade,
   foot,
   footing,
-  vélo,
+  velo,
   randonnee,
   tennis,
   yoga,

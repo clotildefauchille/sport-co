@@ -116,7 +116,7 @@ CREATE TABLE "user_has_activity" (
 INSERT INTO "sport" ("name", "icon") VALUES
 ('foot', 'foot'),
 ('tennis', 'tennis'),
-('rando', 'rando'),
+('randonnee', 'randonnee'),
 ('yoga', 'yoga'),
 ('velo', 'velo'),
 ('footing', 'footing'),

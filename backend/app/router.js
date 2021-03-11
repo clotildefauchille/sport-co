@@ -6,7 +6,7 @@ const router = express.Router();
 const activityController = require("./controllers/activityController");
 const connectionController = require("./controllers/connectionController");
 const sportsController = require("./controllers/sportsController");
-const newActivityController = require("./controllers/newActivityController");
+const newActivityController = require('./controllers/newActivityController');
 const registrationController = require("./controllers/registrationController");
 
 router.get('/', (req, res) => {
@@ -14,6 +14,7 @@ router.get('/', (req, res) => {
 });
 router.post("/api/registration", registrationController.addUser);
 router.post("/api/connexion", connectionController.getUser);
+
 router.post('/api/newactivity', newActivityController.createNewActivity);
 
 //homepage user not connected
@@ -26,6 +27,7 @@ router.get('/api/place?', activityController.getActivitiesByUserLocalisation);
 router.get('/api/sports', sportsController.getSports);
 router.get('/api/sports/localisation?', sportsController.getSportsByLocalisation);
 
+router.get('/api/activities/sports?', activityController.getActivitesByUserLocalisationAndSports);
 
 //homepage user not connected searched by department
 // router.get(

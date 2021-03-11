@@ -56,7 +56,6 @@ const SearchBar = ({
         clearListAutocompleteData();
       }
     }, 1000);
-    
   };
 
   const handleOnSubmit = (e) => {
@@ -77,7 +76,6 @@ const SearchBar = ({
 
   return (
     <section className="searchbar">
-      <div className="searchbar__container">
         <form onSubmit={handleOnSubmit} className="searchbar__container">
           <input
             className="searchbar__input"
@@ -114,7 +112,6 @@ const SearchBar = ({
         <Link className="searchbar__link" to="/creation">
           Créer une activité
         </Link>
-      </div>
     </section>
   );
 };

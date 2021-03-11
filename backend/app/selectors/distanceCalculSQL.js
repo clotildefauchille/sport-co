@@ -16,20 +16,25 @@
        * ADAPTATION SQL :
        */
 
-const distanceCalcul = `(
-SELECT (
-    SQRT(
-    POW (
-        (("lng" * pi() / 180) - ( ${lng} * pi() / 180))
-        * COS((( "lat" * pi() / 180) + ( ${lat} * pi() / 180)) / 2), 2
-        ) 
-        + POW (
-        ("lat" * pi() / 180) - ( ${lat} * pi() / 180), 2
-        )
-    ) * 6371
-    )
-    FROM activity_place
-    WHERE activity_place_id = activity_place.id
-)`;
+const distanceCalculSQL = (lat, lng) => {
+    console.log('------------------------------LAT', lat);
+    return (
+        `(
+        SELECT (
+            SQRT(
+            POW (
+                (("lng" * pi() / 180) - ( ${lng} * pi() / 180))
+                * COS((( "lat" * pi() / 180) + ( ${lat} * pi() / 180)) / 2), 2
+                ) 
+                + POW (
+                ("lat" * pi() / 180) - ( ${lat} * pi() / 180), 2
+                )
+            ) * 6371
+            )
+            FROM activity_place
+            WHERE activity_place_id = activity_place.id
+        )`
+    );
+};
 
-module.exports = { distanceCalcul };
+module.exports = { distanceCalculSQL };

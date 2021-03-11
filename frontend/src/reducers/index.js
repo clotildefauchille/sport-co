@@ -8,6 +8,7 @@ import search from './search';
 import details from './details';
 import registration from './registration';
 import creationPage from './creationPage';
+import filter from './filter';
 
 const globalReducer = combineReducers({
   cards,
@@ -19,6 +20,7 @@ const globalReducer = combineReducers({
   details,
   registration,
   creationPage,
+  filter,
 });
 
 export default globalReducer;
