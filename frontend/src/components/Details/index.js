@@ -1,24 +1,31 @@
 // == Import npm
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 
 // == Import
 import './style.scss';
 import userIcon from 'src/assets/icons/account_circle.svg';
 import sports from 'src/components/Card/sports';
 
-const sport = "yoga";
-
 const Details = ({ activity, fetchDataActivity }) => {
+  let currentSport = '';
+  const { id } = useParams();
   useEffect(() => {
-    fetchDataActivity();
+    fetchDataActivity(id);
   }, []);
+
+  console.log(activity.sport);
+
+  if (activity.sport) {
+    currentSport = sports[activity.sport.icon];
+  }
 
   return (
     <main
       className="activity"
       style={{
-        backgroundImage: `url(${sports[sport]})`,
+        backgroundImage: `url(${currentSport})`,
       }}
     >
       {activity.id && (

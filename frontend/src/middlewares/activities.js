@@ -2,23 +2,24 @@ import axios from 'axios';
 
 import {
   FETCH_LAST_ACTIVITIES,
-  saveActivities
+  saveActivities,
 } from 'src/actions/cards';
 
 import {
   FETCH_ACTIVITIES_BY_LOCALISATION,
-  saveSearchedActivities
+  saveSearchedActivities,
 } from 'src/actions/search';
 
 import {
   FETCH_DATA_ACTTIVITY,
-  saveActivity
+  saveActivity,
 } from 'src/actions/details';
 
 const activities = (store) => (next) => (action) => {
+  const idParams = action.id;
   switch (action.type) {
 
-    case FETCH_LAST_ACTIVITIES: 
+    case FETCH_LAST_ACTIVITIES:
       axios
         .get(`${process.env.API_URL}/api/activities`)
         .then((response) => {
@@ -29,9 +30,9 @@ const activities = (store) => (next) => (action) => {
         });
       break;
 
-    case FETCH_DATA_ACTTIVITY: 
+    case FETCH_DATA_ACTTIVITY:
       axios
-        .get(`${process.env.API_URL}/api/activity/1`)
+        .get(`${process.env.API_URL}/api/activity/${idParams}`)
         .then((response) => {
           store.dispatch(saveActivity(response.data));
         })

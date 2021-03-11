@@ -7,8 +7,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchDataActivity: () => {
-    dispatch(fetchDataActivity());
+  fetchDataActivity: (id) => {
+    dispatch(fetchDataActivity(id));
   },
 });
 
