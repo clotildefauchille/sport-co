@@ -1,7 +1,8 @@
 import {
   CHANGE_INPUT_CREATE_FORM,
   CHANGE_INPUT_CREATE_FORM_SELECT,
-  SAVE_SPORTS
+  SAVE_SPORTS,
+  ERROR_NOT_FOUND_PLACE,
 } from 'src/actions/creationPage';
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   zip_code: '93170',
   city: 'Bagnolet',
   sport_id: '',
+  error_message: '',
   sportsData: [],
 };
 
@@ -26,6 +28,8 @@ const creationPage = (state = initialState, action = {}) => {
       return { ...state, sport_id: action.value };
     case SAVE_SPORTS:
       return { ...state, sportsData: action.sportsData };
+      case ERROR_NOT_FOUND_PLACE:
+        return {...state, error_message: action.message};
         default:
           return state;
       }

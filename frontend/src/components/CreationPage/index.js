@@ -17,12 +17,13 @@ const CreationPage = ({
   onChangeFormSelect,
   onSubmit,
   fetchSports,
+  errorMessage,
   sports,
 }) => {
   useEffect(() => {
     fetchSports();
   }, []);
-
+console.log('errorMessage', errorMessage);
   const today = new Date();
   const year = today.getFullYear();
   const month = ('0' + (today.getMonth() + 1)).slice(-2);

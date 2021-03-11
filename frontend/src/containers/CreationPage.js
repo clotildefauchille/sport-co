@@ -19,6 +19,7 @@ const mapStateToProps = (state) => ({
   zip_code: state.creationPage.zip_code,
   city: state.creationPage.city,
   sports: state.creationPage.sportsData,
+  errorMessage: state.creationPage.error_message,
 });
 
 const mapDispatchToProps = (dispatch) => ({

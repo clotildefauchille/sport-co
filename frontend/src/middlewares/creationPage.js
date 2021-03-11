@@ -29,7 +29,7 @@ const creationPage = (store) => (next) => (action) => {
 
             if(!responseApiPlace || !responseApiPlace.name) {
               console.log('error')
-              store.dispatch(errorNotFoundPlace());
+              store.dispatch(errorNotFoundPlace("il n'existe pas de lieu à ce nom" ));
               return;
             }
 
