@@ -98,7 +98,8 @@ const Filter = ({ fetchFilterSportsByLocalisation, sportsList }) => {
       </div>
     )}
     </>
-)};
+  )
+};
 
 Filter.propTypes = {
   fetchFilterSports: PropTypes.func.isRequired,

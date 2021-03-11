@@ -79,6 +79,7 @@ const searchBar = (state = initialState, action = {}) => {
         },
       }
     }
+
     case CLEAR_LIST_AUTOCOMPLETE_DATA: {
       return {
         ...state,
@@ -88,6 +89,7 @@ const searchBar = (state = initialState, action = {}) => {
         }
       }
     }
+
     case NO_RESULT_IN_VERIF_LOCALISATION: {
       return {
         ...state,

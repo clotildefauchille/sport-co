@@ -44,9 +44,7 @@ const SearchBar = ({
   const handleOnChange = (e) => {
     const value = e.target.value;
     changeValue(value);
-
     // timer pour déclencher le fetch après 1s sans onchange dans l'input
-    
     clearTimeout(timer.current);
     timer.current = setTimeout(() => {
       // pas de réponse api (https://positionstack.com/documentation) si <= 2
@@ -68,9 +66,9 @@ const SearchBar = ({
   };
 
   const handleClickItemAutocompletion = (index) => {
-    clearListAutocompleteData();
     clearTimeout(timer.current);
     changeValidLocalisation(index);
+    clearListAutocompleteData();
     placeInput.current.focus();
   }
 

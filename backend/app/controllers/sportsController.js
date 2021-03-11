@@ -8,7 +8,7 @@ const { distanceCalculSQL } = require('../selectors/distanceCalculSQL');
 
 const sportsController = {
   defaultLimitDistance: 100, // en km
-
+  
   getSports: async (req, res) => {
     console.log('----------> getSport');
     try {
@@ -16,8 +16,6 @@ const sportsController = {
       if (!sports) {
         res.status(204).json("Error : can't find Sports");
       } else {
-        //console.log('sports', sports);
-        //formatedaActivities = formatActivities(activities);
         res.json(sports);
       }
     } catch (error) {

@@ -170,9 +170,6 @@ VALUES
 ('basketball', 'basketball improvisé ', '', '05/11/2021', '11:30', '1:00', 1, 3, 2, 2, 3, 8),
 ('fitness', 'fitness en salle ', '', '04/11/2021', '7:30', '1:00', 1, 3, 2, 2, 3, 9);
 
-
-
-
 INSERT INTO "message" ("comment", "user_id", "activity_id")
 VALUES ('super cette partie, mais j''aurai pas dû manger un kebab juste avt', 1, 1),
 ('attend de voir mon smash', 2, 2),
