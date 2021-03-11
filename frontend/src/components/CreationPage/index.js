@@ -28,7 +28,7 @@ const CreationPage = ({
   const month = ('0' + (today.getMonth() + 1)).slice(-2);
   const day = ("0" + today.getDate()).slice(-2);
   const todayFormat = `${year}-${month}-${day}`; 
-  console.log(todayFormat);
+  // console.log(todayFormat);
 
   const handleSelectInput = (e) => {
     // console.log('handleselect', e.target.value);

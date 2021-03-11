@@ -24,11 +24,11 @@ const creationPage = (state = initialState, action = {}) => {
       return { ...state, [action.name]: action.value };
     case CHANGE_INPUT_CREATE_FORM_SELECT:
       return { ...state, sport_id: action.value };
-case SAVE_SPORTS:
-  return { ...state, sportsData: action.sportsData };
-    default:
-      return state;
-  }
+    case SAVE_SPORTS:
+      return { ...state, sportsData: action.sportsData };
+        default:
+          return state;
+      }
 };
 
 export default creationPage;
