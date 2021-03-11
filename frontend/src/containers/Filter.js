@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Filter from 'src/components/Filter';
-import { fetchFilterSports } from 'src/actions/filter';
+import { fetchFilterSports, fetchFilterSportsByLocalisation } from 'src/actions/filter';
 
 const mapStateToProps = (state) => ({
   sportsList: state.filter.sports,
@@ -10,6 +10,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchFilterSports: () => {
     dispatch(fetchFilterSports());
+  },
+  fetchFilterSportsByLocalisation: (query) => {
+    dispatch(fetchFilterSportsByLocalisation(query));
   },
 });
 

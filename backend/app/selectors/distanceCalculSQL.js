@@ -16,7 +16,8 @@
        * ADAPTATION SQL :
        */
 
-const calculDistance = (lat, lng) => {
+const distanceCalculSQL = (lat, lng) => {
+    console.log('------------------------------LAT', lat);
     return (
         `(
         SELECT (
@@ -36,4 +37,4 @@ const calculDistance = (lat, lng) => {
     );
 };
 
-module.exports = { calculDistance };
+module.exports = { distanceCalculSQL };

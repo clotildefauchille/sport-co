@@ -36,7 +36,7 @@
 
   &__checkbox {
     position: absolute;
-    opacity: 0;
+    opacity: 0; 
     &:checked ~ * {
       border: 2px solid v.$primaryColor;
     }
