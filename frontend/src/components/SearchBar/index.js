@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 
 // == Import
@@ -69,53 +69,52 @@ const SearchBar = ({
   };
 
   const handleClickItemAutocompletion = (index) => {
+    clearListAutocompleteData();
     clearTimeout(timer.current);
     changeValidLocalisation(index);
     placeInput.current.focus();
-    clearListAutocompleteData();
   }
 
   return (
     <section className="searchbar">
-      {/* <div className="searchbar__container"> */}
-      <form onSubmit={handleOnSubmit} className="searchbar__container">
-        <input
-          className="searchbar__input"
-          type="text"
-          placeholder="Cherchez une activité autour de vous"
-          value={inputValue}
-          onChange={handleOnChange}
-          ref={placeInput}
-        />
-        {listAutocompleteData.length > 0 && (
-          <ul className="autocomplete">
-            {listAutocompleteData.map((el, index) => {
-                return (
-                  <li
-                    className="autocomplete__item"
-                    onClick={() => handleClickItemAutocompletion(index)}
-                    key={`${el.lat}${el.lng}${index}`}
-                  >
-                    {el.name}, <span className="autocomplete__detail">{el.reg}</span>
-                  </li>
-                );
-            })}
-          </ul>
-        )}
-        <img className="searchbar__icon" src={pin} alt="map pin" />
-        <button className="searchbar__button" type="submit">
-          Rechercher
-        </button>
-        {errorLocalisation && (
-          <div className="searchbar__error">Localisation non trouvée, veuillez rééssayer</div>
-        )}
-      </form>
-      {/* </div> */}
-
-      <p className="searchbar__spacer">OU</p>
-      <a className="searchbar__link" href="">
-        Créer une activité
-      </a>
+      <div className="searchbar__container">
+        <form onSubmit={handleOnSubmit} className="searchbar__container">
+          <input
+            className="searchbar__input"
+            type="text"
+            placeholder="Cherchez une activité autour de vous"
+            value={inputValue}
+            onChange={handleOnChange}
+            ref={placeInput}
+          />
+          {listAutocompleteData.length > 0 && (
+            <ul className="autocomplete">
+              {listAutocompleteData.map((el, index) => {
+                  return (
+                    <li
+                      className="autocomplete__item"
+                      onClick={() => handleClickItemAutocompletion(index)}
+                      key={`${el.lat}${el.lng}${index}`}
+                    >
+                      {el.name}, <span className="autocomplete__detail">{el.reg}</span>
+                    </li>
+                  );
+              })}
+            </ul>
+          )}
+          <img className="searchbar__icon" src={pin} alt="map pin" />
+          <button className="searchbar__button" type="submit">
+            Rechercher
+          </button>
+          {errorLocalisation && (
+            <div className="searchbar__error">Localisation non trouvée, veuillez rééssayer</div>
+          )}
+        </form>
+        <p className="searchbar__spacer">OU</p>
+        <Link className="searchbar__link" to="/creation">
+          Créer une activité
+        </Link>
+      </div>
     </section>
   );
 };

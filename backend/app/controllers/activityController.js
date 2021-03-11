@@ -1,9 +1,9 @@
 const { Activity, Sport, ActivityStatut, ActivityPlace } = require('../models');
 const { formatActivities, formatActivity, formatActivitiesFilterByDistance } = require('../selectors/formatActivities');
 
-//const Sequelize = require("sequelize");
+const Sequelize = require("sequelize");
 const sequelize = require('../database.js');
-const { QueryTypes } = require('sequelize');
+const Op = Sequelize.Op;
 
 const activityController = {
   defaultNumCardInPage: 12,
