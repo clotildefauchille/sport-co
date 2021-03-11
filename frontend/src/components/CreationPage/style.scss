@@ -70,8 +70,22 @@
     padding: 15px 0;
   }
 
+
 &__input--submit:hover {
   box-shadow: vars.$shadow;
+}
+
+&__input--select {
+color: grey
+}
+&__input--black{
+  color: black
+}
+
+::placeholder {
+  font-size: 1em;
+  font-family: Poppins, sans-serif;
+  
 }
 
   &__input--hight {
@@ -97,6 +111,7 @@
   &__error {
     color: rgb(247, 8, 8);
     margin-bottom: 15px;
+    text-align: center;
   }
 
 }

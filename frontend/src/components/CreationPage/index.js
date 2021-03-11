@@ -67,7 +67,7 @@ const CreationPage = ({
             </label>
             <input
               required
-              className="create-form__input"
+              className="create-form__input create-form__input--select"
               type="date"
               // id="date"
               value={date}
@@ -113,7 +113,6 @@ const CreationPage = ({
               onChange={handleChange}
             />
           </div>
-
         </div>
         {/* <h2 className="create-form__subtitle">Information</h2> */}
         <div className="create-form__container-inner">
@@ -131,7 +130,7 @@ const CreationPage = ({
               <option value="">choississez un sport</option>
               {sports.map((sport) => {
                 return (
-                  <option key={sport.id} value={sport.id}>
+                  <option className="create-form__input create-form__input--black" key={sport.id} value={sport.id}>
                     {sport.name}
                   </option>
                 );
@@ -143,7 +142,7 @@ const CreationPage = ({
               participants minimum
             </label>
             <input
-              className="create-form__input"
+              className="create-form__input create-form__input--select"
               type="number"
               // id="tentacles"
               name="min_participant"
@@ -155,9 +154,7 @@ const CreationPage = ({
           </div>
         </div>
 
-        {/* <textarea id="story" name="story" rows="5" >
-          It was a dark and stormy night...
-        </textarea> */}
+
         <label htmlFor="description" className="create-form__label">
           description
         </label>

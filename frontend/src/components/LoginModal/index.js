@@ -13,7 +13,7 @@ const LoginModal = ({ displayed, closeModal }) => {
         <div className="modal">
           <div className="modal__container">
             <img onClick={closeModal} src={cross} alt="" className="icon modal__bt-close" />
-            <div onClick={closeModal}>inscrivez vous pour rejoindre cette activité !</div>
+            <div onClick={closeModal}>inscrivez vous pour rejoindre ou créer une activité !</div>
             <Link onClick={closeModal} to="/inscription" className="modal__signup">
               Inscription
             </Link>
