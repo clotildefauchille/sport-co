@@ -31,7 +31,7 @@ const App = () => {
     
         <Route path="/inscription" exact>
             <Registration />
-          </Route>
+        </Route>
 
         <Route path="/search">
           <Search />
