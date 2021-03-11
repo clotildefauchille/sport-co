@@ -5,15 +5,15 @@ import {
 } from 'src/actions/creationPage';
 
 const initialState = {
-  title: '',
-  date: '',
-  time: '',
-  duration: '',
+  title: 'tennis',
+  date: '12/03/2021',
+  time: '21H00',
+  duration: '02H00',
   min_participant: 0,
-  description: '',
-  adress: '',
-  zip_code: '',
-  city: '',
+  description: 'eerrrrr',
+  adress: '38 rue rene alazard',
+  zip_code: '93170',
+  city: 'Bagnolet',
   sport_id: '',
   sportsData: [],
 };

@@ -12,8 +12,10 @@ const newActivityController = {
 
       const { title, description, creator_id, date, time, duration } = req.body;
       const dataPlace = req.body.place;
-      console.log('dataPlace', dataPlace);
+      console.log('---------->dataplace',dataPlace);
+      console.log('------------------>zipcode', dataPlace.zip_code);
       console.log('------------>', sport_id);
+      
       let newActivity = await Activity.create(
         {
           title,
@@ -41,7 +43,7 @@ const newActivityController = {
         },
         { include: ['activity_place'] },
       );
-      res.json(newActivity);
+      res.status(201).send('newActivity well created');
     } catch (error) {
       console.trace(error);
       res.status(500).json(error.toString());

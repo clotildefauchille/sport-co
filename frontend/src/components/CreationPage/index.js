@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import './style.scss';
 // import Field from './Field';
 import PropTypes from 'prop-types';
@@ -26,8 +26,8 @@ const CreationPage = ({
   const today = new Date();
   const year = today.getFullYear();
   const month = ('0' + (today.getMonth() + 1)).slice(-2);
-  const day = ("0" + today.getDate()).slice(-2);
-  const todayFormat = `${year}-${month}-${day}`; 
+  const day = ('0' + today.getDate()).slice(-2);
+  const todayFormat = `${year}-${month}-${day}`;
   // console.log(todayFormat);
 
   const handleSelectInput = (e) => {
@@ -64,6 +64,7 @@ const CreationPage = ({
             date :
           </label>
           <input
+            // required
             className="create-form__input"
             type="date"
             // id="date"
@@ -77,6 +78,7 @@ const CreationPage = ({
             horaire :
           </label>
           <input
+            // required
             className="create-form__input"
             type="time"
             // id="time"
@@ -91,6 +93,7 @@ const CreationPage = ({
             durée :
           </label>
           <input
+          // required
             className="create-form__input"
             type="time"
             // id="time"
@@ -106,6 +109,7 @@ const CreationPage = ({
         <div className="create-form__container-inner">
           <label className="create-form__label">sport :</label>
           <select
+            // required
             className="create-form__input create-form__input--large create-form__input--select "
             name="sport"
             id="sport-select"
@@ -178,6 +182,7 @@ const CreationPage = ({
             ville :
           </label>
           <input
+            required
             className="create-form__input"
             type="text"
             placeholder="ville"

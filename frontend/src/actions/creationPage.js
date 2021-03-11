@@ -3,6 +3,7 @@ export const CHANGE_INPUT_CREATE_FORM_SELECT = 'CHANGE_INPUT_CREATE_FORM_SELECT'
 export const SEND_ACTIVITY_INFORMATION = 'SEND_ACTIVITY_INFORMATION';
 export const FETCH_SPORTS = 'FETCH_SPORTS';
 export const SAVE_SPORTS = 'SAVE_SPORTS';
+export const ERROR_NOT_FOUND_PLACE = 'ERROR_NOT_FOUND_PLACE';
 
 export const changeInputCreateForm = (value, name) => ({
   type: CHANGE_INPUT_CREATE_FORM,
@@ -27,3 +28,6 @@ export const saveSports = (sportsData) => ({
   type: SAVE_SPORTS,
   sportsData,
 })
+export const errorNotFoundPlace = () => ({
+  type: ERROR_NOT_FOUND_PLACE,
+});
