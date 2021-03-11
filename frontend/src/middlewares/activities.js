@@ -11,6 +11,11 @@ import {
   saveSearchedActivities
 } from 'src/actions/search';
 
+import {
+  FETCH_DATA_ACTTIVITY,
+  saveActivity
+} from 'src/actions/details';
+
 const activities = (store) => (next) => (action) => {
   switch (action.type) {
 
@@ -19,6 +24,17 @@ const activities = (store) => (next) => (action) => {
         .get(`${process.env.API_URL}/api/activities`)
         .then((response) => {
           store.dispatch(saveActivities(response.data));
+        })
+        .catch((error) => {
+          console.log('error', error);
+        });
+      break;
+
+    case FETCH_DATA_ACTTIVITY: 
+      axios
+        .get(`${process.env.API_URL}/api/activity/1`)
+        .then((response) => {
+          store.dispatch(saveActivity(response.data));
         })
         .catch((error) => {
           console.log('error', error);

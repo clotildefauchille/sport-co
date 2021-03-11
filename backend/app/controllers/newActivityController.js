@@ -6,6 +6,7 @@ const { Activity } = require('../models');
 const newActivityController = {
 
   createNewActivity: async (req, res) => {
+    console.log('controller')
     try {
       const {
         title,

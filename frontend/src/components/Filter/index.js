@@ -12,6 +12,7 @@ const useQuery = () => {
 }
 
 const Filter = ({ fetchFilterSportsByLocalisation, sportsList }) => {
+
   const [sportsFilter, setSportsFilter] = useState([]);
 
   const history = useHistory();
@@ -46,6 +47,7 @@ const Filter = ({ fetchFilterSportsByLocalisation, sportsList }) => {
   }, [sportsList])
 
   const handleCheck = (index) => {
+    console.log('handleCheck');
     const updatedSport = [...sportsFilter];
     if(updatedSport[index].isChecked) {
       updatedSport[index].isChecked = false;
@@ -54,7 +56,7 @@ const Filter = ({ fetchFilterSportsByLocalisation, sportsList }) => {
     }
     setSportsFilter(updatedSport)
   }
-  
+
   const handleOnClick = () => {
     console.log('handleOnClick');
     const selectedSportIds = [];
@@ -77,7 +79,7 @@ const Filter = ({ fetchFilterSportsByLocalisation, sportsList }) => {
               type="checkbox" 
               name={`sport${sport.id}`} 
               id={`sport${sport.id}`} 
-              className={`filter__checkbox ${sport.isChecked}`}
+              className="filter__checkbox"
               checked={sport.isChecked}
               onChange={() => handleCheck(index)}
             />
