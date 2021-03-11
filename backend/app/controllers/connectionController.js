@@ -33,6 +33,7 @@ const connectionController = {
                 });
             } else {
                 res.json({
+                    id: `${result.id}`,
                     firsname: `${result.firstname}`,
                     lastname: `${result.lastname}`,
                     pseudo: `${result.pseudo}`,
