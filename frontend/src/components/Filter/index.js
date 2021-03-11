@@ -34,7 +34,7 @@ const Filter = ({ fetchFilterSports, sportsList }) => {
         }
       ))
     )
-  }, [sportsList])
+  }, [sportsList, lat, lng])
 
   /*
   useEffect(() => {
@@ -82,6 +82,7 @@ const Filter = ({ fetchFilterSports, sportsList }) => {
               id={`sport${sport.id}`} 
               className="filter__checkbox"
               onClick={() => handleCheck(index)}
+              defaultChecked={sport.isChecked}
             />
             <label htmlFor={`sport${sport.id}`} className="filter__label">
               <img src={sports[sport.icon]} alt="" className="filter__picture" />
