@@ -3,6 +3,7 @@ import {
   SEND_ACTIVITY_INFORMATION,
   FETCH_SPORTS,
   saveSports,
+  errorNotFoundPlace,
 } from 'src/actions/creationPage';
 
 const apiKey = '82a0b22e81932aad65c97e8bcc2f192a';
@@ -29,7 +30,7 @@ const creationPage = (store) => (next) => (action) => {
 
             if(!responseApiPlace || !responseApiPlace.name) {
               console.log('error')
-              store.dispatch(errorNotFoundPlace("il n'existe pas de lieu à ce nom" ));
+              store.dispatch(errorNotFoundPlace("il n'existe pas de lieu à ce nom, veuillez réssayer" ));
               return;
             }
 

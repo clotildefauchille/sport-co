@@ -23,7 +23,7 @@ const CreationPage = ({
   useEffect(() => {
     fetchSports();
   }, []);
-console.log('errorMessage', errorMessage);
+
   const today = new Date();
   const year = today.getFullYear();
   const month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -49,7 +49,7 @@ console.log('errorMessage', errorMessage);
         <h1 className="create-form__title">Créez ici votre activité :</h1>
 
         <label htmlFor="title" className="create-form__label">
-          titre :
+          Nom de l'activité<span className="create-form__required">*</span>
         </label>
         <input
           className="create-form__input create-form__input--large"
@@ -60,91 +60,106 @@ console.log('errorMessage', errorMessage);
           onChange={handleChange}
         />
 
-        <div className="create-form__container-inner">
-          <label htmlFor="date" className="create-form__label">
-            date :
-          </label>
-          <input
-            // required
-            className="create-form__input"
-            type="date"
-            // id="date"
-            value={date}
-            min={todayFormat}
-            max="2025-12-31"
-            name="date"
-            onChange={handleChange}
-          />
-          <label htmlFor="time" className="create-form__label">
-            horaire :
-          </label>
-          <input
-            // required
-            className="create-form__input"
-            type="time"
-            // id="time"
-            min="06:00"
-            max="24:00"
-            // required
-            name="time"
-            value={time}
-            onChange={handleChange}
-          />
-          <label htmlFor="duration" className="create-form__label">
-            durée :
-          </label>
-          <input
-          // required
-            className="create-form__input"
-            type="time"
-            // id="time"
-            min="00:00"
-            max="10:00"
-            // required
-            name="duration"
-            value={duration}
-            onChange={handleChange}
-          />
+        <div className="create-form__container-inner-3col">
+          <div>
+            <label htmlFor="date" className="create-form__label">
+              date<span className="create-form__required">*</span>
+            </label>
+            <input
+              required
+              className="create-form__input"
+              type="date"
+              // id="date"
+              value={date}
+              min={todayFormat}
+              max="2025-12-31"
+              name="date"
+              onChange={handleChange}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="time" className="create-form__label">
+              horaire<span className="create-form__required">*</span>
+            </label>
+            <input
+              required
+              className="create-form__input"
+              type="time"
+              // id="time"
+              min="06:00"
+              max="24:00"
+              // required
+              name="time"
+              value={time}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="duration" className="create-form__label">
+              durée<span className="create-form__required">*</span>
+            </label>
+            <input
+              required
+              className="create-form__input"
+              type="time"
+              // id="time"
+              min="00:00"
+              max="10:00"
+              // required
+              name="duration"
+              value={duration}
+              onChange={handleChange}
+            />
+          </div>
+
         </div>
         {/* <h2 className="create-form__subtitle">Information</h2> */}
         <div className="create-form__container-inner">
-          <label className="create-form__label">sport :</label>
-          <select
-            // required
-            className="create-form__input create-form__input--large create-form__input--select "
-            name="sport"
-            id="sport-select"
-            onChange={handleSelectInput}
-          >
-            <option value="">choississez un sport</option>
-            {sports.map((sport) => {
-              return (
-                <option key={sport.id} value={sport.id}>
-                  {sport.name}
-                </option>
-              );
-            })}
-          </select>
-          <label htmlFor="minimum participant" className="create-form__label">
-            participants minimum :
-          </label>
-          <input
-            className="create-form__input"
-            type="number"
-            // id="tentacles"
-            name="min_participant"
-            min="0"
-            max="40"
-            value={min_participant}
-            onChange={handleChange}
-          />
+          <div>
+            <label className="create-form__label">
+              sport<span className="create-form__required">*</span>
+            </label>
+            <select
+              required
+              className="create-form__input create-form__input--large create-form__input--select "
+              name="sport"
+              id="sport-select"
+              onChange={handleSelectInput}
+            >
+              <option value="">choississez un sport</option>
+              {sports.map((sport) => {
+                return (
+                  <option key={sport.id} value={sport.id}>
+                    {sport.name}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="minimum participant" className="create-form__label">
+              participants minimum
+            </label>
+            <input
+              className="create-form__input"
+              type="number"
+              // id="tentacles"
+              name="min_participant"
+              min="0"
+              max="40"
+              value={min_participant}
+              onChange={handleChange}
+            />
+          </div>
         </div>
 
         {/* <textarea id="story" name="story" rows="5" >
           It was a dark and stormy night...
         </textarea> */}
         <label htmlFor="description" className="create-form__label">
-          description :
+          description
         </label>
         <textarea
           className="create-form__input create-form__input--hight"
@@ -157,8 +172,12 @@ console.log('errorMessage', errorMessage);
         />
         {/* <h2 className="create-form__subtitle">Point de départ</h2> */}
         <label htmlFor="adress" className="create-form__label">
-          adresse :
+          adresse
         </label>
+        {errorMessage && (
+          <div className="create-form__error">{errorMessage}</div>
+        )}
+
         <input
           className="create-form__input create-form__input--large"
           type="text"
@@ -168,29 +187,34 @@ console.log('errorMessage', errorMessage);
           onChange={handleChange}
         />
         <div className="create-form__container-inner">
-          <label htmlFor="code postal" className="create-form__label">
-            code-postal :
-          </label>
-          <input
-            className="create-form__input"
-            type="text"
-            placeholder="code postal"
-            name="zip_code"
-            value={zip_code}
-            onChange={handleChange}
-          />
-          <label htmlFor="date" className="create-form__label">
-            ville :
-          </label>
-          <input
-            required
-            className="create-form__input"
-            type="text"
-            placeholder="ville"
-            name="city"
-            value={city}
-            onChange={handleChange}
-          />
+          <div className="col">
+            <label htmlFor="code postal" className="create-form__label">
+              code-postal
+            </label>
+            <input
+              className="create-form__input"
+              type="text"
+              placeholder="code postal"
+              name="zip_code"
+              value={zip_code}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="col">
+            <label htmlFor="date" className="create-form__label">
+              ville<span className="create-form__required">*</span>
+            </label>
+            <input
+              required
+              className="create-form__input"
+              type="text"
+              placeholder="ville"
+              name="city"
+              value={city}
+              onChange={handleChange}
+            />
+          </div>
         </div>
         <button
           type="submit"

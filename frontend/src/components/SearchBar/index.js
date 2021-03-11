@@ -25,6 +25,7 @@ const SearchBar = ({
   searchQueryInProcess,
   changeSearchQueryInProcessStatut,
   showLoginModal,
+  isLogged,
 }) => {
   const timer = useRef(null);
   const placeInput = useRef(null);
@@ -115,13 +116,21 @@ const SearchBar = ({
           )}
         </form>
         <p className="searchbar__spacer">OU</p>
-        <Link
-          onClick={showLoginModal}
-          className="searchbar__link"
-          to="/creation"
-        >
-          Créer une activité
-        </Link>
+        {isLogged ? (
+          <Link
+            className="searchbar__link"
+            to="/creation"
+          >
+            Créer une activité
+          </Link>
+        ) : (
+          <button
+            onClick={showLoginModal}
+            className="searchbar__link"
+          >
+            Créer une activité
+          </button>
+        )}
       </div>
     </section>
   );
