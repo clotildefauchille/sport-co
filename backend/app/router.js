@@ -1,3 +1,4 @@
+
 const express = require('express');
 const { Router } = require('express');
 const router = express.Router();
@@ -7,11 +8,12 @@ const activityController = require("./controllers/activityController");
 const connectionController = require("./controllers/connectionController");
 const sportsController = require("./controllers/sportsController");
 const newActivityController = require("./controllers/newActivityController");
+const registrationController = require("./controllers/registrationController");
 
 router.get('/', (req, res) => {
   res.send('hello');
 });
-
+router.post("/api/registration", registrationController.addUser);
 router.post("/api/connexion", connectionController.getUser);
 router.post('/api/newactivity', newActivityController.createNewActivity);
 
@@ -42,3 +44,4 @@ router.use((req, res) => {
 });
 
 module.exports = router;
+
