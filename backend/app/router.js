@@ -17,7 +17,7 @@ router.post("/api/connexion", connectionController.getUser);
 router.post('/api/newactivity', newActivityController.createNewActivity);
 
 //homepage user not connected
-router.get('/api/activities?', activityController.getLastActivity);
+router.get('/api/activities?', activityController.getLastActivities);
 router.get('/api/activity/:id', activityController.getOneActivity);
 
 //homepage user not connected searched by any place (google map API)
