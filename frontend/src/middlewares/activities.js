@@ -13,10 +13,14 @@ import {
 import {
   FETCH_DATA_ACTTIVITY,
   saveActivity,
+  JOIN_ACTIVITY,
 } from 'src/actions/details';
 
 const activities = (store) => (next) => (action) => {
   const idParams = action.id;
+
+  const { details } = store.getState();
+  const { user } = store.getState().login;
   switch (action.type) {
 
     case FETCH_LAST_ACTIVITIES:
@@ -57,7 +61,23 @@ const activities = (store) => (next) => (action) => {
         });
       }
       break;
-      
+    case JOIN_ACTIVITY:
+      if (!user.pseudo) {
+        console.error('ERROR il faut être connecté pour rejoindre une activité');
+        break;
+      }
+      axios
+        .get(`${process.env.API_URL}/api/activity/join`, {
+          id: details.id,
+          pseudo: user.pseudo,
+        })
+        .then((response) => {
+          store.dispatch(saveSearchedActivities(response.data));
+        })
+        .catch((error) => {
+          console.log('error', error);
+        });
+      break;
     default:
       next(action);
   }

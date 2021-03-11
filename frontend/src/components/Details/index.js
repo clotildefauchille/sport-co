@@ -8,7 +8,7 @@ import './style.scss';
 import userIcon from 'src/assets/icons/account_circle.svg';
 import sports from 'src/components/Card/sports';
 
-const Details = ({ activity, fetchDataActivity }) => {
+const Details = ({ activity, fetchDataActivity, onClickJoin }) => {
   let currentSport = '';
   const { id } = useParams();
   useEffect(() => {
@@ -37,7 +37,7 @@ const Details = ({ activity, fetchDataActivity }) => {
               {activity.activity_place.city}
             </p>
             <p className="activity__duration">Durée : {activity.duration}</p>
-            <button type="button" className="activity__join">
+            <button type="button" className="activity__join" onClick={onClickJoin}>
               Rejoindre
             </button>
           </section>
@@ -82,6 +82,7 @@ const Details = ({ activity, fetchDataActivity }) => {
 Details.propTypes = {
   activity: PropTypes.object.isRequired,
   fetchDataActivity: PropTypes.func.isRequired,
+  onClickJoin: PropTypes.func.isRequired,
 };
 
 export default Details;
