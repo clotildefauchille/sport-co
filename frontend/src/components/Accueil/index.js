@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import './style.scss';
 
-const Accueil = ({ fetchData, fetchUserActivities, isLogged, user }) => {
+const Accueil = ({ fetchData, fetchUserActivities, isLogged, user, userActivities }) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -46,8 +46,12 @@ const Accueil = ({ fetchData, fetchUserActivities, isLogged, user }) => {
 
       {isLogged ? (
         <>
-          <h2 className="heading-2">Mes prochaines activités :</h2>
-          <UserCards />
+          {userActivities.length > 0 && (
+            <>
+              <h2 className="heading-2">Mes prochaines activités :</h2>
+              <UserCards />
+            </>
+          )}
         </>
       ) : (
         <>

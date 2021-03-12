@@ -24,9 +24,9 @@ const Card = ({ card, isLogged, showLoginModal, userCard }) => {
   // console.log('CARD', card);
   return (
     <article className={cardClassName}>
-
       <a href="#" className="card__link">
-        <img src={sports[card.sport.name]} alt="" className="card__image" />
+        <img src={sports[card.sport.icon]} alt="" className="card__image" />
+        <div className="card__sport">{card.sport.name}</div>
         <h2 className="card__title">{card.title}</h2>
         <div className="card__infos">
           <div className="card__container">

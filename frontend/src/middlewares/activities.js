@@ -33,8 +33,10 @@ const activities = (store) => (next) => (action) => {
       break;
 
     case FETCH_USER_ACTIVITIES: 
+      const userId = store.getState().login.user.id;
+      console.log('------------------------------> userId ', userId);
       axios
-        .get(`${process.env.API_URL}/api/activities/user/1`)
+        .get(`${process.env.API_URL}/api/activities/user/${userId}`)
         .then((response) => {
           console.log('response.data USER ', response.data);
           store.dispatch(saveUserActivities(response.data));

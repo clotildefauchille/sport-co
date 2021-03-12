@@ -5,6 +5,7 @@ import { fetchLastActivities, fetchUserActivities } from 'src/actions/cards';
 const mapStateToProps = (state) => ({
   isLogged: state.header.isLogged,
   user: state.login.user,
+  userActivities: state.userActivities.list,
 });
 
 const mapDispatchToProps = (dispatch) => ({

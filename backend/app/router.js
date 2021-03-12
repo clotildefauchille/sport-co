@@ -26,7 +26,7 @@ router.get('/api/place?', activityController.getActivitiesByUserLocalisation);
 router.get('/api/activities/user/:id', activityController.getActivitiesByUser);
 
 router.get('/api/sports', sportsController.getSports);
-router.get('/api/sports/localisation/:id', sportsController.getSportsByLocalisation);
+router.get('/api/sports/localisation?', sportsController.getSportsByLocalisation); 
 
 router.get('/api/activities/sports?', activityController.getActivitesByUserLocalisationAndSports);
 
