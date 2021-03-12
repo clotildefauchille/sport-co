@@ -18,6 +18,7 @@ const details = (state = initialState, action = {}) => {
         ...state,
         classname: 'success',
         message: 'Inscription validée',
+        participant_count: state.participant_count + 1,
       };
     case SAVE_ACTTIVITY:
       return {

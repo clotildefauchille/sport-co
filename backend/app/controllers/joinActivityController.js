@@ -50,10 +50,19 @@ const joinActivityController = {
       res.json({
         result: "success"
       })
+      const participant_count = await Activity.findByPk(req.body.id);
+      newParticipant_count = participant_count.dataValues.participant_count + 1;
+      // on incrémente le participant_count
+      Activity.update({ participant_count: newParticipant_count }, {
+        where: {
+          id: req.body.id,
+        }
+      });
     } catch (error) {
       res.status(403).json({
         error: "errorServer"
       })
+      return;
     }
     
 
