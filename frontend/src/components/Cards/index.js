@@ -8,8 +8,7 @@ import Card from 'src/containers/Card';
 import './style.scss';
 
 // == Composant
-const Cards = ({ cards, userActivitiesIds }) => {
-
+const Cards = ({ cards, userActivitiesIds, userActivitiesCreatorIds }) => {
   /*
   const cardsCreated = cards.map((oneCard) => (
     <Card key={oneCard.id} card={oneCard} />
@@ -17,10 +16,12 @@ const Cards = ({ cards, userActivitiesIds }) => {
   */
   const cardsCreated = [];
   cards.forEach(card => {
-    if(userActivitiesIds.includes(card.id)) {
-      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={true} />)
+    if(userActivitiesCreatorIds.includes(card.id)) {
+      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={2} />)
+    } else if(userActivitiesIds.includes(card.id)) {
+      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={1} />)
     } else {
-      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={false} />)
+      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={0} />)
     }
   });
 
@@ -36,6 +37,7 @@ const Cards = ({ cards, userActivitiesIds }) => {
 Cards.propTypes = {
   cards: PropTypes.array.isRequired,
   userActivitiesIds: PropTypes.array.isRequired,
+  userActivitiesCreatorIds: PropTypes.array.isRequired,
 };
 
 // == Export

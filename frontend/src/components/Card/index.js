@@ -13,9 +13,18 @@ import sports from './sports';
 
 // == Composant
 const Card = ({ card, isLogged, showLoginModal, userCard }) => {
+
+  let cardClassName = 'card';
+  if(userCard === 1) {
+    cardClassName = 'card card--user';
+  } else if(userCard === 2) {
+    cardClassName = 'card card--user card--creator';
+  }
+
   // console.log('CARD', card);
   return (
-    <article className={userCard ? "card card--user" : "card" }>
+    <article className={cardClassName}>
+
       <a href="#" className="card__link">
         <img src={sports[card.sport.name]} alt="" className="card__image" />
         <h2 className="card__title">{card.title}</h2>
@@ -43,13 +52,13 @@ const Card = ({ card, isLogged, showLoginModal, userCard }) => {
 
       {isLogged ? (
         <>
-        {userCard ? (
+        {userCard !== 0 ? (
           <button className="card__join" type="button">
-          Detail
+            Detail
           </button>
         ) : (
           <button className="card__join" type="button">
-          Rejoindre
+            Rejoindre
           </button>
         )}
         </>
@@ -67,7 +76,7 @@ Card.propTypes = {
   card: PropTypes.object.isRequired,
   showLoginModal: PropTypes.func.isRequired,
   isLogged: PropTypes.bool.isRequired,
-  userCard: PropTypes.bool.isRequired,
+  userCard: PropTypes.number.isRequired,
 };
 
 // == Export

@@ -14,29 +14,42 @@ const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 }
 
-const Search = ({ activities, fetchActivitiesByLocalisation, userActivitiesIds }) => {
+const Search = ({
+  activities,
+  fetchActivitiesByLocalisation,
+  userActivitiesIds,
+  userActivitiesCreatorIds,
+  isLogged,
+  fetchUserActivities,
+}) => {
   const query = useQuery();
   
   const queryString = query.get("query");
   const lat = query.get("lat");
   const lng = query.get("lng");
 
-  console.log('userActivitiesIds', userActivitiesIds);
-
-  const cardsCreated = [];
-  activities.forEach(card => {
-    if(userActivitiesIds.includes(card.id)) {
-      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={true} />)
-    } else {
-      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={false} />)
-    }
-  });
-
-  console.log(cardsCreated);
-
   useEffect(() => { 
     fetchActivitiesByLocalisation({queryString, lat, lng});
   }, [lat, lng, queryString]);
+
+  useEffect(() => {
+    if(isLogged) {
+      fetchUserActivities();
+    }
+  }, [isLogged]);
+
+  console.log('userActivitiesIds', userActivitiesIds, userActivitiesCreatorIds);
+  
+  const cardsCreated = [];
+  activities.forEach(card => {
+    if(userActivitiesCreatorIds.includes(card.id)) {
+      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={2} />)
+    } else if(userActivitiesIds.includes(card.id)) {
+      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={1} />)
+    } else {
+      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={0} />)
+    }
+  });
 
   return (
     <main className="home search">
@@ -66,7 +79,9 @@ const Search = ({ activities, fetchActivitiesByLocalisation, userActivitiesIds }
 Search.propTypes = {
   activities: PropTypes.array.isRequired,
   fetchActivitiesByLocalisation: PropTypes.func.isRequired,
+  fetchUserActivities: PropTypes.func.isRequired,
   userActivitiesIds: PropTypes.array.isRequired,
+  isLogged: PropTypes.bool.isRequired,
 };
 
 export default Search;
