@@ -14,6 +14,7 @@ import sports from './sports';
 // == Composant
 const Card = ({ card, isLogged, showLoginModal }) => {
   // console.log('CARD', card);
+  const extract = `${card.description.substr(0, 120)} [...]`;
   return (
     <article className="card">
       <a href="#" className="card__link">
@@ -32,13 +33,14 @@ const Card = ({ card, isLogged, showLoginModal }) => {
               {card.activity_place.city}
               {card.activity_place.distance && (
                 <>
-                  <br />({parseFloat(card.activity_place.distance).toFixed(1)} km)
+                  <br />({parseFloat(card.activity_place.distance).toFixed(1)}{' '}
+                  km)
                 </>
               )}
             </p>
           </div>
         </div>
-        <p className="card__description">{card.description}</p>
+        <p className="card__description">{extract}</p>
       </a>
 
       {isLogged ? (
@@ -50,7 +52,6 @@ const Card = ({ card, isLogged, showLoginModal }) => {
           Rejoindre
         </button>
       )}
-      
     </article>
   );
 };
