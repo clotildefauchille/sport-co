@@ -2,7 +2,9 @@ import axios from 'axios';
 
 import {
   FETCH_LAST_ACTIVITIES,
-  saveActivities
+  FETCH_USER_ACTIVITIES,
+  saveActivities,
+  saveUserActivities
 } from 'src/actions/cards';
 
 import {
@@ -24,6 +26,18 @@ const activities = (store) => (next) => (action) => {
         .get(`${process.env.API_URL}/api/activities`)
         .then((response) => {
           store.dispatch(saveActivities(response.data));
+        })
+        .catch((error) => {
+          console.log('error', error);
+        });
+      break;
+
+    case FETCH_USER_ACTIVITIES: 
+      axios
+        .get(`${process.env.API_URL}/api/activities/user/1`)
+        .then((response) => {
+          console.log('response.data USER ', response.data);
+          store.dispatch(saveUserActivities(response.data));
         })
         .catch((error) => {
           console.log('error', error);

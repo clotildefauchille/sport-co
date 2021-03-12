@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   SEND_ACTIVITY_INFORMATION,
+  //saveCreationActivityInfo,
   FETCH_SPORTS,
   saveSports,
   errorNotFoundPlace,
@@ -8,7 +9,6 @@ import {
 } from 'src/actions/creationPage';
 
 const apiKey = '82a0b22e81932aad65c97e8bcc2f192a';
-
 
 const creationPage = (store) => (next) => (action) => {
   switch (action.type) {
@@ -76,10 +76,8 @@ const creationPage = (store) => (next) => (action) => {
       axios
         .get(`${process.env.API_URL}/api/sports`, {})
         .then((response) => {
-
-          //  console.log('fetchsport response', response.data)
+          // console.log('fetchsport response', response.data)
           store.dispatch(saveSports(response.data));
-
         })
         .catch((error) => {
           console.log(error);

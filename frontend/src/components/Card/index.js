@@ -12,10 +12,19 @@ import clock from 'src/assets/icons/clock.svg';
 import sports from './sports';
 
 // == Composant
-const Card = ({ card, isLogged, showLoginModal }) => {
+const Card = ({ card, isLogged, showLoginModal, userCard }) => {
+
+  let cardClassName = 'card';
+  if(userCard === 1) {
+    cardClassName = 'card card--user';
+  } else if(userCard === 2) {
+    cardClassName = 'card card--user card--creator';
+  }
+
   // console.log('CARD', card);
   return (
-    <article className="card">
+    <article className={cardClassName}>
+
       <a href="#" className="card__link">
         <img src={sports[card.sport.name]} alt="" className="card__image" />
         <h2 className="card__title">{card.title}</h2>
@@ -42,9 +51,17 @@ const Card = ({ card, isLogged, showLoginModal }) => {
       </a>
 
       {isLogged ? (
-        <button className="card__join" type="button">
-          Rejoindre
-        </button>
+        <>
+        {userCard !== 0 ? (
+          <button className="card__join" type="button">
+            Detail
+          </button>
+        ) : (
+          <button className="card__join" type="button">
+            Rejoindre
+          </button>
+        )}
+        </>
       ) : (
         <button onClick={showLoginModal} className="card__join" type="button">
           Rejoindre
@@ -59,6 +76,7 @@ Card.propTypes = {
   card: PropTypes.object.isRequired,
   showLoginModal: PropTypes.func.isRequired,
   isLogged: PropTypes.bool.isRequired,
+  userCard: PropTypes.number.isRequired,
 };
 
 // == Export
