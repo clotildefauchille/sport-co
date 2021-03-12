@@ -7,7 +7,9 @@ import './style.scss';
 const Accueil = ({ fetchData }) => {
   useEffect(() => {
     fetchData();
+    window.scrollTo(0, 0);
   }, []);
+  
   return (
     <main className="home home--img">
         <div className="hero">
