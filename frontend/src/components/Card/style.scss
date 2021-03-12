@@ -1,6 +1,8 @@
 @use 'src/styles/_vars.scss';
+@use "sass:color";
 
 .card {
+  position: relative;
   background-color:rgba(255,255,255,.80);
   border-radius: 16px;
   box-shadow: vars.$shadow;
@@ -11,6 +13,30 @@
   justify-content: space-between;
   flex-direction: column;
   align-items: center;
+
+  &--user {
+    //border: 2px solid color.opacity(vars.$primaryColor);
+
+    border: 2px solid color.scale(vars.$primaryColor, $alpha: -50%);
+
+    &::before {
+      content: '';
+      background-image: url('src/assets/icons/check.svg');
+      background-size: 15px;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background-color: vars.$primaryColor;
+      left: 50%;
+      top: 0;
+      margin-top: -12px;
+      margin-left: -12px;
+      border-radius: 12px;
+    }
+
+  }
 
   &__link {
     display: flex;

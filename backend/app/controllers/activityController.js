@@ -203,7 +203,8 @@ const activityController = {
         ],
         offset: (page - 1) * activityController.defaultNumCardInPage,
         limit: activityController.defaultNumCardInPage,
-        order: [sequelize.literal(`"activity_place.distance"`)],
+        //order: [sequelize.literal(`"activity_place.distance"`)],
+        order: [['date', 'ASC']],
       });
 
       if (!activities) {
@@ -283,7 +284,8 @@ const activityController = {
         ],
         offset: (page - 1) * activityController.defaultNumCardInPage,
         limit: activityController.defaultNumCardInPage,
-        order: [sequelize.literal(`"activity_place.distance"`)],
+        //order: [sequelize.literal(`"activity_place.distance"`)],
+        order: [['date', 'ASC']],
       });
 
       if (!activities) {
@@ -304,6 +306,58 @@ const activityController = {
       res.status(500).json(error.toString());
     }
   },
+
+
+
+
+
+
+
+  getActivitiesByUser: async (req, res) => {
+    console.log('----------> getActivitesByUserLocalisationAndSports');
+
+    let lat = parseFloat(req.query.lat);
+    let lng = parseFloat(req.query.lng);
+    let page = parseInt(req.query.page);
+    let userId = parseInt(req.params.id);
+
+    console.log('userId', userId);
+
+    if (!page) {
+      page = 1;
+    }
+
+    try {
+      const activities = await Activity.findAll({
+        include: [
+          'activity_statut',
+          'creator',
+          'sport',
+          'activity_place',
+          {
+            association: 'users',
+            where: {
+              id: userId
+            }
+          },
+        ],
+        offset: (page - 1) * activityController.defaultNumCardInPage,
+        limit: activityController.defaultNumCardInPage,
+        order: [['date', 'ASC']],
+      });
+
+      if (!activities) {
+        res.status(204).json("Error : can't find Activity");
+        return;
+      }
+      formatedaActivities = formatActivities(activities);
+      res.json(formatedaActivities);
+    } catch (error) {
+      console.trace(error);
+      res.status(500).json(error.toString());
+    }
+  }, 
+  
 
 };
 

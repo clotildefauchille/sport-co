@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {
   SEND_ACTIVITY_INFORMATION,
-  saveCreationActivityInfo,
+  //saveCreationActivityInfo,
 } from 'src/actions/creationPage';
 
 const creationPage = (store) => (next) => (action) => {switch (action.type) {
@@ -24,7 +24,7 @@ const creationPage = (store) => (next) => (action) => {switch (action.type) {
           sport_id: 1,
         })
         .then((response) => {
-          store.dispatch(saveCreationActivityInfo(response.data));
+          //store.dispatch(saveCreationActivityInfo(response.data));
           // quand on a une réponse en succès, on peut charger les favoris de l'utilisateur
           // on dispatch une action pour ça
           store.dispatch(fetchFav());

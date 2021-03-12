@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import Cards from 'src/components/Cards';
 
 const mapStateToProps = (state) => ({
-  cards: state.cards,
+  cards: state.userActivities.list,
   userActivitiesIds: state.userActivities.ids,
 });
 

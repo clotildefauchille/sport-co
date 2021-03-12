@@ -4,6 +4,7 @@ import { fetchActivitiesByLocalisation } from 'src/actions/search';
 
 const mapStateToProps = (state) => ({
   activities: state.search.activities,
+  userActivitiesIds: state.userActivities.ids,
 });
 
 const mapDispatchToProps = (dispatch) => ({
