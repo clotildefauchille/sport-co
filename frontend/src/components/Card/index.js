@@ -17,7 +17,7 @@ const Card = ({ card, isLogged, showLoginModal }) => {
   return (
     <article className="card">
       <a href="#" className="card__link">
-        <img src={sports[card.title]} alt="" className="card__image" />
+        <img src={sports[card.sport.name]} alt="" className="card__image" />
         <h2 className="card__title">{card.title}</h2>
         <div className="card__infos">
           <div className="card__container">
@@ -29,10 +29,10 @@ const Card = ({ card, isLogged, showLoginModal }) => {
           <div className="card__container">
             <img src={pin} alt="" className="card__icon" />
             <p className="card__text">
-              {card.city}
-              {card.distance && (
+              {card.activity_place.city}
+              {card.activity_place.distance && (
                 <>
-                  <br />({parseFloat(card.distance).toFixed(1)} km)
+                  <br />({parseFloat(card.activity_place.distance).toFixed(1)} km)
                 </>
               )}
             </p>

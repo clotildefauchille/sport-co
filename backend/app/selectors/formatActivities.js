@@ -1,43 +1,39 @@
 
 const { formatDate, formatTime } = require('./formatDate');
 
+const formatActivity = (activity) => {
+  return {
+    ...activity.dataValues,
+    date: formatDate(activity.date),
+    time: formatTime(activity.time),
+    duration: formatTime(activity.duration),
+  }
+};
+
 const formatActivities = (activities) => {
-    const formatedaActivities = [];
-    activities.forEach((activity) => {
-        formatedaActivities.push({
-            id: activity.id,
-            city: activity.activity_place.city,
-            title: activity.title,
-            date: formatDate(activity.date),
-            description: activity.description,
-            illustration: activity.illustration,
-            time: formatTime(activity.time),
-            duration: formatTime(activity.duration),
-            pseudo: activity.creator.pseudo,
-        });
-    })
-    return formatedaActivities;
+  return formatedaActivities = activities.map((activity) => {
+    return {
+      ...activity.dataValues,
+      date: formatDate(activity.date),
+      time: formatTime(activity.time),
+      duration: formatTime(activity.duration),
+    }
+  });
 };
 
 const formatActivitiesFilterByDistance = (activities, distance) => {
-    const formatedaActivities = [];
-    activities.forEach((activity) => {
-      if (activity.activity_place.dataValues.distance < distance) {
-        formatedaActivities.push({
-          id: activity.id,
-          city: activity.activity_place.city,
-          title: activity.title,
-          date: formatDate(activity.date),
-          description: activity.description,
-          illustration: activity.illustration,
-          time: formatTime(activity.time),
-          duration: formatTime(activity.duration),
-          pseudo: activity.creator.pseudo,
-          distance: activity.activity_place.dataValues.distance,
-        });
-      }
-    })
-    return formatedaActivities;
+  const formatedaActivities = [];
+  activities.forEach((activity) => {
+    if (activity.activity_place.dataValues.distance < distance) {
+      formatedaActivities.push({
+        ...activity.dataValues,
+        date: formatDate(activity.date),
+        time: formatTime(activity.time),
+        duration: formatTime(activity.duration),
+      });
+    }
+  })
+  return formatedaActivities;
 };
 
-module.exports = { formatActivities, formatActivitiesFilterByDistance };
+module.exports = { formatActivities, formatActivity, formatActivitiesFilterByDistance };

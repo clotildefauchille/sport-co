@@ -33,7 +33,9 @@ const searchBar = (store) => (next) => (action) => {
               const formatedData = [];
               localisations.forEach((element) => {
                 // garde que les résultats avec un name et non de type "venue" (nom approximatif de lieu)
-                if (element.type !== 'venue' && element.name) {
+                //if (element.type !== 'venue' && element.name) {
+                if (element.type !== 'neighbourhood' && element.name) {
+                //if (element.name) {
                   formatedData.push({
                     query: inputValue,
                     name: element.name,

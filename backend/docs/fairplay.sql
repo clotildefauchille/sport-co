@@ -14,11 +14,11 @@ CREATE TABLE "sport" (
 CREATE TABLE "activity_place" (
     "id" SERIAL PRIMARY KEY,
     "address" TEXT NOT NULL DEFAULT '',
-    "city" TEXT NOT NULL DEFAULT '',
-    "zip_code" TEXT NOT NULL DEFAULT '',
-    "department" TEXT NOT NULL DEFAULT '',
-    "region" TEXT NOT NULL DEFAULT '',
-    "google_place_key" TEXT NOT NULL DEFAULT '',
+    "city" TEXT DEFAULT '',
+    "zip_code" TEXT DEFAULT '',
+    "department" TEXT DEFAULT '',
+    "region" TEXT DEFAULT '',
+    "google_place_key" TEXT DEFAULT '',
     "lat" DOUBLE PRECISION,
     "lng" DOUBLE PRECISION,
     "private" BOOLEAN DEFAULT 'false',
@@ -76,12 +76,12 @@ CREATE TABLE "activity" (
     "id" SERIAL PRIMARY KEY,
     "title" TEXT NOT NULL DEFAULT '',
     "description" TEXT NOT NULL DEFAULT '',
-    "illustration" TEXT NOT NULL DEFAULT '',
+    "illustration" TEXT DEFAULT '',
     "date" DATE,
     "time" TIME,
-    "duration" TIME NOT NULL DEFAULT '01:00',
-    "participant_count" INTEGER NOT NULL DEFAULT 0,
-    "min_participant" INTEGER NOT NULL DEFAULT 0,
+    "duration" TIME DEFAULT '01:00',
+    "participant_count" INTEGER DEFAULT 0,
+    "min_participant" INTEGER DEFAULT 0,
     "creator_id" INTEGER NOT NULL REFERENCES "user"("id"),
     "activity_place_id" INTEGER NOT NULL REFERENCES activity_place("id"),
     "activity_status_id" INTEGER NOT NULL REFERENCES activity_statut("id"),
@@ -116,7 +116,7 @@ CREATE TABLE "user_has_activity" (
 INSERT INTO "sport" ("name", "icon") VALUES
 ('foot', 'foot'),
 ('tennis', 'tennis'),
-('rando', 'rando'),
+('randonnee', 'randonnee'),
 ('yoga', 'yoga'),
 ('velo', 'velo'),
 ('footing', 'footing'),
@@ -163,15 +163,12 @@ VALUES
 ('tennis', 'ca va smasher', '', '07/05/2021', '9:30', '1:00', 1, 2, 2, 3, 3, 2),
 ('foot', 'foot afterwork', '', '09/12/2021', '19:00', '2:30', 2, 8, 3, 1, 3, 1), 
 ('vélo', 'sortie en velo tout terrain', '', '07/05/2021', '14:30', '1:00', 1, 2, 2, 2, 3, 5),
-('randonnee', 'rando près du lac de Patty', '', '14/08/2021', '10:00', '4:30', 2, 2, 3, 1, 3, 3), 
+('randonnee', 'rando près du lac de Patty', '', '12/08/2021', '10:00', '4:30', 2, 2, 3, 1, 3, 3), 
 ('yoga', 'initiation au yoga', '', '03/11/2021', '14:30', '1:00', 1, 4, 2, 2, 3, 4),
 ('footing', 'footing au cannal saint-Martin', '', '04/11/2021', '17:30', '1:00', 1, 2, 2, 2, 3, 6),
 ('escalade', 'escalade de Bloc en forêt ', '', '04/11/2021', '11:30', '1:00', 1, 3, 2, 2, 3, 7),
 ('basketball', 'basketball improvisé ', '', '05/11/2021', '11:30', '1:00', 1, 3, 2, 2, 3, 8),
 ('fitness', 'fitness en salle ', '', '04/11/2021', '7:30', '1:00', 1, 3, 2, 2, 3, 9);
-
-
-
 
 INSERT INTO "message" ("comment", "user_id", "activity_id")
 VALUES ('super cette partie, mais j''aurai pas dû manger un kebab juste avt', 1, 1),

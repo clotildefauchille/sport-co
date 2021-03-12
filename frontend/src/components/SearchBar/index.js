@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 
 // == Import
@@ -24,29 +24,31 @@ const SearchBar = ({
   errorLocalisation,
   searchQueryInProcess,
   changeSearchQueryInProcessStatut,
+  showLoginModal,
+  isLogged,
 }) => {
-  
-  const timer = useRef(null)
-  const placeInput = useRef(null)
+  const timer = useRef(null);
+  const placeInput = useRef(null);
   const history = useHistory();
 
   useEffect(() => {
-  // verification que la recherche vient bien d'être lancée après la verification des coordonnées grace à l'api stacklocation
-  // searchQueryInProcess est à true si la lat et lng a bien été recupérée grace au midddleware et stockée dans le state
-  if(searchQueryInProcess) {
+    // verification que la recherche vient bien d'être lancée après la verification des coordonnées grace à l'api stacklocation
+    // searchQueryInProcess est à true si la lat et lng a bien été recupérée grace au midddleware et stockée dans le state
+    if (searchQueryInProcess) {
       changeSearchQueryInProcessStatut();
       clearTimeout(timer.current);
       clearListAutocompleteData();
-      history.push(`/search?lat=${validLocalisation.lat}&lng=${validLocalisation.lng}&query=${inputValue}`);
+      history.push(
+        `/search?lat=${validLocalisation.lat}&lng=${validLocalisation.lng}&query=${inputValue}`,
+      );
     }
   });
-  
+
   const handleOnChange = (e) => {
     const value = e.target.value;
     changeValue(value);
-
     // timer pour déclencher le fetch après 1s sans onchange dans l'input
-    
+
     clearTimeout(timer.current);
     timer.current = setTimeout(() => {
       // pas de réponse api (https://positionstack.com/documentation) si <= 2
@@ -56,7 +58,6 @@ const SearchBar = ({
         clearListAutocompleteData();
       }
     }, 1000);
-    
   };
 
   const handleOnSubmit = (e) => {
@@ -71,51 +72,65 @@ const SearchBar = ({
   const handleClickItemAutocompletion = (index) => {
     clearTimeout(timer.current);
     changeValidLocalisation(index);
-    placeInput.current.focus();
     clearListAutocompleteData();
-  }
+    placeInput.current.focus();
+  };
 
   return (
     <section className="searchbar">
-      {/* <div className="searchbar__container"> */}
-      <form onSubmit={handleOnSubmit} className="searchbar__container">
-        <input
-          className="searchbar__input"
-          type="text"
-          placeholder="Cherchez une activité autour de vous"
-          value={inputValue}
-          onChange={handleOnChange}
-          ref={placeInput}
-        />
-        {listAutocompleteData.length > 0 && (
-          <ul className="autocomplete">
-            {listAutocompleteData.map((el, index) => {
+        <form onSubmit={handleOnSubmit} className="searchbar__container">
+          <input
+            className="searchbar__input"
+            type="text"
+            placeholder="Cherchez une activité autour de vous"
+            value={inputValue}
+            onChange={handleOnChange}
+            ref={placeInput}
+          />
+          {listAutocompleteData.length > 0 && (
+            <ul className="autocomplete">
+              {listAutocompleteData.map((el, index) => {
                 return (
                   <li
                     className="autocomplete__item"
                     onClick={() => handleClickItemAutocompletion(index)}
                     key={`${el.lat}${el.lng}${index}`}
                   >
-                    {el.name}, <span className="autocomplete__detail">{el.reg}</span>
+                    {el.name},{' '}
+                    <span className="autocomplete__detail">{el.reg}</span>
                   </li>
                 );
-            })}
-          </ul>
-        )}
-        <img className="searchbar__icon" src={pin} alt="map pin" />
-        <button className="searchbar__button" type="submit">
-          Rechercher
-        </button>
-        {errorLocalisation && (
-          <div className="searchbar__error">Localisation non trouvée, veuillez rééssayer</div>
-        )}
-      </form>
-      {/* </div> */}
+              })}
+            </ul>
+          )}
+          <img className="searchbar__icon" src={pin} alt="map pin" />
+          <button className="searchbar__button" type="submit">
+            Rechercher
+          </button>
+          {errorLocalisation && (
+            <div className="searchbar__error">
+              Localisation non trouvée, veuillez rééssayer
+            </div>
+          )}
+        </form>
+        <p className="searchbar__spacer">OU</p>
 
-      <p className="searchbar__spacer">OU</p>
-      <a className="searchbar__link" href="">
-        Créer une activité
-      </a>
+        {isLogged ? (
+          <Link
+            className="searchbar__link"
+            to="/creation"
+          >
+            Créer une activité
+          </Link>
+        ) : (
+          <button
+            onClick={showLoginModal}
+            className="searchbar__link"
+          >
+            Créer une activité
+          </button>
+        )}
+
     </section>
   );
 };
