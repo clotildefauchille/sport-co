@@ -37,8 +37,12 @@ const Details = ({ activity, fetchDataActivity, onClickJoin }) => {
               {activity.activity_place.city}
             </p>
             <p className="activity__duration">Durée : {activity.duration}</p>
-            <button type="button" className="activity__join" onClick={onClickJoin}>
-              Rejoindre
+            <button
+              type="button"
+              className={'activity__join activity__join-' + activity.classname}
+              onClick={onClickJoin}
+            >
+              {activity.message}
             </button>
           </section>
           <section className="activity__details">

@@ -11,6 +11,8 @@ import {
   FETCH_DATA_ACTTIVITY,
   saveActivity,
   JOIN_ACTIVITY,
+  updateStatus,
+  errorStatus,
 } from 'src/actions/details';
 
 const activities = (store) => (next) => (action) => {
@@ -71,9 +73,11 @@ const activities = (store) => (next) => (action) => {
         })
         .then((response) => {
           console.log('gg', response);
+          store.dispatch(updateStatus());
         })
         .catch((error) => {
-          console.log('error', error);
+          console.log('error', error.response.data);
+          store.dispatch(errorStatus());
         });
       break;
     default:

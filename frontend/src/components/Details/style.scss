@@ -55,8 +55,16 @@
     width: 200px;
   }
 
+  &__join-success {
+    background-color: v.$secondaryColor;
+  }
+
   &__join:hover {
     box-shadow: v.$shadow;
+  }
+
+  &__join-already {
+    background-color: rgb(255, 45, 45);
   }
 
   &__details {
