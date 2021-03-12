@@ -7,8 +7,14 @@ import {
 
 import {
   FETCH_ACTIVITIES_BY_LOCALISATION,
+  FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS,
   saveSearchedActivities
 } from 'src/actions/search';
+
+import {
+  FETCH_DATA_ACTTIVITY,
+  saveActivity
+} from 'src/actions/details';
 
 const activities = (store) => (next) => (action) => {
   switch (action.type) {
@@ -18,6 +24,17 @@ const activities = (store) => (next) => (action) => {
         .get(`${process.env.API_URL}/api/activities`)
         .then((response) => {
           store.dispatch(saveActivities(response.data));
+        })
+        .catch((error) => {
+          console.log('error', error);
+        });
+      break;
+
+    case FETCH_DATA_ACTTIVITY: 
+      axios
+        .get(`${process.env.API_URL}/api/activity/1`)
+        .then((response) => {
+          store.dispatch(saveActivity(response.data));
         })
         .catch((error) => {
           console.log('error', error);
@@ -40,6 +57,28 @@ const activities = (store) => (next) => (action) => {
         });
       }
       break;
+
+    case FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS:
+      console.log('action.query FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS ----> ', action.query);
+      const lat2 = parseFloat(action.query.lat);
+      const lng2 = parseFloat(action.query.lng);
+      const sports = action.query.sports;
+
+      console.log(action.query.sports);
+
+      if(lat2 && lng2 && sports) {
+        console.log('FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS');
+        axios
+        .get(`${process.env.API_URL}/api/activities/sports/?lat=${lat2}&lng=${lng2}&sports=${sports}&page=1`)
+        .then((response) => {
+          console.log('ressss', response.data);
+          store.dispatch(saveSearchedActivities(response.data));
+        })
+        .catch((error) => {
+          console.log('error', error);
+        });
+      }
+      break;
       
     default:
       next(action);
@@ -47,3 +86,5 @@ const activities = (store) => (next) => (action) => {
 };
 
 export default activities;
+
+

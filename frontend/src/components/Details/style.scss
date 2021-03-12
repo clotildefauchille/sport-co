@@ -1,0 +1,113 @@
+@use 'src/styles/_vars.scss' as v;
+
+.activity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 25px 15px 300px 15px;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 80px;
+  }
+
+  &__title {
+    font-weight: 600;
+    color: v.$primaryColor;
+    font-size: 3rem;
+    margin-bottom: 10px;
+  }
+
+  &__timeplace {
+    font-size: 1.5rem;
+    color: v.$darkColor;
+    padding-top: 15px;
+    margin-bottom: 10px;
+  }
+
+  &__duration {
+    font-size: 1.5rem;
+    color: v.$darkColor;
+    padding-top: 5px;
+  }
+
+  &__join {
+    background-color: v.$primaryColor;
+    padding: 12px 30px;
+    border-radius: 25px;
+    color: white;
+    font-weight: 500;
+    border: none;
+    margin-top: 30px;
+    font-weight: 600;
+    width: 200px;
+  }
+
+  &__join:hover {
+    box-shadow: v.$shadow;
+  }
+
+  &__details {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    align-items: center;
+    max-width: 100%;
+    width: 1240px;
+  }
+
+  &__description {
+    font-size: 1.3rem;
+    color: v.$darkColor;
+    line-height: 1.2;
+    text-align: justify;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__creator {
+    justify-self: center;
+  }
+
+  &__participants {
+    justify-self: center;
+  }
+
+  &__pseudo {
+    color: v.$darkColor;
+    font-size: 1.5rem;
+  }
+
+  &__role {
+    color: v.$LightDarkColor;
+    margin-top: 5px;
+  }
+
+  &__participantsNumber {
+    color: v.$darkColor;
+    font-size: 1.5rem;
+  }
+
+  &__minParticipants {
+    margin-top: 5px;
+    color: v.$LightDarkColor;
+  }
+}
+
+@media (max-width: 800px) {
+  .activity__details {
+    grid-template-columns: 1fr;
+  }
+
+  .activity__pseudo {
+    margin-top: 15px;
+  }
+
+  .activity__participantsNumber {
+    margin-top: 15px;
+  }
+}

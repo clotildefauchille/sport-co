@@ -47,6 +47,7 @@ const newActivityController = {
       res.status(500).json(error.toString());
     }
   },
+
 };
 
 module.exports = newActivityController;

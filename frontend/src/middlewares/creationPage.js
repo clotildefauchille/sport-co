@@ -71,8 +71,10 @@ const creationPage = (store) => (next) => (action) => {
       axios
         .get(`${process.env.API_URL}/api/sports`, {})
         .then((response) => {
+
           //  console.log('fetchsport response', response.data)
           store.dispatch(saveSports(response.data));
+
         })
         .catch((error) => {
           console.log(error);

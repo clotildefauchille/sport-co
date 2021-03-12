@@ -47,7 +47,6 @@ const SearchBar = ({
   const handleOnChange = (e) => {
     const value = e.target.value;
     changeValue(value);
-
     // timer pour déclencher le fetch après 1s sans onchange dans l'input
 
     clearTimeout(timer.current);
@@ -71,15 +70,14 @@ const SearchBar = ({
   };
 
   const handleClickItemAutocompletion = (index) => {
-    clearListAutocompleteData();
     clearTimeout(timer.current);
     changeValidLocalisation(index);
+    clearListAutocompleteData();
     placeInput.current.focus();
   };
 
   return (
     <section className="searchbar">
-      <div className="searchbar__container">
         <form onSubmit={handleOnSubmit} className="searchbar__container">
           <input
             className="searchbar__input"
@@ -116,6 +114,7 @@ const SearchBar = ({
           )}
         </form>
         <p className="searchbar__spacer">OU</p>
+
         {isLogged ? (
           <Link
             className="searchbar__link"
