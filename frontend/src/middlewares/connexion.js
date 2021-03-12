@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
   FETCH_LOGIN, 
   GET_USER,
+  LOG_OUT,
   saveConnexionStatut, 
   loginError,
 } from 'src/actions/login';
@@ -43,6 +44,12 @@ const connexion = (store) => (next) => (action) => {
         const user = JSON.parse(localStorage.fairplayUser);
         store.dispatch(saveConnexionStatut(user));
         store.dispatch(fetchUserActivities());
+      }
+      break;
+
+    case LOG_OUT:
+      if (localStorage.fairplayUser) {
+        localStorage.removeItem('fairplayUser');
       }
       break;
 
