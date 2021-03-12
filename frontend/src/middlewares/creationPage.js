@@ -4,6 +4,7 @@ import {
   FETCH_SPORTS,
   saveSports,
   errorNotFoundPlace,
+  activityCreated,
 } from 'src/actions/creationPage';
 
 const apiKey = '82a0b22e81932aad65c97e8bcc2f192a';
@@ -39,26 +40,30 @@ const creationPage = (store) => (next) => (action) => {
               responseApiPlace.postal_code,
             );
             
-            axios.post(`${process.env.API_URL}/api/newactivity`, {
-              title: creationPage.title,
-              description: creationPage.description,
-              date: creationPage.date,
-              time: creationPage.time,
-              duration: creationPage.duration,
-              min_participant: creationPage.min_participant,
-              creator_id: login.user.id,
-              place: {
-                city: responseApiPlace.locality,
-                number: responseApiPlace.number,
-                street: responseApiPlace.street,
-                zip_code: responseApiPlace.postal_code,
-                region: responseApiPlace.region,
-                latitude: responseApiPlace.latitude,
-                longitude: responseApiPlace.longitude,
-              },
-              activity_status_id: 3,
-              sport_id: creationPage.sport_id,
-            });
+            axios
+              .post(`${process.env.API_URL}/api/newactivity`, {
+                title: creationPage.title,
+                description: creationPage.description,
+                date: creationPage.date,
+                time: creationPage.time,
+                duration: creationPage.duration,
+                min_participant: creationPage.min_participant,
+                creator_id: login.user.id,
+                place: {
+                  city: responseApiPlace.locality,
+                  number: responseApiPlace.number,
+                  street: responseApiPlace.street,
+                  zip_code: responseApiPlace.postal_code,
+                  region: responseApiPlace.region,
+                  latitude: responseApiPlace.latitude,
+                  longitude: responseApiPlace.longitude,
+                },
+                activity_status_id: 3,
+                sport_id: creationPage.sport_id,
+              })
+              .then((response)=> {
+                store.dispatch(activityCreated())
+              });
           })
           .catch((error) => {
             console.log(error);

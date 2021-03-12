@@ -20,6 +20,7 @@ const mapStateToProps = (state) => ({
   city: state.creationPage.city,
   sports: state.creationPage.sportsData,
   errorMessage: state.creationPage.error_message,
+  isCreated: state.creationPage.isCreated,
 });
 
 const mapDispatchToProps = (dispatch) => ({

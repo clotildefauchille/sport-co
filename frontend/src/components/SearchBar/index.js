@@ -130,7 +130,7 @@ const SearchBar = ({
             Créer une activité
           </button>
         )}
-      </div>
+
     </section>
   );
 };

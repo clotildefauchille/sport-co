@@ -2,6 +2,7 @@ import {
   CHANGE_INPUT_CREATE_FORM,
   CHANGE_INPUT_CREATE_FORM_SELECT,
   SAVE_SPORTS,
+  ACTIVITY_CREATED,
   ERROR_NOT_FOUND_PLACE,
 } from 'src/actions/creationPage';
 
@@ -17,6 +18,7 @@ const initialState = {
   city: '',
   sport_id: '',
   error_message: '',
+  isCreated: false,
   sportsData: [],
 };
 
@@ -30,6 +32,8 @@ const creationPage = (state = initialState, action = {}) => {
       return { ...state, sportsData: action.sportsData };
       case ERROR_NOT_FOUND_PLACE:
         return {...state, error_message: action.message};
+        case ACTIVITY_CREATED:
+          return {...state, isCreated: true}
         default:
           return state;
       }

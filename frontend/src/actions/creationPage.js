@@ -4,7 +4,7 @@ export const SEND_ACTIVITY_INFORMATION = 'SEND_ACTIVITY_INFORMATION';
 export const FETCH_SPORTS = 'FETCH_SPORTS';
 export const SAVE_SPORTS = 'SAVE_SPORTS';
 export const ERROR_NOT_FOUND_PLACE = 'ERROR_NOT_FOUND_PLACE';
-
+export const ACTIVITY_CREATED = 'ACTIVITY_CREATED';
 export const changeInputCreateForm = (value, name) => ({
   type: CHANGE_INPUT_CREATE_FORM,
   value,
@@ -33,4 +33,7 @@ export const errorNotFoundPlace = (message) => ({
   message,
 });
 
+export const activityCreated = () =>({
+  type: ACTIVITY_CREATED,
+})
 

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import './style.scss';
 // import Field from './Field';
 import PropTypes from 'prop-types';
@@ -19,7 +20,12 @@ const CreationPage = ({
   fetchSports,
   errorMessage,
   sports,
+  isCreated,
 }) => {
+  if (isCreated) {
+    return <Redirect push to='/'></Redirect>;
+  }
+
   useEffect(() => {
     fetchSports();
   }, []);
@@ -63,7 +69,7 @@ const CreationPage = ({
         <div className="create-form__container-inner-3col">
           <div>
             <label htmlFor="date" className="create-form__label">
-              date<span className="create-form__required">*</span>
+              Date<span className="create-form__required">*</span>
             </label>
             <input
               required
@@ -80,7 +86,7 @@ const CreationPage = ({
 
           <div>
             <label htmlFor="time" className="create-form__label">
-              horaire<span className="create-form__required">*</span>
+              Horaire<span className="create-form__required">*</span>
             </label>
             <input
               required
@@ -98,7 +104,7 @@ const CreationPage = ({
 
           <div>
             <label htmlFor="duration" className="create-form__label">
-              durée<span className="create-form__required">*</span>
+              Durée<span className="create-form__required">*</span>
             </label>
             <input
               required
@@ -118,7 +124,7 @@ const CreationPage = ({
         <div className="create-form__container-inner">
           <div>
             <label className="create-form__label">
-              sport<span className="create-form__required">*</span>
+              Sport<span className="create-form__required">*</span>
             </label>
             <select
               required
@@ -130,7 +136,11 @@ const CreationPage = ({
               <option value="">choississez un sport</option>
               {sports.map((sport) => {
                 return (
-                  <option className="create-form__input create-form__input--black" key={sport.id} value={sport.id}>
+                  <option
+                    className="create-form__input create-form__input--black"
+                    key={sport.id}
+                    value={sport.id}
+                  >
                     {sport.name}
                   </option>
                 );
@@ -139,12 +149,11 @@ const CreationPage = ({
           </div>
           <div>
             <label htmlFor="minimum participant" className="create-form__label">
-              participants minimum
+              Participants minimum
             </label>
             <input
               className="create-form__input create-form__input--select"
               type="number"
-              // id="tentacles"
               name="min_participant"
               min="0"
               max="40"
@@ -154,9 +163,8 @@ const CreationPage = ({
           </div>
         </div>
 
-
         <label htmlFor="description" className="create-form__label">
-          description
+          Description
         </label>
         <textarea
           className="create-form__input create-form__input--hight"
@@ -169,7 +177,7 @@ const CreationPage = ({
         />
         {/* <h2 className="create-form__subtitle">Point de départ</h2> */}
         <label htmlFor="adress" className="create-form__label">
-          adresse
+          Adresse
         </label>
         {errorMessage && (
           <div className="create-form__error">{errorMessage}</div>
@@ -186,7 +194,7 @@ const CreationPage = ({
         <div className="create-form__container-inner">
           <div className="col">
             <label htmlFor="code postal" className="create-form__label">
-              code-postal
+              Code-postal
             </label>
             <input
               className="create-form__input"
@@ -200,7 +208,7 @@ const CreationPage = ({
 
           <div className="col">
             <label htmlFor="date" className="create-form__label">
-              ville<span className="create-form__required">*</span>
+              Ville<span className="create-form__required">*</span>
             </label>
             <input
               required
