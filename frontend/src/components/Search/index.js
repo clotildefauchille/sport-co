@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Card from 'src/containers/Card';
 import SearchBar from 'src/containers/SearchBar';
 import Filter from 'src/containers/Filter';
+import MoreResults from 'src/containers/MoreResults';
 
 import './style.scss';
 
@@ -15,35 +16,52 @@ const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 }
 
-const Search = ({ activities, fetchActivitiesByLocalisation, fetchActivitiesByLocalisationAndSports }) => {
+const Search = ({
+  activities,
+  fetchActivitiesByLocalisation,
+  fetchActivitiesByLocalisationAndSports,
+  pageValue,
+}) => {
   const query = useQuery();
 
-  const queryString = query.get("query");
-  const lat = query.get("lat");
-  const lng = query.get("lng");
-  const sports = query.get("sports");
+  const queryString = query.get('query');
+  const lat = query.get('lat');
+  const lng = query.get('lng');
+  const sports = query.get('sports');
+  
 
   useEffect(() => {
-    if(sports) {
-      fetchActivitiesByLocalisationAndSports({queryString, lat, lng, sports});
+    if (sports) {
+      fetchActivitiesByLocalisationAndSports({ queryString, lat, lng, sports });
     } else {
-      fetchActivitiesByLocalisation({queryString, lat, lng});
+      fetchActivitiesByLocalisation({ queryString, lat, lng });
     }
-  }, [lat, lng, queryString, sports]);
+  }, [lat, lng, queryString, sports, pageValue]);
+  
+  // useEffect(() => {
+  //   fetchActivitiesByLocalisation({ queryString, lat, lng }
+  // ), [pageValue]});
 
   return (
     <main className="home search">
-        <SearchBar />
-        <h2 className="heading-2">Dernières activités proche de : <span className="heading-2__txt-color">{query.get("query")}</span></h2>
-        <Filter />
-        <section className="container cards">
-          {activities.length > 0 ? (activities.map((activity) => (
+      <SearchBar />
+      <h2 className="heading-2">
+        Dernières activités proche de :{' '}
+        <span className="heading-2__txt-color">{query.get('query')}</span>
+      </h2>
+      <Filter />
+      <section className="container cards">
+        {activities.length > 0 ? (
+          activities.map((activity) => (
             <Card key={activity.id} card={activity} />
-          ))) : (
-            <div className="search__no-result">Désolé aucune activité trouvée :(</div>
-          )}
-          <MoreResults />
-        </section>
+          ))
+        ) : (
+          <div className="search__no-result">
+            Désolé aucune activité trouvée :(
+          </div>
+        )}
+      </section>
+      <MoreResults />
     </main>
   );
 };

@@ -7,6 +7,7 @@ import {
 
 const mapStateToProps = (state) => ({
   activities: state.search.activities,
+  pageValue: state.moreResults.page,
 });
 
 const mapDispatchToProps = (dispatch) => ({

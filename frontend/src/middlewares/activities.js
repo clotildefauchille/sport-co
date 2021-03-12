@@ -10,16 +10,18 @@ import {
   FETCH_ACTIVITIES_BY_LOCALISATION,
   FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS,
   saveSearchedActivities,
+  saveAllSearchedActivities,
 } from 'src/actions/search';
 
 import { FETCH_DATA_ACTTIVITY, saveActivity } from 'src/actions/details';
 
 const activities = (store) => (next) => (action) => {
+  const { moreResults } = store.getState();
+  const page = moreResults.page;
+  console.log(page);
   switch (action.type) {
     case FETCH_LAST_ACTIVITIES:
-      const { moreResults } = store.getState();
-      const page = moreResults.page;
-      console.log(page);
+      
       axios
         .get(`${process.env.API_URL}/api/activities?page=${page}`)
         .then((response) => {
@@ -53,9 +55,14 @@ const activities = (store) => (next) => (action) => {
       if (lat && lng) {
         console.log('FETCH_ACTIVITIES_BY_LOCALISATION');
         axios
-          .get(`${process.env.API_URL}/api/place?lat=${lat}&lng=${lng}&page=1`)
+          .get(`${process.env.API_URL}/api/place?lat=${lat}&lng=${lng}&page=${page}`)
           .then((response) => {
-            store.dispatch(saveSearchedActivities(response.data));
+            if (page > 1) {
+              store.dispatch(saveAllSearchedActivities(response.data));
+            } else {
+              store.dispatch(saveSearchedActivities(response.data));
+            }
+            
           })
           .catch((error) => {
             console.log('error', error);

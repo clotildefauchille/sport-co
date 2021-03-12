@@ -1,4 +1,4 @@
-import { SAVE_SEARCHED_ACTIVITIES } from 'src/actions/search';
+import { SAVE_SEARCHED_ACTIVITIES, SAVE_ALL_SEARCHED_ACTIVITIES } from 'src/actions/search';
 
 const initialState = {
   activities: [],
@@ -10,6 +10,11 @@ const search = (state = initialState, action = {}) => {
       return {
         ...state,
         activities: [...action.activities],
+      };
+      case SAVE_ALL_SEARCHED_ACTIVITIES: 
+      return {
+        ...state,
+        activities: [...state.activities, ...action.activities],
       };
     default:
       return state;
