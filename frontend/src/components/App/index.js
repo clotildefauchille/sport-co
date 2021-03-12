@@ -1,5 +1,5 @@
 // == Import npm
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 // == Import
@@ -18,7 +18,11 @@ import Registration from 'src/containers/Registration';
 import './styles.css';
 
 // == Composant
-const App = () => {
+const App = ({ getUser }) => {
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <>
       <Header />

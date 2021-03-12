@@ -7,13 +7,11 @@ import PropTypes from 'prop-types';
 
 import './style.scss';
 
-const Accueil = ({ fetchData, fetchUserActivities, isLogged, user, userActivities }) => {
+const Accueil = ({ fetchData, isLogged, user, userActivities }) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if(isLogged) {
-      fetchUserActivities();
-    } else {
+    if(!isLogged) {
       fetchData();
     }
   }, [isLogged]);

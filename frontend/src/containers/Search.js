@@ -11,7 +11,6 @@ const mapStateToProps = (state) => ({
   activities: state.search.activities,
   userActivitiesIds: state.userActivities.ids,
   userActivitiesCreatorIds: state.userActivities.idsCreator,
-  isLogged: state.header.isLogged,
 });
 
 const mapDispatchToProps = (dispatch) => ({
