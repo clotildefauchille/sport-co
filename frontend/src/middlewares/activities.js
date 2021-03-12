@@ -1,9 +1,6 @@
 import axios from 'axios';
 
-import {
-  FETCH_LAST_ACTIVITIES,
-  saveActivities,
-} from 'src/actions/cards';
+import { FETCH_LAST_ACTIVITIES, saveActivities } from 'src/actions/cards';
 
 import {
   FETCH_ACTIVITIES_BY_LOCALISATION,
@@ -22,7 +19,6 @@ const activities = (store) => (next) => (action) => {
   const { details } = store.getState();
   const { user } = store.getState().login;
   switch (action.type) {
-
     case FETCH_LAST_ACTIVITIES:
       axios
         .get(`${process.env.API_URL}/api/activities`)
@@ -49,30 +45,32 @@ const activities = (store) => (next) => (action) => {
       console.log('action.query ----> ', action.query);
       const lat = parseFloat(action.query.lat);
       const lng = parseFloat(action.query.lng);
-      if(lat && lng) {
+      if (lat && lng) {
         console.log('FETCH_ACTIVITIES_BY_LOCALISATION');
         axios
-        .get(`${process.env.API_URL}/api/place?lat=${lat}&lng=${lng}&page=1`)
-        .then((response) => {
-          store.dispatch(saveSearchedActivities(response.data));
-        })
-        .catch((error) => {
-          console.log('error', error);
-        });
+          .get(`${process.env.API_URL}/api/place?lat=${lat}&lng=${lng}&page=1`)
+          .then((response) => {
+            store.dispatch(saveSearchedActivities(response.data));
+          })
+          .catch((error) => {
+            console.log('error', error);
+          });
       }
       break;
     case JOIN_ACTIVITY:
       if (!user.pseudo) {
-        console.error('ERROR il faut être connecté pour rejoindre une activité');
+        console.error(
+          'ERROR il faut être connecté pour rejoindre une activité',
+        );
         break;
       }
       axios
-        .get(`${process.env.API_URL}/api/activity/join`, {
+        .post(`${process.env.API_URL}/api/activity/join`, {
           id: details.id,
           pseudo: user.pseudo,
         })
         .then((response) => {
-          store.dispatch(saveSearchedActivities(response.data));
+          console.log('gg', response);
         })
         .catch((error) => {
           console.log('error', error);
