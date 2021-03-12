@@ -24,27 +24,31 @@ const SearchBar = ({
   errorLocalisation,
   searchQueryInProcess,
   changeSearchQueryInProcessStatut,
+  showLoginModal,
+  isLogged,
 }) => {
-  
-  const timer = useRef(null)
-  const placeInput = useRef(null)
+  const timer = useRef(null);
+  const placeInput = useRef(null);
   const history = useHistory();
 
   useEffect(() => {
-  // verification que la recherche vient bien d'être lancée après la verification des coordonnées grace à l'api stacklocation
-  // searchQueryInProcess est à true si la lat et lng a bien été recupérée grace au midddleware et stockée dans le state
-  if(searchQueryInProcess) {
+    // verification que la recherche vient bien d'être lancée après la verification des coordonnées grace à l'api stacklocation
+    // searchQueryInProcess est à true si la lat et lng a bien été recupérée grace au midddleware et stockée dans le state
+    if (searchQueryInProcess) {
       changeSearchQueryInProcessStatut();
       clearTimeout(timer.current);
       clearListAutocompleteData();
-      history.push(`/search?lat=${validLocalisation.lat}&lng=${validLocalisation.lng}&query=${inputValue}`);
+      history.push(
+        `/search?lat=${validLocalisation.lat}&lng=${validLocalisation.lng}&query=${inputValue}`,
+      );
     }
   });
-  
+
   const handleOnChange = (e) => {
     const value = e.target.value;
     changeValue(value);
     // timer pour déclencher le fetch après 1s sans onchange dans l'input
+
     clearTimeout(timer.current);
     timer.current = setTimeout(() => {
       // pas de réponse api (https://positionstack.com/documentation) si <= 2
@@ -70,7 +74,7 @@ const SearchBar = ({
     changeValidLocalisation(index);
     clearListAutocompleteData();
     placeInput.current.focus();
-  }
+  };
 
   return (
     <section className="searchbar">
@@ -86,15 +90,16 @@ const SearchBar = ({
           {listAutocompleteData.length > 0 && (
             <ul className="autocomplete">
               {listAutocompleteData.map((el, index) => {
-                  return (
-                    <li
-                      className="autocomplete__item"
-                      onClick={() => handleClickItemAutocompletion(index)}
-                      key={`${el.lat}${el.lng}${index}`}
-                    >
-                      {el.name}, <span className="autocomplete__detail">{el.reg}</span>
-                    </li>
-                  );
+                return (
+                  <li
+                    className="autocomplete__item"
+                    onClick={() => handleClickItemAutocompletion(index)}
+                    key={`${el.lat}${el.lng}${index}`}
+                  >
+                    {el.name},{' '}
+                    <span className="autocomplete__detail">{el.reg}</span>
+                  </li>
+                );
               })}
             </ul>
           )}
@@ -103,13 +108,29 @@ const SearchBar = ({
             Rechercher
           </button>
           {errorLocalisation && (
-            <div className="searchbar__error">Localisation non trouvée, veuillez rééssayer</div>
+            <div className="searchbar__error">
+              Localisation non trouvée, veuillez rééssayer
+            </div>
           )}
         </form>
         <p className="searchbar__spacer">OU</p>
-        <Link className="searchbar__link" to="/creation">
-          Créer une activité
-        </Link>
+
+        {isLogged ? (
+          <Link
+            className="searchbar__link"
+            to="/creation"
+          >
+            Créer une activité
+          </Link>
+        ) : (
+          <button
+            onClick={showLoginModal}
+            className="searchbar__link"
+          >
+            Créer une activité
+          </button>
+        )}
+      </div>
     </section>
   );
 };
