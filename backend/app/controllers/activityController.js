@@ -8,7 +8,7 @@ const sequelize = require('../database.js');
 const Op = Sequelize.Op;
 
 const activityController = {
-  defaultNumCardInPage: 12,
+  defaultNumCardInPage: 8,
   defaultLimitDistance: 100, // en km
 
   getLastActivities: async (req, res) => {

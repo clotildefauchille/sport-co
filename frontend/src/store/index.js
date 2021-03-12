@@ -9,6 +9,7 @@ import registration from '../middlewares/registration';
 import creationPage from 'src/middlewares/creationPage';
 import filter from 'src/middlewares/filter';
 
+
 const store = createStore(reducer, composeWithDevTools(
   applyMiddleware(activities, searchBar, connexion, registration, creationPage, filter),
 ));

@@ -42,6 +42,7 @@ const Search = ({ activities, fetchActivitiesByLocalisation, fetchActivitiesByLo
           ))) : (
             <div className="search__no-result">Désolé aucune activité trouvée :(</div>
           )}
+          <MoreResults />
         </section>
     </main>
   );

@@ -1,14 +1,19 @@
 import React, { useEffect } from 'react';
 import Cards from 'src/containers/Cards';
 import SearchBar from 'src/containers/SearchBar';
+import MoreResults from 'src/containers/MoreResults';
 
 import './style.scss';
 
-const Accueil = ({ fetchData }) => {
+const Accueil = ({ fetchData, pageValue }) => {
   useEffect(() => {
     fetchData();
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [pageValue]);
   
   return (
     <main className="home home--img">
@@ -21,6 +26,7 @@ const Accueil = ({ fetchData }) => {
         <SearchBar />
         <h2 className="heading-2">Explorez les dernières activités proposées :</h2>
         <Cards />
+        <MoreResults />
     </main>
   );
 };
