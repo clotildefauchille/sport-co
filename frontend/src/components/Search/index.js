@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import Card from 'src/containers/Card';
 import SearchBar from 'src/containers/SearchBar';
+import Filter from 'src/containers/Filter';
 
 import './style.scss';
 
@@ -17,20 +18,26 @@ const useQuery = () => {
 const Search = ({
   activities,
   fetchActivitiesByLocalisation,
+  fetchActivitiesByLocalisationAndSports,
   userActivitiesIds,
   userActivitiesCreatorIds,
   isLogged,
   fetchUserActivities,
 }) => {
+
   const query = useQuery();
-  
   const queryString = query.get("query");
   const lat = query.get("lat");
   const lng = query.get("lng");
+  const sports = query.get("sports");
 
-  useEffect(() => { 
-    fetchActivitiesByLocalisation({queryString, lat, lng});
-  }, [lat, lng, queryString]);
+  useEffect(() => {
+    if(sports) {
+      fetchActivitiesByLocalisationAndSports({queryString, lat, lng, sports});
+    } else {
+      fetchActivitiesByLocalisation({queryString, lat, lng});
+    }
+  }, [lat, lng, queryString, sports]);
 
   useEffect(() => {
     if(isLogged) {
@@ -55,6 +62,7 @@ const Search = ({
     <main className="home search">
         <SearchBar />
         <h2 className="heading-2">Dernières activités proche de : <span className="heading-2__txt-color">{query.get("query")}</span></h2>
+        <Filter />
         <section className="container cards">
           
           {/* {activities.length > 0 ? (activities.map((activity) => (
@@ -79,6 +87,7 @@ const Search = ({
 Search.propTypes = {
   activities: PropTypes.array.isRequired,
   fetchActivitiesByLocalisation: PropTypes.func.isRequired,
+  fetchActivitiesByLocalisationAndSports: PropTypes.func.isRequired,
   fetchUserActivities: PropTypes.func.isRequired,
   userActivitiesIds: PropTypes.array.isRequired,
   isLogged: PropTypes.bool.isRequired,

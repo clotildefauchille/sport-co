@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import SearchBar from 'src/components/SearchBar';
+import {showLoginModal} from 'src/actions/cards';
 import {
   fetchPlacesAutoCompletion,
   fetchOnePlacesAutoCompletion,
@@ -15,6 +16,7 @@ const mapStateToProps = (state) => ({
   errorLocalisation: state.searchBar.errorLocalisation,
   validLocalisation: state.searchBar.validLocalisation,
   searchQueryInProcess: state.searchBar.searchQueryInProcess,
+  isLogged: state.header.isLogged,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -36,6 +38,9 @@ const mapDispatchToProps = (dispatch) => ({
   changeSearchQueryInProcessStatut: () => {
     dispatch(changeSearchQueryInProcessStatut());
   },
+  showLoginModal: () => {
+    dispatch(showLoginModal());
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

@@ -10,6 +10,7 @@ import './style.scss';
 const Accueil = ({ fetchData, fetchUserActivities, isLogged, user }) => {
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if(isLogged) {
       fetchUserActivities();
     } else {
