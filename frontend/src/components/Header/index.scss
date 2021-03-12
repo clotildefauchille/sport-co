@@ -7,6 +7,8 @@
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
+  position: relative;
+  z-index: 100;
 
   &__home{
     display: flex;

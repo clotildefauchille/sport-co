@@ -8,8 +8,8 @@ const initialState = {
   error: false,
   */
   id: "",
-  email: '',
-  password: '',
+  email: 'clotildefauchille@gmail.com',
+  password: 'pass',
   user: {},
   error: false,
 };
@@ -21,14 +21,17 @@ const login = (state = initialState, action = {}) => {
         ...state,
         [action.input]: action.value,
       };
+      
     case SAVE_CONNEXION_STATUT:
       return {
         ...state,
         error: false,
         user: action.data,
       };
+
     case DISCONNECT:
       return initialState;
+
     case LOGIN_ERROR:
       return {
         ...state,

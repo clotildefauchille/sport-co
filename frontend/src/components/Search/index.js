@@ -21,8 +21,6 @@ const Search = ({
   fetchActivitiesByLocalisationAndSports,
   userActivitiesIds,
   userActivitiesCreatorIds,
-  isLogged,
-  fetchUserActivities,
 }) => {
 
   const query = useQuery();
@@ -39,14 +37,6 @@ const Search = ({
     }
   }, [lat, lng, queryString, sports]);
 
-  useEffect(() => {
-    if(isLogged) {
-      fetchUserActivities();
-    }
-  }, [isLogged]);
-
-  console.log('userActivitiesIds', userActivitiesIds, userActivitiesCreatorIds);
-  
   const cardsCreated = [];
   activities.forEach(card => {
     if(userActivitiesCreatorIds.includes(card.id)) {
@@ -64,13 +54,6 @@ const Search = ({
         <h2 className="heading-2">Dernières activités proche de : <span className="heading-2__txt-color">{query.get("query")}</span></h2>
         <Filter />
         <section className="container cards">
-          
-          {/* {activities.length > 0 ? (activities.map((activity) => (
-            <Card key={activity.id} card={activity} />
-          ))) : (
-            <div className="search__no-result">Désolé aucune activité trouvée :(</div>
-          )} */}
-
           {cardsCreated.length > 0 ? (
             <>
             {cardsCreated}
@@ -78,7 +61,6 @@ const Search = ({
           ) : (
             <div className="search__no-result">Désolé aucune activité trouvée :(</div>
           )}
-
         </section>
     </main>
   );
@@ -88,9 +70,7 @@ Search.propTypes = {
   activities: PropTypes.array.isRequired,
   fetchActivitiesByLocalisation: PropTypes.func.isRequired,
   fetchActivitiesByLocalisationAndSports: PropTypes.func.isRequired,
-  fetchUserActivities: PropTypes.func.isRequired,
   userActivitiesIds: PropTypes.array.isRequired,
-  isLogged: PropTypes.bool.isRequired,
 };
 
 export default Search;
