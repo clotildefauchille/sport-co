@@ -155,7 +155,7 @@ const activityController = {
           },
           {
             association: 'activity_place',
-            attributes: ['city']
+            attributes: ['city', 'lat', 'lng']
           },
           {
             association: 'creator',
@@ -237,6 +237,7 @@ const activityController = {
           'sport',
           {
             association: 'activity_place',
+            attributes: ['city', 'lat', 'lng']
             /*
             attributes: {
               include: [[sequelize.literal(distanceCalculSQL(lat, lng)), 'distance']],
@@ -290,14 +291,9 @@ const activityController = {
 
 
 
-
-
-
   getActivitiesByUser: async (req, res) => {
-    console.log('----------> getActivitesByUserLocalisationAndSports');
+    console.log('----------> getActivitiesByUser');
 
-    let lat = parseFloat(req.query.lat);
-    let lng = parseFloat(req.query.lng);
     let page = parseInt(req.query.page);
     let userId = parseInt(req.params.id);
 

@@ -24,7 +24,6 @@ app.get('/jwt', (req, res) => {
 */
 //app.use(jwt({ secret: jwtSecret, algorithms: ['HS256'] }));
 
-
 app.use(router);
 
 const start = () => {

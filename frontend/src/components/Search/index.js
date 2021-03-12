@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Card from 'src/containers/Card';
 import SearchBar from 'src/containers/SearchBar';
 import Filter from 'src/containers/Filter';
+import MapList from 'src/containers/MapList';
 
 import './style.scss';
 
@@ -53,6 +54,9 @@ const Search = ({
         <SearchBar />
         <h2 className="heading-2">Dernières activités proche de : <span className="heading-2__txt-color">{query.get("query")}</span></h2>
         <Filter />
+
+        <MapList lat={lat} lng={lng} />
+
         <section className="container cards">
           {cardsCreated.length > 0 ? (
             <>
