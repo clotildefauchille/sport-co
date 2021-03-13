@@ -1,6 +1,6 @@
 const express = require('express');
-const { Router } = require('express');
 const router = express.Router();
+const jwt = require('express-jwt');
 
 // const test = require("./controllers/test");
 const activityController = require("./controllers/activityController");
@@ -12,10 +12,18 @@ const registrationController = require("./controllers/registrationController");
 router.get('/', (req, res) => {
   res.send('hello');
 });
+
+// prepared authorization middleware
+const authorizationMiddleware = jwt({
+  secret: process.env.JWT_SECRET,
+  algorithms: ['HS256'],
+  getToken: req => req.cookies.token,
+});
+
+router.post('/api/newactivity', authorizationMiddleware ,newActivityController.createNewActivity);
+
 router.post("/api/registration", registrationController.addUser);
 router.post("/api/connexion", connectionController.getUser);
-
-router.post('/api/newactivity', newActivityController.createNewActivity);
 
 //homepage user not connected
 router.get('/api/activities?', activityController.getLastActivities);

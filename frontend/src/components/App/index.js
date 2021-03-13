@@ -21,7 +21,7 @@ import './styles.css';
 const App = ({ getUser }) => {
   useEffect(() => {
     getUser();
-  }, []);
+  }, []); 
 
   return (
     <>
