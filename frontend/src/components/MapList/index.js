@@ -1,12 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
 
 import ReactMapGL from 'react-map-gl';
 import CustomMarker from './CustomMarker'; 
 
-const MapList = ({ activities, lat, lng }) => {
+const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreatorIds, scrollToFilter }) => {
 
+  /*
+  let cardClassName = 'card';
+  if(userCard === 1) {
+    cardClassName = 'card card--user';
+  } else if(userCard === 2) {
+    cardClassName = 'card card--user card--creator';
+  }
+  */
+
+
+  console.log(userActivitiesIds, userActivitiesCreatorIds);
   const [classNameMap, setClassNameMap] = useState('map-list')
 
   useEffect(() => {
@@ -27,20 +38,27 @@ const MapList = ({ activities, lat, lng }) => {
     zoom: 12,
   });
 
+  const map = useRef(null);
+  const [btOpenMapTxt, setbtOpenMapTxt] = useState('Voir sur la carte');
+  
   const handleChangeMapSize = () => {
     console.log('test');
     if(classNameMap === 'map-list') {
+      map.current.scrollIntoView({behavior: "smooth"})  
       setClassNameMap('map-list map-list--open');
+      setbtOpenMapTxt('Fermer la carte');
     } else {
+      scrollToFilter();
       setClassNameMap('map-list');
+      setbtOpenMapTxt('Voir sur la carte');
     }
   }
   
   return (
     <>
       {activities && (
-        <div className={classNameMap}>
-          <button className="map-list__button-open" onClick={handleChangeMapSize}>Voir sur la carte</button>
+        <div className={classNameMap} ref={map} >
+          <button className="map-list__button-open" onClick={handleChangeMapSize}>{btOpenMapTxt}</button>
           <ReactMapGL
             {...viewport}
             width="100%"
@@ -81,6 +99,11 @@ const MapList = ({ activities, lat, lng }) => {
 
 MapList.propTypes = {
   activities: PropTypes.array.isRequired,
+  lat: PropTypes.string.isRequired,
+  lng: PropTypes.string.isRequired,
+  userActivitiesIds: PropTypes.array.isRequired,
+  userActivitiesCreatorIds: PropTypes.array.isRequired,
+  scrollToFilter: PropTypes.func.isRequired,
 };
 
 export default MapList;

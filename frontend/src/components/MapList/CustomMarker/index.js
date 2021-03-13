@@ -8,7 +8,6 @@ import sports from '../../Card/sports';
 
 const CustomMarker = ({ activity, user }) => {
   const classname = user ? 'marker marker--user' : 'marker';
-
   console.log(classname)
   return (
     <Marker

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useLocation } from "react-router-dom";
 import PropTypes from 'prop-types';
 
@@ -48,15 +48,18 @@ const Search = ({
       cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={0} />)
     }
   });
+  
+  const filter = useRef(null);
+  const scrollToFilter = () => {
+    filter.current.scrollIntoView({behavior: "smooth"});
+  }
 
   return (
     <main className="home search">
         <SearchBar />
-        <h2 className="heading-2">Dernières activités proche de : <span className="heading-2__txt-color">{query.get("query")}</span></h2>
-        <Filter />
-
-        <MapList lat={lat} lng={lng} />
-
+        <h2 ref={filter} className="heading-2">Dernières activités proche de : <span className="heading-2__txt-color">{query.get("query")}</span></h2>
+        <Filter ref={filter} />
+        <MapList lat={lat} lng={lng} scrollToFilter={scrollToFilter} />
         <section className="container cards">
           {cardsCreated.length > 0 ? (
             <>
