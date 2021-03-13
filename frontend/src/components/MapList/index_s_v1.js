@@ -2,48 +2,22 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
 
-import ReactMapGL, { NavigationControl } from 'react-map-gl';
+import ReactMapGL from 'react-map-gl';
 import CustomMarker from './CustomMarker'; 
-
-const navControlStyle= {
-  right: 10,
-  bottom: 10
-};
 
 const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreatorIds, scrollToFilter }) => {
 
-  //console.log(userActivitiesIds, userActivitiesCreatorIds);
-
-  // Clusterise les activités si plusieurs activité avec la même adresse
-  const formatedActivity = (activity) => {
-    return {
-      id: activity.id,
-      title: activity.title,
-      date: activity.date,
-      time: activity.time,
-      sport: activity.sport.name,
-      icon: activity.sport.icon,
-    }
+  /*
+  let cardClassName = 'card';
+  if(userCard === 1) {
+    cardClassName = 'card card--user';
+  } else if(userCard === 2) {
+    cardClassName = 'card card--user card--creator';
   }
-  const markerPoints = [];
-  activities.forEach((activity, index) => {
-    const activityLat = activity.activity_place.lat.toFixed(3);
-    const activityLng = activity.activity_place.lng.toFixed(3);
-    let markerFind = markerPoints.find(marker => marker.lat === activityLat && marker.lng === activityLng);
-    if(markerFind) {
-      markerFind.activities.push(formatedActivity(activity))
-    } else {
-      markerPoints.push({
-        name: `marker${index}`,
-        lat: activityLat,
-        lng: activityLng,
-        activities: [formatedActivity(activity)],
-      });
-    }
-  });
-  console.log('markerPoints ----->', markerPoints);
+  */
 
-  console.log(activities[0]);
+  console.log(userActivitiesIds, userActivitiesCreatorIds);
+  const [classNameMap, setClassNameMap] = useState('map-list')
 
   useEffect(() => {
     console.log(activities);
@@ -63,31 +37,19 @@ const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreato
     zoom: 12,
   });
 
-  const [settings, setsettings] = useState({
-    //dragPan: false,
-    //dragRotate: false,
-    scrollZoom: false,
-    //touchZoom: false,
-    //touchRotate: false,
-    //keyboard: false,
-    //doubleClickZoom: false
-  });
-
   const map = useRef(null);
   const [btOpenMapTxt, setbtOpenMapTxt] = useState('Voir sur la carte');
-  const [classNameMap, setClassNameMap] = useState('map-list');
+  
   const handleChangeMapSize = () => {
     console.log('test');
     if(classNameMap === 'map-list') {
       map.current.scrollIntoView({behavior: "smooth"})  
       setClassNameMap('map-list map-list--open');
       setbtOpenMapTxt('Fermer la carte');
-      document.body.style.overflow = "hidden";
     } else {
       scrollToFilter();
       setClassNameMap('map-list');
       setbtOpenMapTxt('Voir sur la carte');
-      document.body.style.overflow = "visible";
     }
   }
   
@@ -98,23 +60,20 @@ const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreato
           <button className="map-list__button-open" onClick={handleChangeMapSize}>{btOpenMapTxt}</button>
           <ReactMapGL
             {...viewport}
-            {...settings}
             width="100%"
             height="100%"
             onViewportChange={(viewport) => setViewport(viewport)}
             // TOKEN à sécurisé
             mapboxApiAccessToken={'pk.eyJ1IjoiYm9yaXNjb3VkZXJjIiwiYSI6ImNrbGszY2pjODF5YTAydnByaTZveGs5azIifQ.lyPoAYY3DSqpu8D8R1ULGw'}
           >
-            <NavigationControl style={navControlStyle} />
-
-            {markerPoints[0] &&
-              markerPoints.map((marker, index) => {
+            {activities[0] &&
+              activities.map((activity, index) => {
                 return(
                   <CustomMarker
                     key={`marker-${index}`}
                     index={index}
                     user={false}
-                    marker={marker}
+                    activity={activity}
                   />
                 )
               })
@@ -123,9 +82,11 @@ const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreato
               key={`marker-user`}
               index={0}
               user={true}
-              marker={{
-                lat: parseFloat(lat),
-                lng: parseFloat(lng),
+              activity={{
+                activity_place: {
+                  lat: parseFloat(lat),
+                  lng: parseFloat(lng),
+                }
               }}
             />
           </ReactMapGL>

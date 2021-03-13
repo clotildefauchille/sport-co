@@ -58,8 +58,10 @@ const Search = ({
     <main className="home search">
         <SearchBar />
         <h2 ref={filter} className="heading-2">Dernières activités proche de : <span className="heading-2__txt-color">{query.get("query")}</span></h2>
-        <Filter ref={filter} />
-        <MapList lat={lat} lng={lng} scrollToFilter={scrollToFilter} />
+        <Filter />
+        {cardsCreated.length > 0 && (
+          <MapList lat={lat} lng={lng} scrollToFilter={scrollToFilter} />
+        )}
         <section className="container cards">
           {cardsCreated.length > 0 ? (
             <>

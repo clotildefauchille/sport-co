@@ -3,6 +3,7 @@
 .marker {
   background-image: url('src/assets/icons/pin.svg');
   position: relative;
+  z-index: 1;
   width: 35px;
   height: 40px;
   margin-top: -20px;
@@ -14,26 +15,40 @@
   cursor: pointer;
 
   &--user {
+    z-index: 2;
     background-image: url('src/assets/icons/pin-black.svg');
     opacity: .4;
   }
 
-  &__link {
-    position: absolute;
-    width: 310px;
-    left: 0;
-    top: 0;
-    padding-left: 100%;
-    display: block;
-    grid-column-start: 2;
-  }
-
   &__card {
     display: none;
+    position: absolute;
+    width: 310px;
+    left: 100%;
+    top: 0;
+    grid-column-start: 2;
     background: #ffffff;
     padding: 15px 20px 15px 15px;
     border-radius: 15px;
     box-shadow: 0 0 10px 5px rgba(0,0,0,.05);
+    max-height: 500px;
+    overflow-y: auto;
+  }
+
+  &__link {
+    display: grid;
+    position: relative;
+    grid-template-columns: 80px auto;
+    transition: transform ease-in-out 200ms;
+    & + & {
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid rgba(0,0,0,.1);
+    }
+
+    &:hover {
+      transform: translateX(10px);
+    }
   }
 
   &__title {
@@ -49,14 +64,13 @@
   &:hover {
     z-index: 1000;
     .marker__card {
-      //display: block;
-      display: grid;
-      grid-template-columns: 1fr 2fr;
+      display: block;
     }
   }
 
   &__image {
-    width: 80px;
+    width: 70px;
+    height: 70px;
     margin-right: 10px;
     grid-column-start: 1;
     grid-row-end: span 2;
