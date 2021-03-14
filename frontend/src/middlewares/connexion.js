@@ -1,14 +1,12 @@
 import axios from 'axios';
 import {
-  FETCH_LOGIN, 
+  FETCH_LOGIN,
   GET_USER,
   LOG_OUT,
-  saveConnexionStatut, 
+  saveConnexionStatut,
   loginError,
 } from 'src/actions/login';
-import {
-  fetchUserActivities,
-} from 'src/actions/cards';
+import { fetchUserActivities } from 'src/actions/cards';
 
 const connexion = (store) => (next) => (action) => {
   switch (action.type) {
@@ -21,7 +19,8 @@ const connexion = (store) => (next) => (action) => {
           password: login.password,
         })
         .then((response) => {
-          // console.log('response', response.data);
+          console.log('response', response.data);
+
           store.dispatch(saveConnexionStatut(response.data));
           store.dispatch(fetchUserActivities());
 
@@ -30,6 +29,7 @@ const connexion = (store) => (next) => (action) => {
             id: response.data.id,
             lastname: response.data.lastname,
             pseudo: response.data.pseudo,
+            points: response.data.points,
           });
         })
         .catch((error) => {

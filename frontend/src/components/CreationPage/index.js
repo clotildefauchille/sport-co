@@ -21,9 +21,11 @@ const CreationPage = ({
   errorMessage,
   sports,
   isCreated,
+  fetchUserActivities,
 }) => {
   if (isCreated) {
-    return <Redirect push to='/'></Redirect>;
+    fetchUserActivities();
+    return <Redirect push to="/"></Redirect>;
   }
 
   useEffect(() => {

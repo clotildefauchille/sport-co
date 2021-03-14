@@ -1,4 +1,4 @@
-const { Activity, Sport, ActivityStatut, ActivityPlace } = require('../models');
+const { Activity, Sport, ActivityStatut, ActivityPlace, User } = require('../models');
 
 const { distanceCalculSQL } = require('../selectors/distanceCalculSQL');
 const { formatActivities, formatActivity, formatActivitiesFilterByDistance } = require('../selectors/formatActivities');
@@ -290,9 +290,6 @@ const activityController = {
 
 
 
-
-
-
   getActivitiesByUser: async (req, res) => {
     console.log('----------> getActivitesByUserLocalisationAndSports');
 
@@ -322,7 +319,6 @@ const activityController = {
           },
         ],
         offset: (page - 1) * activityController.defaultNumCardInPage,
-        limit: activityController.defaultNumCardInPage,
         order: [['date', 'ASC']],
       });
 
@@ -331,14 +327,21 @@ const activityController = {
         return;
       }
       formatedaActivities = formatActivities(activities);
-      res.json(formatedaActivities);
+
+      //const user = await User.findByPk(userId);
+      const user = await User.findOne({
+        where: {
+          id: userId,
+        },
+        attributes: ['id','firstname','lastname','pseudo','reward_count'],
+      });
+      res.json({activities: formatedaActivities, user: user});
+
     } catch (error) {
       console.trace(error);
       res.status(500).json(error.toString());
     }
   }, 
-  
-
 };
 
 module.exports = activityController;

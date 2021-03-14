@@ -5,7 +5,8 @@ export const DISCONNECT = 'DISCONNECT';
 export const LOG_OUT = 'LOG_OUT';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
-export const GET_USER='GET_USER';
+export const GET_USER = 'GET_USER';
+export const SAVE_USER_POINTS = 'SAVE_USER_POINTS';
 
 export const saveLogin = (value, input) => ({
   type: SAVE_LOGIN,
@@ -14,7 +15,7 @@ export const saveLogin = (value, input) => ({
 });
 
 export const fetchLogin = () => ({
-  type: FETCH_LOGIN, 
+  type: FETCH_LOGIN,
 });
 
 export const saveConnexionStatut = (data) => ({
@@ -40,4 +41,9 @@ export const closeModal = () => ({
 
 export const getUser = () => ({
   type: GET_USER,
+});
+
+export const saveUserPoints = (data) => ({
+  type: SAVE_USER_POINTS,
+  data,
 });

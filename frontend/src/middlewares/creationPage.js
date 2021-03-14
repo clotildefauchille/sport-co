@@ -62,7 +62,8 @@ const creationPage = (store) => (next) => (action) => {
                 sport_id: creationPage.sport_id,
               })
               .then((response)=> {
-                store.dispatch(activityCreated())
+                store.dispatch(activityCreated());
+                // store.dispatch(fetch)
               });
           })
           .catch((error) => {
