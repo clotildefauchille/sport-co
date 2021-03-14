@@ -6,10 +6,12 @@ class Message extends Sequelize.Model {}
 Message.init(
   {
     comment: Sequelize.STRING,
+    user_id: Sequelize.NUMBER,
+    activity_id: Sequelize.NUMBER,
   },
   {
     sequelize,
-    tableName: "sport",
+    tableName: "message",
   }
 );
 

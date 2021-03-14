@@ -8,6 +8,7 @@ const connectionController = require("./controllers/connectionController");
 const sportsController = require("./controllers/sportsController");
 const newActivityController = require('./controllers/newActivityController');
 const registrationController = require("./controllers/registrationController");
+const messageController = require("./controllers/messageController");
 
 router.get('/', (req, res) => {
   res.send('hello');
@@ -29,6 +30,9 @@ router.get('/api/sports', sportsController.getSports);
 router.get('/api/sports/localisation?', sportsController.getSportsByLocalisation); 
 
 router.get('/api/activities/sports?', activityController.getActivitesByUserLocalisationAndSports);
+
+router.post('/api/activity/:id/message/', messageController.addMessageToActivity);
+router.get('/api/activity/:id/message/', messageController.getMessageByActivity);
 
 //homepage user not connected searched by department
 // router.get(
