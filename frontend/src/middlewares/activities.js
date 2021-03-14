@@ -20,8 +20,8 @@ const activities = (store) => (next) => (action) => {
   const page = moreResults.page;
   console.log(page);
   switch (action.type) {
+
     case FETCH_LAST_ACTIVITIES:
-      
       axios
         .get(`${process.env.API_URL}/api/activities?page=${page}`)
         .then((response) => {
@@ -62,7 +62,6 @@ const activities = (store) => (next) => (action) => {
             } else {
               store.dispatch(saveSearchedActivities(response.data));
             }
-            
           })
           .catch((error) => {
             console.log('error', error);

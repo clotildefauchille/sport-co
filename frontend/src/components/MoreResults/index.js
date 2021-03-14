@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './style.scss';
 
 const MoreResults = ({ onClickButton }) => (
-  <div textAlign="center" className="more-results">
+  <div className="more-results">
     <button className="more-results__button" onClick={onClickButton}>Plus de résultats</button>
   </div>
 );

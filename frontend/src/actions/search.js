@@ -13,14 +13,14 @@ export const fetchActivitiesByLocalisationAndSports = (query) => ({
   query,
 });
 
-export const saveSearchedActivities = (activities) => ({
+export const saveSearchedActivities = (data) => ({
   type: SAVE_SEARCHED_ACTIVITIES,
-  activities,
+  data,
 }); 
 
-export const saveAllSearchedActivities = (activities) => ({
+export const saveAllSearchedActivities = (data) => ({
   type: SAVE_ALL_SEARCHED_ACTIVITIES,
-  activities,
+  data,
 });
 
 

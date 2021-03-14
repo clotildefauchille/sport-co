@@ -3,18 +3,16 @@
 
 .more-results {
   &__button{
-border: none;
-background-color: v.$primaryColor;
-color: white;
-padding: 10px;
-border-radius: 25px;
-transition: all 0.3s;
-font-size: 16px;
-margin-top: 30px;
-text-align: center;
-margin-bottom: 25px;
-padding: 15px 0;
-width: 150px;
+    border: none;
+    background-color: v.$primaryColor;
+    color: white;
+    border-radius: 25px;
+    transition: all 0.3s;
+    font-size: 16px;
+    margin-top: 30px;
+    text-align: center;
+    margin-bottom: 25px;
+    padding: 12px 30px;
   }
   
 }
