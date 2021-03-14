@@ -12,17 +12,30 @@ const navControlStyle= {
 
 const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreatorIds, scrollToFilter }) => {
 
-  //console.log(userActivitiesIds, userActivitiesCreatorIds);
+  console.log(userActivitiesIds, userActivitiesCreatorIds);
+  /*
+  const cardsCreated = [];
+  cards.forEach(card => {
+    if(userActivitiesCreatorIds.includes(card.id)) {
+      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={2} />)
+    } else if(userActivitiesIds.includes(card.id)) {
+      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={1} />)
+    } else {
+      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={0} />)
+    }
+  });
+  */
 
   // Clusterise les activités si plusieurs activité avec la même adresse
-  const formatedActivity = (activity) => {
+  const formatedActivity = (activity, userRole) => {
     return {
-      id: activity.id,
+      id: activity.id, 
       title: activity.title,
       date: activity.date,
       time: activity.time,
       sport: activity.sport.name,
       icon: activity.sport.icon,
+      userRole: userRole,
     }
   }
   const markerPoints = [];
@@ -32,17 +45,25 @@ const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreato
     const activityLat = Math.round( activity.activity_place.lat * 1000) / 1000;
     const activityLng = Math.round( activity.activity_place.lng * 1000) / 1000;
 
-    //console.log(activity.title, activityLat, activityLng, activity.activity_place.lat, activity.activity_place.lng);
+    // controle si le user logged est creator ou participant
+    let userRole = '';
+    if(userActivitiesCreatorIds.includes(activity.id)) {
+      //cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={2} />)
+      userRole = 'creator';
+    } else if(userActivitiesIds.includes(activity.id)) {
+      //cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={1} />)
+      userRole = 'registered';
+    }
 
     let markerFind = markerPoints.find(marker => marker.lat === activityLat && marker.lng === activityLng);
     if(markerFind) {
-      markerFind.activities.push(formatedActivity(activity))
+      markerFind.activities.push(formatedActivity(activity, userRole))
     } else {
       markerPoints.push({
         name: `marker${index}`,
         lat: activityLat,
         lng: activityLng,
-        activities: [formatedActivity(activity)],
+        activities: [formatedActivity(activity, userRole)],
       });
     }
   });
