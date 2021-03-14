@@ -13,18 +13,6 @@ const navControlStyle= {
 const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreatorIds, scrollToFilter }) => {
 
   console.log(userActivitiesIds, userActivitiesCreatorIds);
-  /*
-  const cardsCreated = [];
-  cards.forEach(card => {
-    if(userActivitiesCreatorIds.includes(card.id)) {
-      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={2} />)
-    } else if(userActivitiesIds.includes(card.id)) {
-      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={1} />)
-    } else {
-      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={0} />)
-    }
-  });
-  */
 
   // Clusterise les activités si plusieurs activité avec la même adresse
   const formatedActivity = (activity, userRole) => {

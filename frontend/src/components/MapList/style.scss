@@ -9,7 +9,7 @@
   transition: height ease-in-out .5s;
 
   &--open {
-    height: max(500px, 100vh);
+    height: 100vh;
   }
   
   &:before {
