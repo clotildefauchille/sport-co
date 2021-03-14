@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../database.js');
 
-const { Activity } = require('../models');
+const { Activity, User } = require('../models');
 
 const newActivityController = {
   createNewActivity: async (req, res) => {
@@ -9,14 +9,14 @@ const newActivityController = {
     try {
       const sport_id = parseInt(req.body.sport_id);
       const min_participant = parseInt(req.body.min_participant);
-
       const { title, description, creator_id, date, time, duration } = req.body;
       const dataPlace = req.body.place;
       console.log('---------->dataplace',dataPlace);
       console.log('------------------>zipcode', dataPlace.zip_code);
       console.log('------------>', sport_id);
       
-      let newActivity = await Activity.create(
+      // On crée la nouvelle activité :
+      const newActivity = await Activity.create(
         {
           title,
           description,
@@ -41,13 +41,16 @@ const newActivityController = {
         },
         { include: ['activity_place'] },
       );
+      // On ajout l'activité crée au user :
+      const user = await User.findByPk(creator_id);
+      await newActivity.addUser(user);
+
       res.status(201).send('newActivity well created');
     } catch (error) {
       console.trace(error);
       res.status(500).json(error.toString());
     }
   },
-
 };
 
 module.exports = newActivityController;

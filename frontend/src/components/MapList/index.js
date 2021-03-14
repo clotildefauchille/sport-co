@@ -27,8 +27,13 @@ const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreato
   }
   const markerPoints = [];
   activities.forEach((activity, index) => {
-    const activityLat = activity.activity_place.lat.toFixed(3);
-    const activityLng = activity.activity_place.lng.toFixed(3);
+    //const activityLat = activity.activity_place.lat.toFixed(2);
+    //const activityLng = activity.activity_place.lng.toFixed(2);
+    const activityLat = Math.round( activity.activity_place.lat * 1000) / 1000;
+    const activityLng = Math.round( activity.activity_place.lng * 1000) / 1000;
+
+    //console.log(activity.title, activityLat, activityLng, activity.activity_place.lat, activity.activity_place.lng);
+
     let markerFind = markerPoints.find(marker => marker.lat === activityLat && marker.lng === activityLng);
     if(markerFind) {
       markerFind.activities.push(formatedActivity(activity))
@@ -106,7 +111,15 @@ const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreato
             mapboxApiAccessToken={'pk.eyJ1IjoiYm9yaXNjb3VkZXJjIiwiYSI6ImNrbGszY2pjODF5YTAydnByaTZveGs5azIifQ.lyPoAYY3DSqpu8D8R1ULGw'}
           >
             <NavigationControl style={navControlStyle} />
-
+            <CustomMarker
+              key={`marker-user`}
+              index={0}
+              user={true}
+              marker={{
+                lat: parseFloat(lat),
+                lng: parseFloat(lng),
+              }}
+            />
             {markerPoints[0] &&
               markerPoints.map((marker, index) => {
                 return(
@@ -119,15 +132,6 @@ const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreato
                 )
               })
             }
-            <CustomMarker
-              key={`marker-user`}
-              index={0}
-              user={true}
-              marker={{
-                lat: parseFloat(lat),
-                lng: parseFloat(lng),
-              }}
-            />
           </ReactMapGL>
         </div>
       )}

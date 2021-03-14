@@ -8,8 +8,8 @@ const initialState = {
   error: false,
   */
   id: "",
-  email: '',
-  password: '',
+  email: 'clotildefauchille@gmail.com',
+  password: 'pass',
   user: {},
   error: false,
 };
