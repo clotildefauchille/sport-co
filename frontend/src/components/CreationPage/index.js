@@ -115,7 +115,6 @@ const CreationPage = ({
               type="time"
               // id="time"
               min="00:00"
-              max="10:00"
               // required
               name="duration"
               value={duration}
