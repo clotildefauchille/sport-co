@@ -85,6 +85,7 @@ const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreato
     //touchRotate: false,
     //keyboard: false,
     //doubleClickZoom: false
+    mapStyle: "mapbox://styles/mapbox/streets-v11",
   });
 
   const map = useRef(null);
