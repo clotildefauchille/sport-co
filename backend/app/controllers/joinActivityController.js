@@ -58,6 +58,12 @@ const joinActivityController = {
           id: req.body.id,
         }
       });
+
+      // ajoute les points motiv 
+      const new_reward_count = user.dataValues.reward_count + 10;
+      user.reward_count = new_reward_count;
+      await user.save();
+
     } catch (error) {
       res.status(403).json({
         error: "errorServer"

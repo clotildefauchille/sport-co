@@ -16,11 +16,9 @@ const newActivityController = {
       console.log('------------------>zipcode', dataPlace.zip_code);
       console.log('------------>', sport_id);
 
-
       
       // On crée la nouvelle activité :
       const newActivity = await Activity.create(
-
         {
           title,
           description,
