@@ -2,20 +2,22 @@ import axios from 'axios';
 import {
   FETCH_LAST_ACTIVITIES,
   FETCH_USER_ACTIVITIES,
+  fetchUserActivities,
   saveActivities,
-  saveUserActivities
+  saveUserActivities,
 } from 'src/actions/cards';
 
 import {
   FETCH_ACTIVITIES_BY_LOCALISATION,
   FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS,
-  saveSearchedActivities
+  saveSearchedActivities,
 } from 'src/actions/search';
 
 import {
   FETCH_DATA_ACTTIVITY,
   saveActivity,
   JOIN_ACTIVITY,
+  QUIT_ACTIVITY,
   updateStatus,
   errorStatus,
 } from 'src/actions/details';
@@ -37,7 +39,7 @@ const activities = (store) => (next) => (action) => {
         });
       break;
 
-    case FETCH_USER_ACTIVITIES: 
+    case FETCH_USER_ACTIVITIES:
       const userId = store.getState().login.user.id;
       console.log('------------------------------> userId ', userId);
       axios
@@ -51,7 +53,7 @@ const activities = (store) => (next) => (action) => {
         });
       break;
 
-    case FETCH_DATA_ACTTIVITY: 
+    case FETCH_DATA_ACTTIVITY:
       axios
         .get(`${process.env.API_URL}/api/activity/${idParams}`)
         .then((response) => {
@@ -91,8 +93,33 @@ const activities = (store) => (next) => (action) => {
           pseudo: user.pseudo,
         })
         .then((response) => {
-          console.log('gg', response);
-          store.dispatch(updateStatus());
+          console.log('activité rejointe', response);
+          store.dispatch(updateStatus('+'));
+          store.dispatch(fetchUserActivities());
+        })
+        .catch((error) => {
+          console.log('error', error.response.data);
+          store.dispatch(errorStatus());
+        });
+      break;
+
+    case QUIT_ACTIVITY:
+      if (!user.pseudo) {
+        console.error(
+          'ERROR il faut être connecté pour quitter une activité',
+        );
+        break;
+      }
+      axios
+        .post(`${process.env.API_URL}/api/activity/quit`, {
+          id: details.id,
+          pseudo: user.pseudo,
+        },
+        { withCredentials: true })
+        .then((response) => {
+          console.log('activité quittée', response);
+          store.dispatch(updateStatus('-'));
+          store.dispatch(fetchUserActivities());
         })
         .catch((error) => {
           console.log('error', error.response.data);

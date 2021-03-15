@@ -9,6 +9,7 @@ const sportsController = require("./controllers/sportsController");
 const newActivityController = require('./controllers/newActivityController');
 const registrationController = require("./controllers/registrationController");
 const joinActivityController = require("./controllers/joinActivityController");
+const quitActivityController = require("./controllers/quitActivityController");
 
 router.get('/', (req, res) => {
   res.send('hello');
@@ -30,6 +31,8 @@ router.post("/api/connexion", connectionController.getUser);
 router.get('/api/activities?', activityController.getLastActivities);
 
 router.post('/api/activity/join', joinActivityController.joinActivity);
+
+router.post('/api/activity/quit', authorizationMiddleware, quitActivityController.quitActivity);
 
 router.get('/api/activity/:id', activityController.getOneActivity); 
 

@@ -1,8 +1,10 @@
 import { SAVE_ACTTIVITY, UPDATE_STATUS, ERROR_STATUS } from 'src/actions/details';
 
 const initialState = {
-  classname: 'join',
-  message: 'Rejoindre',
+  classname: '',
+  joinMessage: 'Rejoindre',
+  quitMessage: "Quitter l'activité",
+  errorMessage: '',
 };
 
 const details = (state = initialState, action = {}) => {
@@ -10,15 +12,23 @@ const details = (state = initialState, action = {}) => {
     case ERROR_STATUS:
       return {
         ...state,
-        classname: 'already',
-        message: 'Vous participez déjâ',
+        classname: 'error',
+        errorMessage: 'ERROR',
       };
     case UPDATE_STATUS:
+      if (action.operateur === '+') {
+        return {
+          ...state,
+          errorMessage: '',
+          classname: '',
+          participant_count: state.participant_count + 1,
+        };
+      }
       return {
         ...state,
-        classname: 'success',
-        message: 'Inscription validée',
-        participant_count: state.participant_count + 1,
+        errorMessage: '',
+        classname: '',
+        participant_count: state.participant_count - 1,
       };
     case SAVE_ACTTIVITY:
       return {

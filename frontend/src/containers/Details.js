@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Details from 'src/components/Details';
-import { fetchDataActivity, joinActivity } from 'src/actions/details';
+import { fetchDataActivity, joinActivity, quitActivity } from 'src/actions/details';
 
 const mapStateToProps = (state) => ({
   activity: state.details,
@@ -13,6 +13,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onClickJoin: () => {
     dispatch(joinActivity());
+  },
+  onClickQuit: () => {
+    dispatch(quitActivity());
   },
 });
 
