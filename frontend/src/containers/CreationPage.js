@@ -7,6 +7,7 @@ import {
   sendActivityInformation,
   fetchSports,
 } from 'src/actions/creationPage';
+import {fetchUserActivities} from 'src/actions/cards';
 
 import {
   fetchUserActivities,
@@ -41,11 +42,15 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(sendActivityInformation());
   },
   fetchSports: () => {
-    dispatch(fetchSports())
+
+   dispatch(fetchSports());
+
   },
   fetchUserActivities: () => {
     dispatch(fetchUserActivities())
+
   },
+  
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreationPage);

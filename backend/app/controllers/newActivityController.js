@@ -12,12 +12,15 @@ const newActivityController = {
 
       const { title, description, creator_id, date, time, duration } = req.body;
       const dataPlace = req.body.place;
-      console.log('---------->dataplace',dataPlace);
+      console.log('---------->dataplace', dataPlace);
       console.log('------------------>zipcode', dataPlace.zip_code);
       console.log('------------>', sport_id);
+
+
       
       // On crée la nouvelle activité :
       const newActivity = await Activity.create(
+
         {
           title,
           description,
@@ -43,8 +46,16 @@ const newActivityController = {
         { include: ['activity_place'] },
       );
 
-      // On ajout l'activité crée au user :
+
       const user = await User.findByPk(creator_id);
+
+      // console.log('---------->user', user.dataValues.reward_count);
+      const new_reward_count = user.dataValues.reward_count + 100;
+      // console.log('---------->new_reward_count', new_reward_count);
+      user.reward_count = new_reward_count;
+      await user.save();
+      // console.log('------->user after', user)
+
       await newActivity.addUser(user);
 
       res.status(201).send('newActivity well created');
@@ -53,7 +64,6 @@ const newActivityController = {
       res.status(500).json(error.toString());
     }
   },
-
 };
 
 module.exports = newActivityController;

@@ -46,6 +46,7 @@ const connectionController = {
                     firsname: `${result.firstname}`,
                     lastname: `${result.lastname}`,
                     pseudo: `${result.pseudo}`,
+                    points: `${result.reward_count}`,
                 });
             }
         }

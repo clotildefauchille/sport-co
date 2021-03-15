@@ -84,9 +84,11 @@ const creationPage = (store) => (next) => (action) => {
                 }
               }*/)
               .then((response)=> {
+
                 store.dispatch(activityCreated())
                 // pour récuperer l'activité créée et la stocker dans le state :
                 // store.dispatch(fetchUserActivities());
+
               });
           })
           .catch((error) => {

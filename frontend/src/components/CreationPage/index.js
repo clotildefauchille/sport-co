@@ -24,9 +24,11 @@ const CreationPage = ({
   fetchUserActivities,
 }) => {
   if (isCreated) {
+
     // pour récuperer l'activité créée en homepage on recherche les userActivities
     fetchUserActivities();
     return <Redirect push to='/'></Redirect>;
+
   }
 
   useEffect(() => {

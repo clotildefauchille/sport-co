@@ -3,28 +3,34 @@ import {
   FETCH_LAST_ACTIVITIES,
   FETCH_USER_ACTIVITIES,
   saveActivities,
-  saveUserActivities
+  saveUserActivities,
 } from 'src/actions/cards';
 
 import {
   FETCH_ACTIVITIES_BY_LOCALISATION,
   FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS,
-  saveSearchedActivities
+  saveSearchedActivities,
 } from 'src/actions/search';
 
 import {
-  FETCH_DATA_ACTTIVITY,
+    FETCH_DATA_ACTTIVITY,
   saveActivity,
   JOIN_ACTIVITY,
   updateStatus,
   errorStatus,
 } from 'src/actions/details';
 
+import {
+  saveUserPoints,
+} from 'src/actions/login';
+
+
 const activities = (store) => (next) => (action) => {
   const idParams = action.id;
 
   const { details } = store.getState();
   const { user } = store.getState().login;
+
   switch (action.type) {
     case FETCH_LAST_ACTIVITIES:
       axios
@@ -37,21 +43,22 @@ const activities = (store) => (next) => (action) => {
         });
       break;
 
-    case FETCH_USER_ACTIVITIES: 
+    case FETCH_USER_ACTIVITIES:
       const userId = store.getState().login.user.id;
       console.log('------------------------------> userId ', userId);
       axios
         .get(`${process.env.API_URL}/api/activities/user/${userId}`)
         .then((response) => {
           console.log('response.data USER ', response.data);
-          store.dispatch(saveUserActivities(response.data));
+          store.dispatch(saveUserActivities(response.data.activities));
+          store.dispatch(saveUserPoints(response.data.user));
         })
         .catch((error) => {
           console.log('error', error);
         });
       break;
 
-    case FETCH_DATA_ACTTIVITY: 
+    case FETCH_DATA_ACTTIVITY:
       axios
         .get(`${process.env.API_URL}/api/activity/${idParams}`)
         .then((response) => {
@@ -77,6 +84,7 @@ const activities = (store) => (next) => (action) => {
             console.log('error', error);
           });
       }
+
       break;
     case JOIN_ACTIVITY:
       if (!user.pseudo) {
@@ -98,34 +106,39 @@ const activities = (store) => (next) => (action) => {
           console.log('error', error.response.data);
           store.dispatch(errorStatus());
         });
+
       break;
 
     case FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS:
-      console.log('action.query FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS ----> ', action.query);
+      console.log(
+        'action.query FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS ----> ',
+        action.query,
+      );
       const lat2 = parseFloat(action.query.lat);
       const lng2 = parseFloat(action.query.lng);
       const sports = action.query.sports;
 
       console.log(action.query.sports);
 
-      if(lat2 && lng2 && sports) {
+      if (lat2 && lng2 && sports) {
         console.log('FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS');
         axios
-        .get(`${process.env.API_URL}/api/activities/sports/?lat=${lat2}&lng=${lng2}&sports=${sports}&page=1`)
-        .then((response) => {
-          console.log('ressss', response.data);
-          store.dispatch(saveSearchedActivities(response.data));
-        })
-        .catch((error) => {
-          console.log('error', error);
-        });
+          .get(
+            `${process.env.API_URL}/api/activities/sports/?lat=${lat2}&lng=${lng2}&sports=${sports}&page=1`,
+          )
+          .then((response) => {
+            console.log('ressss', response.data);
+            store.dispatch(saveSearchedActivities(response.data));
+          })
+          .catch((error) => {
+            console.log('error', error);
+          });
       }
       break;
+
     default:
       next(action);
   }
 };
 
 export default activities;
-
-
