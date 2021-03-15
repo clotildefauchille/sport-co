@@ -8,6 +8,7 @@ const connectionController = require("./controllers/connectionController");
 const sportsController = require("./controllers/sportsController");
 const newActivityController = require('./controllers/newActivityController');
 const registrationController = require("./controllers/registrationController");
+const joinActivityController = require("./controllers/joinActivityController");
 
 router.get('/', (req, res) => {
   res.send('hello');
@@ -19,6 +20,9 @@ router.post('/api/newactivity', newActivityController.createNewActivity);
 
 //homepage user not connected
 router.get('/api/activities?', activityController.getLastActivities);
+
+router.post('/api/activity/join', joinActivityController.joinActivity);
+
 router.get('/api/activity/:id', activityController.getOneActivity); 
 
 //homepage user not connected searched by any place (google map API)
