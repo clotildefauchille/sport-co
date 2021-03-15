@@ -5,7 +5,6 @@ import {
   fetchUserActivities,
   saveActivities,
   saveUserActivities,
-  fetchUserActivities,
 } from 'src/actions/cards';
 
 import {
