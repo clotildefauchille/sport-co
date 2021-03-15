@@ -31,8 +31,8 @@ router.get('/api/sports/localisation?', sportsController.getSportsByLocalisation
 
 router.get('/api/activities/sports?', activityController.getActivitesByUserLocalisationAndSports);
 
-router.post('/api/activity/:id/message/', messageController.addMessageToActivity);
-router.get('/api/activity/:id/message/', messageController.getMessageByActivity);
+router.post('/api/activity/:id/messages/', messageController.addMessageToActivity);
+router.get('/api/activity/:id/messages/', messageController.getMessageByActivity);
 
 //homepage user not connected searched by department
 // router.get(

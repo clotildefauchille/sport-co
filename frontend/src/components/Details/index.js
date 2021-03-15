@@ -2,6 +2,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import Messages from 'src/containers/Messages';
+
 // == Import
 import './style.scss';
 
@@ -38,6 +40,7 @@ const Details = ({ activity, fetchDataActivity }) => {
             </div>
           </div>
         </section>
+        <Messages activityId={activity.id} />
         </>
       )}
     </main>

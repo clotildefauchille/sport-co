@@ -8,18 +8,39 @@ const messageController = {
     addMessageToActivity: async (req, res) => {
         console.log('----------> addMessageToActivity');
         let activityId = parseInt(req.params.id);
-        const { userId, message } = req.body;
+        const { userId, comment } = req.body;
 
         try {
             const newMessage = await Message.create({
-                comment: message,
+                comment: comment,
                 activity_id: activityId,
                 user_id: userId,
             });
 
-            console.log(newMessage);
-            res.status(201).send('newActivity well created,');
+            if(!newMessage){
+                console.trace(error);
+                res.status(500).json(error.toString());
+            }
 
+            const message = await Message.findOne({
+                include: [
+                    {
+                        association: 'users',
+                        attributes: ['id', 'pseudo'],
+                    }
+                ],
+                attributes: ['id','created_at', 'comment', 'activity_id'],
+                where: {
+                    id: newMessage.id,
+                }
+            });
+
+            const formatedMessage =  {
+                ...message.dataValues,
+                created_at: formatDate(message.created_at),
+            }
+            res.status(201).json(formatedMessage);
+            
         } catch (error) {
         console.trace(error);
         res.status(500).json(error.toString());
@@ -41,7 +62,7 @@ const messageController = {
                 where: {
                     activity_id: activityId,
                 },
-                order: [['created_at', 'DESC']],
+                order: [['created_at', 'ASC']],
             });
             
             const formatedMessages = messages.map((message) => {

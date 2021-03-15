@@ -8,9 +8,10 @@ import searchBar from 'src/middlewares/searchBar';
 import registration from '../middlewares/registration';
 import creationPage from 'src/middlewares/creationPage';
 import filter from 'src/middlewares/filter';
+import messages from 'src/middlewares/messages';
 
 const store = createStore(reducer, composeWithDevTools(
-  applyMiddleware(activities, searchBar, connexion, registration, creationPage, filter),
+  applyMiddleware(activities, searchBar, connexion, registration, creationPage, filter, messages),
 ));
 
 export default store;
