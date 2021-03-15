@@ -16,9 +16,11 @@ const initialState = {
   id: '',
   email: '',
   password: '',
-  user: {},
+  user: {
+
+  },
   error: false,
-  points: 0,
+
 };
 
 const login = (state = initialState, action = {}) => {

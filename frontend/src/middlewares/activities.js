@@ -4,6 +4,7 @@ import {
   FETCH_USER_ACTIVITIES,
   saveActivities,
   saveUserActivities,
+  fetchUserActivities,
 } from 'src/actions/cards';
 
 import {
@@ -13,17 +14,14 @@ import {
 } from 'src/actions/search';
 
 import {
-    FETCH_DATA_ACTTIVITY,
+  FETCH_DATA_ACTTIVITY,
   saveActivity,
   JOIN_ACTIVITY,
   updateStatus,
   errorStatus,
 } from 'src/actions/details';
 
-import {
-  saveUserPoints,
-} from 'src/actions/login';
-
+import { saveUserPoints } from 'src/actions/login';
 
 const activities = (store) => (next) => (action) => {
   const idParams = action.id;
@@ -83,8 +81,8 @@ const activities = (store) => (next) => (action) => {
             console.log('error', error);
           });
       }
-
       break;
+
     case JOIN_ACTIVITY:
       if (!user.pseudo) {
         console.error(
@@ -93,19 +91,24 @@ const activities = (store) => (next) => (action) => {
         break;
       }
       axios
-        .post(`${process.env.API_URL}/api/activity/join`, {
-          id: details.id,
-          pseudo: user.pseudo,
-        })
+        .post(
+          `${process.env.API_URL}/api/activity/join`,
+          {
+            id: details.id,
+            pseudo: user.pseudo,
+          },
+          { withCredentials: true },
+        )
         .then((response) => {
           console.log('gg', response);
           store.dispatch(updateStatus());
+          // pour récuperer les point après inscription
+          store.dispatch(fetchUserActivities());
         })
         .catch((error) => {
           console.log('error', error.response.data);
           store.dispatch(errorStatus());
         });
-
       break;
 
     case FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS:

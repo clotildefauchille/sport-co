@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../database.js');
+const Op = Sequelize.Op;
 
-const { Activity, User } = require('../models');
+const { Activity, User, UserGrade } = require('../models');
 
 const newActivityController = {
   createNewActivity: async (req, res) => {
@@ -15,8 +16,6 @@ const newActivityController = {
       console.log('------------------>zipcode', dataPlace.zip_code);
       console.log('------------>', sport_id);
 
-
-      
       // On crée la nouvelle activité :
       const newActivity = await Activity.create(
         {
@@ -44,14 +43,27 @@ const newActivityController = {
         { include: ['activity_place'] },
       );
 
-      // On ajout l'activité crée au user :
+
       const user = await User.findByPk(creator_id);
+
+      // ajoute les points motiv 
       // console.log('---------->user', user.dataValues.reward_count);
+
       const new_reward_count = user.dataValues.reward_count + 100;
-      // console.log('---------->new_reward_count', new_reward_count);
       user.reward_count = new_reward_count;
+      
+      // on verif à quel user_grade corresponde les points
+      const grades = await UserGrade.findAll({
+        where: {
+          point: {
+            [Op.lte]: new_reward_count,
+          }
+        },
+        order: [['point', 'DESC']],
+      });
+      user.user_grade_id = grades[0].id;
       await user.save();
-      // console.log('------->user after', user)
+
       await newActivity.addUser(user);
 
       res.status(201).send('newActivity well created');

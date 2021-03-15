@@ -356,6 +356,7 @@ const activityController = {
         where: {
           id: userId,
         },
+        include : ['user_grade'],
         attributes: ['id','firstname','lastname','pseudo','reward_count'],
       });
       res.json({activities: formatedaActivities, user: user});

@@ -1,8 +1,9 @@
 const Sequelize = require('sequelize');
 const { QueryTypes } = require('sequelize');
 const sequelize = require('../database.js');
+const Op = Sequelize.Op;
 
-const { Activity, User } = require('../models');
+const { Activity, User, UserGrade } = require('../models');
 
 const joinActivityController = {
   joinActivity: async (req, res) => {
@@ -16,7 +17,7 @@ const joinActivityController = {
         as: 'activities',
       }],
     });
-    console.log(user.activities);
+    // console.log(user.activities);
 
     const verifResult = await sequelize.query(
       `SELECT id FROM "user_has_activity" WHERE "activity_id"=:activity_id AND "user_id"=:user_id;`,
@@ -47,9 +48,7 @@ const joinActivityController = {
           type: QueryTypes.INSERT
         }
       );
-      res.json({
-        result: "success"
-      })
+      
       const participant_count = await Activity.findByPk(req.body.id);
       newParticipant_count = participant_count.dataValues.participant_count + 1;
       // on incrémente le participant_count
@@ -58,6 +57,27 @@ const joinActivityController = {
           id: req.body.id,
         }
       });
+
+      // ajoute les points motiv 
+      const new_reward_count = user.dataValues.reward_count + 10;
+      user.reward_count = new_reward_count;
+      
+      // on verif à quel user_grade corresponde les points
+      const grades = await UserGrade.findAll({
+        where: {
+          point: {
+            [Op.lte]: new_reward_count,
+          }
+        },
+        order: [['point', 'DESC']],
+      });
+      user.user_grade_id = grades[0].id;
+      await user.save();
+
+      res.json({
+        result: "success"
+      })
+
     } catch (error) {
       res.status(403).json({
         error: "errorServer"
@@ -65,7 +85,6 @@ const joinActivityController = {
       return;
     }
     
-
 },
 };
 
