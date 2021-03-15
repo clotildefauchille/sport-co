@@ -6,6 +6,9 @@ const mapStateToProps = (state) => ({
   isLogged: state.header.isLogged,
   user: state.login.user,
   userActivities: state.userActivities.list,
+  points: state.login.user.reward_count,
+  registredActivities: state.userActivities.ids.length,
+  myCreatedActivities: state.userActivities.idsCreator.length,
 });
 
 const mapDispatchToProps = (dispatch) => ({

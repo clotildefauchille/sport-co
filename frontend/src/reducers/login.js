@@ -1,4 +1,10 @@
-import { SAVE_LOGIN, SAVE_CONNEXION_STATUT, DISCONNECT, LOGIN_ERROR } from 'src/actions/login';
+import {
+  SAVE_LOGIN,
+  SAVE_CONNEXION_STATUT,
+  DISCONNECT,
+  LOGIN_ERROR,
+  SAVE_USER_POINTS,
+} from 'src/actions/login';
 
 const initialState = {
   /*
@@ -7,11 +13,14 @@ const initialState = {
   user: {},
   error: false,
   */
-  id: "",
-  email: 'clotildefauchille@gmail.com',
-  password: 'pass',
-  user: {},
+  id: '',
+  email: '',
+  password: '',
+  user: {
+
+  },
   error: false,
+
 };
 
 const login = (state = initialState, action = {}) => {
@@ -21,14 +30,18 @@ const login = (state = initialState, action = {}) => {
         ...state,
         [action.input]: action.value,
       };
-      
     case SAVE_CONNEXION_STATUT:
       return {
         ...state,
         error: false,
         user: action.data,
       };
-
+    case SAVE_USER_POINTS:
+      return {
+        ...state,
+        error: false,
+        user: action.data,
+      };
     case DISCONNECT:
       return initialState;
 

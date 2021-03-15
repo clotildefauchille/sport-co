@@ -27,6 +27,7 @@ const Details = ({
   let currentSport = '';
   const { id } = useParams();
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchDataActivity(id);
   }, []);
 
