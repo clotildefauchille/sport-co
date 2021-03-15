@@ -39,7 +39,19 @@ const creationPage = (store) => (next) => (action) => {
               'responseapiPlace.postal_code',
               responseApiPlace.postal_code,
             );
-            
+
+            /*
+            // avec token stocké dans le local storage
+            let token;
+            if (localStorage.fairplayUser) {
+              const user = JSON.parse(localStorage.fairplayUser);
+              token = user.token;
+            } else {
+              return;
+            }
+            console.log('token ----> ', token);
+            */
+
             axios
               .post(`${process.env.API_URL}/api/newactivity`, {
                 title: creationPage.title,
@@ -60,9 +72,23 @@ const creationPage = (store) => (next) => (action) => {
                 },
                 activity_status_id: 3,
                 sport_id: creationPage.sport_id,
-              })
+              },
+              // pour set/get cookies /!\
+              { withCredentials: true }
+              // pour passer token de localStorage
+              /*, {
+                headers: {
+                  //Authorization: `bearer ${state.user.token}`,
+                  // recup token in localStorage
+                  Authorization: `bearer ${token}`,
+                }
+              }*/)
               .then((response)=> {
+
                 store.dispatch(activityCreated())
+                // pour récuperer l'activité créée et la stocker dans le state :
+                // store.dispatch(fetchUserActivities());
+
               });
           })
           .catch((error) => {

@@ -1,4 +1,4 @@
-
+ 
 BEGIN;
 
 DROP TABLE IF EXISTS "user_has_activity", "user_has_sport", "user", "activity", "sport", "message", "user_place", "user_grade", "activity_statut", "activity_place";

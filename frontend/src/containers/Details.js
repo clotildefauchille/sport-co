@@ -1,14 +1,17 @@
 import { connect } from 'react-redux';
 import Details from 'src/components/Details';
-import { fetchDataActivity } from 'src/actions/details';
+import { fetchDataActivity, joinActivity } from 'src/actions/details';
 
 const mapStateToProps = (state) => ({
-    activity: state.details,
+  activity: state.details,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchDataActivity: () => {
-    dispatch(fetchDataActivity());
+  fetchDataActivity: (id) => {
+    dispatch(fetchDataActivity(id));
+  },
+  onClickJoin: () => {
+    dispatch(joinActivity());
   },
 });
 
