@@ -1,4 +1,6 @@
 const { Activity, Sport, ActivityStatut, ActivityPlace } = require('../models');
+
+const { distanceCalculSQL } = require('../selectors/distanceCalculSQL');
 const { formatActivities, formatActivity, formatActivitiesFilterByDistance } = require('../selectors/formatActivities');
 
 const Sequelize = require("sequelize");
@@ -66,6 +68,7 @@ const activityController = {
   },
 
 
+  
   getOneActivity: async (req, res) => {
     console.log('----------> getOneActivity');
 
@@ -134,46 +137,10 @@ const activityController = {
     }
 
     try {
-      /**
-       * Formule mathématique pour le calcul de distance entre 2 points A et B sur terre avec lat et lng,
-       * 6371 est le rayon de la terre en km :
-       *
-       * x = (lngB - lngA) * cos((latA + latB)/2)
-       * y = latA - latB
-       * distance = sqrt(pow(x) + pow(y)) * 6371
-       *
-       * mais /!\ il faut convertir et remplacer les lat et lng en radian :
-       * latInRad = lat * pi() / 180
-       * lngInRad = lng * pi() / 180
-       *
-       * besoin d'utiliser une sous requete avec alias pour calcul et recup la distance :
-       * https://sql.sh/cours/sous-requete
-       *
-       * ADAPTATION SQL :
-       */
-
-      const distanceCalcul = sequelize.literal(`(
-      SELECT (
-        SQRT(
-          POW (
-            (("lng" * pi() / 180) - ( ${lng} * pi() / 180))
-              * COS((( "lat" * pi() / 180) + ( ${lat} * pi() / 180)) / 2), 2
-            ) 
-            + POW (
-              ("lat" * pi() / 180) - ( ${lat} * pi() / 180), 2
-            )
-          ) * 6371
-        )
-        FROM activity_place
-        WHERE activity_place_id = activity_place.id
-      )`);
-
       const activities = await Activity.findAll({
-        where: {
-          activity_status_id: 3,
-        },
         attributes: { 
-          exclude: ['activity_status_id','activity_place_id','sport_id','creator_id'] 
+          // exclude: ['activity_status_id','activity_place_id','sport_id','creator_id'] 
+          exclude: ['activity_place_id','sport_id','creator_id'] 
         },
         include: [
           {
@@ -196,14 +163,29 @@ const activityController = {
           },
           {
             association: 'activity_place',
+            /*
             attributes: {
-              include: [[distanceCalcul, 'distance']],
+              include: [[sequelize.literal(distanceCalculSQL(lat, lng)), 'distance']],
             },
+            */
           },
         ],
+        where: {
+          [Op.and]: [
+            sequelize.where(
+              sequelize.literal(distanceCalculSQL(lat, lng)), {
+                [Op.lte]: activityController.defaultLimitDistance
+              },
+            ),
+            {
+              activity_status_id: 3,
+            }
+          ]
+        },
         offset: (page - 1) * activityController.defaultNumCardInPage,
         limit: activityController.defaultNumCardInPage,
-        order: [sequelize.literal(`"activity_place.distance"`)],
+        //order: [sequelize.literal(`"activity_place.distance"`)],
+        order: [['date', 'ASC']],
       });
 
       if (!activities) {
@@ -211,27 +193,34 @@ const activityController = {
         return;
       }
 
-      formatedaActivities = formatActivitiesFilterByDistance(activities, activityController.defaultLimitDistance);
+      //formatedaActivities = formatActivitiesFilterByDistance(activities, activityController.defaultLimitDistance);
+      /*
       if(formatedaActivities.length < 1) {
         res.status(204).json("Error : can't find Activity");
         return;
       }
+      */
+      formatedaActivities = formatActivities(activities);
       res.json(formatedaActivities);
       
     } catch (error) {
       console.trace(error);
       res.status(500).json(error.toString());
     }
-  },
+  }, 
 
 
-  getActivitesByUserLocalisationAndSport: async (req, res) => {
-    console.log('----------> getActivitesByUserLocalisationAndSport');
+  getActivitesByUserLocalisationAndSports: async (req, res) => {
+    console.log('----------> getActivitesByUserLocalisationAndSports');
 
     let lat = parseFloat(req.query.lat);
     let lng = parseFloat(req.query.lng);
     let page = parseInt(req.query.page);
-    let sportId = parseInt(req.params.sportId);
+    let sports = req.query.sports.split(',');
+
+    sports.map(sport => parseInt(sport));
+
+    console.log('sports2', sports);
 
     if (!lat || !lng) {
       res.status(404).json("Error : can't find Activity without Localisation");
@@ -239,71 +228,116 @@ const activityController = {
     if (!page) {
       page = 1;
     }
-    
-    console.log("sportId  ------> ", sportId);
-    if (!sportId) {
-      res
-        .status(404)
-        .json("Error : can't filter Activity by sport without sport");
-      return;
-    }
 
     try {
-      const distanceCalcul = sequelize.literal(`(
-      SELECT (
-        SQRT(
-          POW (
-            (("lng" * pi() / 180) - ( ${lng} * pi() / 180))
-              * COS((( "lat" * pi() / 180) + ( ${lat} * pi() / 180)) / 2), 2
-            ) 
-            + POW (
-              ("lat" * pi() / 180) - ( ${lat} * pi() / 180), 2
-            )
-          ) * 6371
-        )
-        FROM activity_place
-        WHERE activity_place_id = activity_place.id
-      )`);
-
       const activities = await Activity.findAll({
-        where: {
-          activity_status_id: 3,
-          sport_id: sportId,
-        },
         include: [
           'activity_statut',
-          'sport',
           'creator',
+          'sport',
           {
             association: 'activity_place',
+            /*
             attributes: {
-              include: [[distanceCalcul, 'distance']],
+              include: [[sequelize.literal(distanceCalculSQL(lat, lng)), 'distance']],
             },
+            */
           },
         ],
+        where: {
+          [Op.and]: [
+            sequelize.where(
+              sequelize.literal(distanceCalculSQL(lat, lng)), {
+                [Op.lte]: activityController.defaultLimitDistance
+              },
+            ),
+            {
+              activity_status_id: 3,
+            },
+            {
+              sport_id: {
+                [Op.or]: sports
+              }
+            }
+          ]
+        },
         offset: (page - 1) * activityController.defaultNumCardInPage,
         limit: activityController.defaultNumCardInPage,
-        order: [sequelize.literal(`"activity_place.distance"`)],
+        //order: [sequelize.literal(`"activity_place.distance"`)],
+        order: [['date', 'ASC']],
       });
 
       if (!activities) {
         res.status(204).json("Error : can't find Activity");
         return;
       }
-
+      /*
       formatedaActivities = formatActivitiesFilterByDistance(activities, activityController.defaultLimitDistance);
       if(formatedaActivities.length < 1) {
         res.status(204).json("Error : can't find Activity");
         return;
       }
-
+      */
+      formatedaActivities = formatActivities(activities);
       res.json(formatedaActivities);
-      
+
     } catch (error) {
       console.trace(error);
       res.status(500).json(error.toString());
     }
-  },
+  }, 
+
+
+
+
+
+
+
+  getActivitiesByUser: async (req, res) => {
+    console.log('----------> getActivitesByUserLocalisationAndSports');
+
+    let lat = parseFloat(req.query.lat);
+    let lng = parseFloat(req.query.lng);
+    let page = parseInt(req.query.page);
+    let userId = parseInt(req.params.id);
+
+    console.log('userId', userId);
+
+    if (!page) {
+      page = 1;
+    }
+
+    try {
+      const activities = await Activity.findAll({
+        include: [
+          'activity_statut',
+          'creator',
+          'sport',
+          'activity_place',
+          {
+            association: 'users',
+            where: {
+              id: userId
+            }
+          },
+        ],
+        offset: (page - 1) * activityController.defaultNumCardInPage,
+        limit: activityController.defaultNumCardInPage,
+        order: [['date', 'ASC']],
+      });
+
+      if (!activities) {
+        res.status(204).json("Error : can't find Activity");
+        return;
+      }
+      formatedaActivities = formatActivities(activities);
+      res.json(formatedaActivities);
+    } catch (error) {
+      console.trace(error);
+      res.status(500).json(error.toString());
+    }
+  }, 
+  
 
 };
 

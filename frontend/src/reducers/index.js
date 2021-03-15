@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import cards from './cards';
+import userActivities from './userActivities';
 import header from './header';
 import login from './login';
 import searchBar from './searchBar';
@@ -8,6 +9,7 @@ import search from './search';
 import details from './details';
 import registration from './registration';
 import creationPage from './creationPage';
+import filter from './filter';
 
 const globalReducer = combineReducers({
   cards,
@@ -19,6 +21,8 @@ const globalReducer = combineReducers({
   details,
   registration,
   creationPage,
+  userActivities,
+  filter,
 });
 
 export default globalReducer;

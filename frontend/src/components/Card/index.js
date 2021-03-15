@@ -13,12 +13,20 @@ import clock from 'src/assets/icons/clock.svg';
 import sports from './sports';
 
 // == Composant
-const Card = ({ card, isLogged, showLoginModal }) => {
+const Card = ({ card, isLogged, showLoginModal, userCard }) => {
+  
+  let cardClassName = 'card';
+  if(userCard === 1) {
+    cardClassName = 'card card--user';
+  } else if(userCard === 2) {
+    cardClassName = 'card card--user card--creator';
+  }
+  
   const urlPath = `/activity/${card.id}`;
   switch (isLogged) {
     case true:
       return (
-        <article className="card">
+        <article className={cardClassName}>
           <Link to={urlPath} className="card__link">
             <img src={sports[card.sport.name]} alt="" className="card__image" />
             <h2 className="card__title">{card.title}</h2>
@@ -93,6 +101,7 @@ Card.propTypes = {
   card: PropTypes.object.isRequired,
   showLoginModal: PropTypes.func.isRequired,
   isLogged: PropTypes.bool.isRequired,
+  userCard: PropTypes.number.isRequired,
 };
 
 // == Export

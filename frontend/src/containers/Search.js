@@ -1,14 +1,27 @@
 import { connect } from 'react-redux';
 import Search from 'src/components/Search';
-import { fetchActivitiesByLocalisation } from 'src/actions/search';
+
+import { fetchUserActivities } from 'src/actions/cards';
+import {
+  fetchActivitiesByLocalisation, 
+  fetchActivitiesByLocalisationAndSports
+} from 'src/actions/search';
 
 const mapStateToProps = (state) => ({
   activities: state.search.activities,
+  userActivitiesIds: state.userActivities.ids,
+  userActivitiesCreatorIds: state.userActivities.idsCreator,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchActivitiesByLocalisation: (query) => {
     dispatch(fetchActivitiesByLocalisation(query));
+  },
+  fetchUserActivities: () => {
+    dispatch(fetchUserActivities());
+  },
+  fetchActivitiesByLocalisationAndSports: (query) => {
+    dispatch(fetchActivitiesByLocalisationAndSports(query));
   },
 });
 

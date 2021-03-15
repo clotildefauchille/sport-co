@@ -1,12 +1,19 @@
 import { connect } from 'react-redux';
 import Accueil from 'src/components/Accueil';
-import { fetchLastActivities } from 'src/actions/cards';
+import { fetchLastActivities, fetchUserActivities } from 'src/actions/cards';
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  isLogged: state.header.isLogged,
+  user: state.login.user,
+  userActivities: state.userActivities.list,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   fetchData: () => {
     dispatch(fetchLastActivities());
+  },
+  fetchUserActivities: () => {
+    dispatch(fetchUserActivities());
   },
 });
 

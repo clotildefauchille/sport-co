@@ -14,11 +14,11 @@ CREATE TABLE "sport" (
 CREATE TABLE "activity_place" (
     "id" SERIAL PRIMARY KEY,
     "address" TEXT NOT NULL DEFAULT '',
-    "city" TEXT NOT NULL DEFAULT '',
-    "zip_code" TEXT NOT NULL DEFAULT '',
-    "department" TEXT NOT NULL DEFAULT '',
-    "region" TEXT NOT NULL DEFAULT '',
-    "google_place_key" TEXT NOT NULL DEFAULT '',
+    "city" TEXT DEFAULT '',
+    "zip_code" TEXT DEFAULT '',
+    "department" TEXT DEFAULT '',
+    "region" TEXT DEFAULT '',
+    "google_place_key" TEXT DEFAULT '',
     "lat" DOUBLE PRECISION,
     "lng" DOUBLE PRECISION,
     "private" BOOLEAN DEFAULT 'false',
@@ -116,7 +116,7 @@ CREATE TABLE "user_has_activity" (
 INSERT INTO "sport" ("name", "icon") VALUES
 ('foot', 'foot'),
 ('tennis', 'tennis'),
-('rando', 'rando'),
+('randonnee', 'randonnee'),
 ('yoga', 'yoga'),
 ('velo', 'velo'),
 ('footing', 'footing'),
@@ -155,8 +155,8 @@ VALUES ('passed'), ('canceled'), ('ongoing');
 
 INSERT INTO "activity" ("title", "description", "illustration", "date", "time", "duration", "participant_count", "min_participant", "creator_id", "activity_place_id", "activity_status_id", "sport_id")
 VALUES 
-('foot énervé', 'partie de foot au stade des Guillants, mettez votre plus beau maillot', '', '01/05/2021', '18:00', '2:30', 2, 8, 3, 1, 1, 1), 
-('Double tennis 2', 'on est chaud du revers', '', '07/05/2021', '14:30', '1:00', 1, 4, 2, 2, 1, 2),
+('foot énervé', 'partie de foot au stade des Guillants, mettez votre plus beau maillot', '', '01/05/2021', '18:00', '2:30', 2, 8, 3, 1, 3, 1), 
+('Double tennis 2', 'on est chaud du revers', '', '07/05/2021', '14:30', '1:00', 1, 4, 1, 2, 3, 2),
 ('foot', 'partie de foot au stade Maurice, mettez votre plus beau maillot', '', '12/05/2021', '18:00', '2:30', 2, 8, 3, 1, 3, 1), 
 ('tennis', 'tennis en terre battue', '', '10/05/2021', '18:30', '1:00', 3, 4, 2, 2, 3, 2),
 ('foot', 'foot au stade', '', '01/05/2021', '18:00', '2:30', 2, 8, 3, 3, 3, 1), 
@@ -169,9 +169,6 @@ VALUES
 ('escalade', 'escalade de Bloc en forêt ', '', '04/11/2021', '11:30', '1:00', 1, 3, 2, 2, 3, 7),
 ('basketball', 'basketball improvisé ', '', '05/11/2021', '11:30', '1:00', 1, 3, 2, 2, 3, 8),
 ('fitness', 'fitness en salle ', '', '04/11/2021', '7:30', '1:00', 1, 3, 2, 2, 3, 9);
-
-
-
 
 INSERT INTO "message" ("comment", "user_id", "activity_id")
 VALUES ('super cette partie, mais j''aurai pas dû manger un kebab juste avt', 1, 1),
