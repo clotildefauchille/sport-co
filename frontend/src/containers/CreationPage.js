@@ -7,7 +7,6 @@ import {
   sendActivityInformation,
   fetchSports,
 } from 'src/actions/creationPage';
-import {fetchUserActivities} from 'src/actions/cards';
 
 import {
   fetchUserActivities,
