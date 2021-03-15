@@ -2,6 +2,7 @@ const { Activity, Message, User } = require('../models');
 
 const Sequelize = require("sequelize");
 const { formatDate } = require('../selectors/formatDate');
+const sanitizeHtml = require('sanitize-html');
 
 const messageController = {
 
@@ -12,9 +13,17 @@ const messageController = {
 
         console.log('--------------------------> id back', activityId );
 
+        // nettoie toutes les balises
+        const cleanComment = sanitizeHtml(comment, {
+            allowedTags: [],
+            allowedAttributes: {}
+        });
+
+        console.log('cleanComment', cleanComment);
+
         try {
             const newMessage = await Message.create({
-                comment: comment,
+                comment: cleanComment,
                 activity_id: activityId,
                 user_id: userId,
             });
