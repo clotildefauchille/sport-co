@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import CreationPage from 'src/components/CreationPage';
-import creationPage from '../reducers/creationPage';
+
 import {
   changeInputCreateForm,
   changeInputCreateFormSelect,
@@ -8,6 +8,10 @@ import {
   fetchSports,
 } from 'src/actions/creationPage';
 import {fetchUserActivities} from 'src/actions/cards';
+
+import {
+  fetchUserActivities,
+} from 'src/actions/cards';
 
 const mapStateToProps = (state) => ({
   title: state.creationPage.title,
@@ -38,11 +42,15 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(sendActivityInformation());
   },
   fetchSports: () => {
-    dispatch(fetchSports());
+
+   dispatch(fetchSports());
+
   },
-  fetchUserActivities:() => {
-    dispatch(fetchUserActivities());
-  }
+  fetchUserActivities: () => {
+    dispatch(fetchUserActivities())
+
+  },
+  
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreationPage);

@@ -16,7 +16,11 @@ const newActivityController = {
       console.log('------------------>zipcode', dataPlace.zip_code);
       console.log('------------>', sport_id);
 
-      let newActivity = await Activity.create(
+
+      
+      // On crée la nouvelle activité :
+      const newActivity = await Activity.create(
+
         {
           title,
           description,
@@ -25,7 +29,6 @@ const newActivityController = {
           duration,
           min_participant,
           creator_id,
-          activity_place_id: 1,
           activity_status_id: 3,
           participant_count: 1,
           sport_id,
@@ -43,6 +46,7 @@ const newActivityController = {
         { include: ['activity_place'] },
       );
 
+
       const user = await User.findByPk(creator_id);
 
       // console.log('---------->user', user.dataValues.reward_count);
@@ -51,6 +55,7 @@ const newActivityController = {
       user.reward_count = new_reward_count;
       await user.save();
       // console.log('------->user after', user)
+
       await newActivity.addUser(user);
 
       res.status(201).send('newActivity well created');

@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 import {
   FETCH_LAST_ACTIVITIES,
   FETCH_USER_ACTIVITIES,
@@ -14,14 +13,24 @@ import {
 } from 'src/actions/search';
 
 import {
+    FETCH_DATA_ACTTIVITY,
+  saveActivity,
+  JOIN_ACTIVITY,
+  updateStatus,
+  errorStatus,
+} from 'src/actions/details';
+
+import {
   saveUserPoints,
 } from 'src/actions/login';
 
 
-
-import { FETCH_DATA_ACTTIVITY, saveActivity } from 'src/actions/details';
-
 const activities = (store) => (next) => (action) => {
+  const idParams = action.id;
+
+  const { details } = store.getState();
+  const { user } = store.getState().login;
+
   switch (action.type) {
     case FETCH_LAST_ACTIVITIES:
       axios
@@ -51,7 +60,7 @@ const activities = (store) => (next) => (action) => {
 
     case FETCH_DATA_ACTTIVITY:
       axios
-        .get(`${process.env.API_URL}/api/activity/1`)
+        .get(`${process.env.API_URL}/api/activity/${idParams}`)
         .then((response) => {
           store.dispatch(saveActivity(response.data));
         })
@@ -75,6 +84,29 @@ const activities = (store) => (next) => (action) => {
             console.log('error', error);
           });
       }
+
+      break;
+    case JOIN_ACTIVITY:
+      if (!user.pseudo) {
+        console.error(
+          'ERROR il faut être connecté pour rejoindre une activité',
+        );
+        break;
+      }
+      axios
+        .post(`${process.env.API_URL}/api/activity/join`, {
+          id: details.id,
+          pseudo: user.pseudo,
+        })
+        .then((response) => {
+          console.log('gg', response);
+          store.dispatch(updateStatus());
+        })
+        .catch((error) => {
+          console.log('error', error.response.data);
+          store.dispatch(errorStatus());
+        });
+
       break;
 
     case FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS:

@@ -14,10 +14,15 @@ const connexion = (store) => (next) => (action) => {
       const { login } = store.getState();
       // console.log('gg');
       axios
-        .post(`${process.env.API_URL}/api/connexion`, {
-          email: login.email,
-          password: login.password,
-        })
+        .post(
+          `${process.env.API_URL}/api/connexion`, 
+          {
+            email: login.email,
+            password: login.password,
+          },
+          // pour set/get cookies /!\
+          { withCredentials: true },
+        )
         .then((response) => {
           console.log('response', response.data);
 
@@ -30,6 +35,7 @@ const connexion = (store) => (next) => (action) => {
             lastname: response.data.lastname,
             pseudo: response.data.pseudo,
             points: response.data.points,
+
           });
         })
         .catch((error) => {

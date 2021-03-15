@@ -1,10 +1,9 @@
 const bcrypt = require("bcrypt");
+const cookieParser = require('cookie-parser');
 
 const { User } = require("../models");
 
-const Sequelize = require("sequelize");
-const sequelize = require("../database.js");
-const { request } = require("express");
+const jsonwebtoken = require('jsonwebtoken');
 
 const connectionController = {
     getUser: async (req, res) => {
@@ -32,6 +31,16 @@ const connectionController = {
                     error: "Le mot de passe est incorrect",
                 });
             } else {
+
+                const jwtSecret = process.env.JWT_SECRET;
+                const jwtContent = { userId: result.id };
+                const jwtOptions = {
+                    algorithm: 'HS256',
+                    expiresIn: '3h'
+                };
+                const token = jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions);
+                res.cookie('token', token, {httpOnly: true});
+
                 res.json({
                     id: `${result.id}`,
                     firsname: `${result.firstname}`,
