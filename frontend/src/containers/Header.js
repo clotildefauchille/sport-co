@@ -5,6 +5,8 @@ import { clearUserActivities } from 'src/actions/cards';
 
 const mapStateToProps = (state) => ({
   isLogged: state.header.isLogged,
+  points: state.login.user.reward_count,
+  grade: state.login.user.user_grade,
 });
 
 const mapDispatchToProps = (dispatch) => ({

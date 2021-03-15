@@ -28,7 +28,10 @@ const Accueil = ({
     ? 'home home--img home--logged'
     : 'home home--img';
 
-  const displayUserInfo = ( myCreatedActivities > 0 || registredActivities > 0 || points > 0 ) ? true : false;
+  const displayUserInfo =
+    myCreatedActivities > 0 || registredActivities > 0 || points > 0
+      ? true
+      : false;
 
   return (
     <main className={mainClassName}>
@@ -40,21 +43,38 @@ const Accueil = ({
 
           {displayUserInfo && (
             <>
-          <div className="hero__txt-user">
-            {myCreatedActivities > 0 && (
-              <>Tu as crée <span className= 'hero__txt-user--green'>{myCreatedActivities} activité(s)</span>, </>
-            )}
-            {registredActivities > 0 && (<>
-              tu es inscrit à <span className="hero__txt-user--orange">{registredActivities} activité(s)</span> !
-            </>)}
-            {points > 0 && (<>
-              <br />
-              et gagné <span className="hero__txt-user--orange">{points} points</span> Fairplay !
-            </>)}
-          </div>
-          </>
+              <div className="hero__txt-user">
+                {myCreatedActivities > 0 && (
+                  <>
+                    Tu as crée{' '}
+                    <span className="hero__txt-user--green">
+                      {myCreatedActivities} activité(s)
+                    </span>
+                    ,{' '}
+                  </>
+                )}
+                {registredActivities > 0 && (
+                  <>
+                    tu es inscrit à{' '}
+                    <span className="hero__txt-user--orange">
+                      {registredActivities} activité(s)
+                    </span>{' '}
+                    !
+                  </>
+                )}
+                {points > 0 && (
+                  <>
+                    <br />
+                    et gagné{' '}
+                    <span className="hero__txt-user--orange">
+                      {points} points
+                    </span>{' '}
+                    Fairplay !
+                  </>
+                )}
+              </div>
+            </>
           )}
-
         </div>
       ) : (
         <div className="hero">
@@ -100,6 +120,12 @@ Accueil.propTypes = {
   fetchUserActivities: PropTypes.func.isRequired,
   isLogged: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
+  points: PropTypes.number,
+  
 };
 
+Accueil.defaultProps = {
+  points: 0,
+  
+};
 export default Accueil;

@@ -50,6 +50,8 @@ const activities = (store) => (next) => (action) => {
         .get(`${process.env.API_URL}/api/activities/user/${userId}`)
         .then((response) => {
           console.log('response.data USER ', response.data);
+          
+
           store.dispatch(saveUserActivities(response.data.activities));
           store.dispatch(saveUserPoints(response.data.user));
         })

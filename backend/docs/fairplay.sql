@@ -135,7 +135,7 @@ INSERT INTO "user_grade" ("name", "point") VALUES
 ('Nice follower', 100),
 ('Perfect partner', 200),
 ('Just addict', 100),
-('Fantastic leader', 5000);
+('Leader', 5000);
 
 INSERT INTO "user_place" ("address", "city", "zip_code", "department", "region", "google_place_key", "lat", "lng") VALUES
 ('25 Rue Gabriel Marie', 'Marseille', '13010','Provence-Alpes-Côte d''Azur', 'Bouches-du-Rhône', 'ChIJUWddC1G_yRIRrCeWrpgJsig', 43.28572709923827, 5.401447882759161),
