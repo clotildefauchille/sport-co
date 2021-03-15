@@ -134,7 +134,7 @@ INSERT INTO "user_grade" ("name", "point") VALUES
 ('Novice', 0),
 ('Nice follower', 100),
 ('Perfect partner', 200),
-('Just addict', 100),
+('Just addict', 500),
 ('Leader', 5000);
 
 INSERT INTO "user_place" ("address", "city", "zip_code", "department", "region", "google_place_key", "lat", "lng") VALUES

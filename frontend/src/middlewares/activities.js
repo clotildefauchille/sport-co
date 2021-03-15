@@ -82,8 +82,8 @@ const activities = (store) => (next) => (action) => {
             console.log('error', error);
           });
       }
-
       break;
+
     case JOIN_ACTIVITY:
       if (!user.pseudo) {
         console.error(
@@ -110,7 +110,6 @@ const activities = (store) => (next) => (action) => {
           console.log('error', error.response.data);
           store.dispatch(errorStatus());
         });
-
       break;
 
     case FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS:
