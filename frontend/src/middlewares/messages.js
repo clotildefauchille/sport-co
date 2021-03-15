@@ -22,6 +22,9 @@ const messages = (store) => (next) => (action) => {
       break;
 
     case SEND_MESSAGES:
+
+        console.log('action.message.activityId -----> ', action.message.activityId );
+
       axios
         .post(`${process.env.API_URL}/api/activity/${action.message.activityId}/messages`,
         {

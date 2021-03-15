@@ -14,6 +14,8 @@ const Messages = ({ messages, fetchMessages, sendMessages, userId, activityId })
   const handleClickForm = (e) => {
     e.preventDefault();
 
+    console.log('activityId comp', activityId);
+
     sendMessages ({ 
       comment: inputValue,
       activityId: parseInt(activityId),
@@ -27,20 +29,23 @@ const Messages = ({ messages, fetchMessages, sendMessages, userId, activityId })
 
   return (
    <div className="messages">
+
+    <div className="messages__container">
     {messages.map((message, index) => {
       return (
         <div key={`message-${index}`} className="messages__message">
-          {message.comment}<br />
-          {message.users.pseudo} {message.created_at}
+          <div className="messages__content">{message.comment}</div>
+          <div><span className="messages__pseudo">{message.users.pseudo}</span> <span className="messages__date">{message.created_at}</span></div>
         </div>
       );
     })}
-    <div className="messages__form">
-      <form action="" onSubmit={handleClickForm} >
-        <input type="text" onChange={handleOnChange} value={inputValue}/>
-        <button type="submit">send</button>
-      </form>
     </div>
+
+    <form action="" onSubmit={handleClickForm} className="messages__form">
+      <input className="messages__input" type="text" onChange={handleOnChange} value={inputValue} placeholder="Ecrire un message"/>
+      <button className="messages__button" type="submit" >send</button>
+    </form>
+
    </div>
   );
 };

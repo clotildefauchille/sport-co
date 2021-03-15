@@ -13,6 +13,8 @@ const Details = ({ activity, fetchDataActivity }) => {
     fetchDataActivity();
   }, []);
 
+  console.log('activity.id -----> ', activity.id );
+
   return (
     <main className="activity">
       {activity.id && (

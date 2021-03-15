@@ -9,7 +9,7 @@ const messages = (state = initialState, action = {}) => {
       return [...action.data];
 
     case SAVE_NEW_MESSAGES:
-      return [...state, action.message];
+      return [action.message, ...state];
 
     default:
       return state;

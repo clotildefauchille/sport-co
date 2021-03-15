@@ -10,6 +10,8 @@ const messageController = {
         let activityId = parseInt(req.params.id);
         const { userId, comment } = req.body;
 
+        console.log('--------------------------> id back', activityId );
+
         try {
             const newMessage = await Message.create({
                 comment: comment,
@@ -34,6 +36,8 @@ const messageController = {
                     id: newMessage.id,
                 }
             });
+
+            console.log('--------------------------> id back message2', message.id );
 
             const formatedMessage =  {
                 ...message.dataValues,
@@ -62,7 +66,7 @@ const messageController = {
                 where: {
                     activity_id: activityId,
                 },
-                order: [['created_at', 'ASC']],
+                order: [['created_at', 'DESC']],
             });
             
             const formatedMessages = messages.map((message) => {
