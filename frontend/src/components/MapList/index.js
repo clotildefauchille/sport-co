@@ -12,8 +12,6 @@ const navControlStyle= {
 
 const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreatorIds, scrollToFilter }) => {
 
-  console.log(userActivitiesIds, userActivitiesCreatorIds);
-
   // Clusterise les activités si plusieurs activité avec la même adresse
   const formatedActivity = (activity, userRole) => {
     return {
@@ -55,13 +53,12 @@ const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreato
       });
     }
   });
-  console.log('markerPoints ----->', markerPoints);
 
-  console.log(activities[0]);
-
+  /*
   useEffect(() => {
     console.log(activities);
   }, [activities])
+  */
 
   useEffect(() => {
     setViewport({
@@ -88,11 +85,17 @@ const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreato
     mapStyle: "mapbox://styles/mapbox/streets-v11",
   });
 
+  useEffect(() => {
+    return () => {
+      // au unmount du composent (changement de page ... ) o  veux être dur de remettre le body overflow à visible
+      document.body.style.overflow = "visible";
+    }
+  }, [])
+
   const map = useRef(null);
   const [btOpenMapTxt, setbtOpenMapTxt] = useState('Voir sur la carte');
   const [classNameMap, setClassNameMap] = useState('map-list');
   const handleChangeMapSize = () => {
-    console.log('test');
     if(classNameMap === 'map-list') {
       map.current.scrollIntoView({behavior: "smooth"})  
       setClassNameMap('map-list map-list--open');
