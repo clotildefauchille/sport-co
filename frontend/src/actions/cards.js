@@ -7,16 +7,16 @@ export const fetchLastActivities = () => ({
   type: FETCH_LAST_ACTIVITIES,
 });
 
-export const saveActivities = (activities) => ({
+export const saveActivities = (data) => ({
   type: SAVE_ACTIVITIES,
-  activities,
+  data,
 });
 
 export const showLoginModal = () => ({
   type: SHOW_LOGIN_MODAL,
 });
 
-export const saveAllActivities = (activities) => ({
+export const saveAllActivities = (data) => ({
   type: SAVE_ALL_ACTIVITIES,
-  activities,
+  data,
 });

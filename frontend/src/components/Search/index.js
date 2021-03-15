@@ -21,6 +21,7 @@ const Search = ({
   fetchActivitiesByLocalisation,
   fetchActivitiesByLocalisationAndSports,
   pageValue,
+  count,
 }) => {
   const query = useQuery();
 
@@ -28,7 +29,6 @@ const Search = ({
   const lat = query.get('lat');
   const lng = query.get('lng');
   const sports = query.get('sports');
-  
 
   useEffect(() => {
     if (sports) {
@@ -37,7 +37,7 @@ const Search = ({
       fetchActivitiesByLocalisation({ queryString, lat, lng });
     }
   }, [lat, lng, queryString, sports, pageValue]);
-  
+
   // useEffect(() => {
   //   fetchActivitiesByLocalisation({ queryString, lat, lng }
   // ), [pageValue]});
@@ -61,7 +61,7 @@ const Search = ({
           </div>
         )}
       </section>
-      <MoreResults />
+      {count > activities.length ? <MoreResults /> : <></>}
     </main>
   );
 };

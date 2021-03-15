@@ -20,31 +20,36 @@ const activityController = {
       page = 1;
     }
     try {
-      const activities = await Activity.findAll({
+      const activities = await Activity.findAndCountAll({
         where: {
           activity_status_id: 3,
         },
-        attributes: { 
-          exclude: ['activity_status_id','activity_place_id','sport_id','creator_id'] 
+        attributes: {
+          exclude: [
+            'activity_status_id',
+            'activity_place_id',
+            'sport_id',
+            'creator_id',
+          ],
         },
         include: [
           {
             association: 'sport',
-            attributes: ['name','icon']
+            attributes: ['name', 'icon'],
           },
           {
             association: 'activity_statut',
             attributes: {
-              exclude: ['id']
+              exclude: ['id'],
             },
           },
           {
             association: 'activity_place',
-            attributes: ['city']
+            attributes: ['city'],
           },
           {
             association: 'creator',
-            attributes: ['pseudo']
+            attributes: ['pseudo'],
           },
         ],
         offset: (page - 1) * activityController.defaultNumCardInPage,
@@ -54,12 +59,12 @@ const activityController = {
       if (!activities) {
         res.status(204).json("Error : can't find Activity");
       } else {
-        formatedaActivities = formatActivities(activities);
+        formatedaActivities = formatActivities(activities.rows);
         if(formatedaActivities.length < 1) {
           res.status(204).json("Error : can't find Activity");
           return;
         }
-        res.json(formatedaActivities);
+        res.json({activities: formatedaActivities, count: activities.count});
       }
     } catch (error) {
       console.trace(error);

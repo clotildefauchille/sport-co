@@ -2,27 +2,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+
 // == Import
 import Card from 'src/containers/Card';
+import MoreResults from 'src/containers/MoreResults';
 
 import './style.scss';
 
 // == Composant
-const Cards = ({ cards }) => {
-  const cardsCreated = cards.map((oneCard) => (
+const Cards = ({ count, activities }) => {
+  const cardsCreated = activities.map((oneCard) => (
     <Card key={oneCard.id} card={oneCard} />
   ));
   return (
     <>
-    <section className="container cards">
-      {cardsCreated}
-    </section>
+      <section className="container cards">{cardsCreated}</section>
+      {count > activities.length ? <MoreResults /> : <></>}
     </>
   );
 };
 
 Cards.propTypes = {
-  cards: PropTypes.array.isRequired,
+  activities: PropTypes.array.isRequired,
+  count: PropTypes.number,
 };
 
 // == Export

@@ -26,6 +26,7 @@ const activities = (store) => (next) => (action) => {
         .get(`${process.env.API_URL}/api/activities?page=${page}`)
         .then((response) => {
           // if page > 1
+          console.log('response.data.activities', response.data.activities);
           if (page > 1) {
             store.dispatch(saveAllActivities(response.data));
           } else {
