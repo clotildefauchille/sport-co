@@ -1,6 +1,7 @@
 // == Import npm
 import React, { useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // == Import
 import Accueil from 'src/containers/Accueil';
@@ -18,10 +19,11 @@ import Registration from 'src/containers/Registration';
 import './styles.css';
 
 // == Composant
-const App = ({ getUser }) => {
+const App = ({ getUser, isLogged }) => {
   useEffect(() => {
     getUser();
   }, []); 
+  console.log(isLogged);
 
   return (
     <>
@@ -44,7 +46,8 @@ const App = ({ getUser }) => {
         </Route>
     
         <Route path="/activity/:id">
-          <Details />
+          {isLogged && <Details />}
+          {!isLogged && <Redirect to="/connexion" />}
         </Route>
 
         <Route path="/creation">
@@ -65,6 +68,10 @@ const App = ({ getUser }) => {
       <LoginModal />
     </>
   );
+};
+
+App.propTypes = {
+  isLogged: PropTypes.bool.isRequired,
 };
 
 // == Export

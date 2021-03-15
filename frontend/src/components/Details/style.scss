@@ -59,7 +59,7 @@
     width: 200px;
   }
 
-  &__join-success {
+  &__join-quit {
     background-color: v.$secondaryColor;
   }
 
@@ -67,7 +67,7 @@
     box-shadow: v.$shadow;
   }
 
-  &__join-already {
+  &__join-error {
     background-color: rgb(255, 45, 45);
   }
 

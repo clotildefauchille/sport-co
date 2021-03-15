@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
   FETCH_LAST_ACTIVITIES,
   FETCH_USER_ACTIVITIES,
+  fetchUserActivities,
   saveActivities,
   saveUserActivities,
   fetchUserActivities,
@@ -17,6 +18,7 @@ import {
   FETCH_DATA_ACTTIVITY,
   saveActivity,
   JOIN_ACTIVITY,
+  QUIT_ACTIVITY,
   updateStatus,
   errorStatus,
 } from 'src/actions/details';
@@ -100,9 +102,32 @@ const activities = (store) => (next) => (action) => {
           { withCredentials: true },
         )
         .then((response) => {
-          console.log('gg', response);
-          store.dispatch(updateStatus());
-          // pour récuperer les point après inscription
+          console.log('activité rejointe', response);
+          store.dispatch(updateStatus('+'));
+          store.dispatch(fetchUserActivities());
+        })
+        .catch((error) => {
+          console.log('error', error.response.data);
+          store.dispatch(errorStatus());
+        });
+      break;
+
+    case QUIT_ACTIVITY:
+      if (!user.pseudo) {
+        console.error(
+          'ERROR il faut être connecté pour quitter une activité',
+        );
+        break;
+      }
+      axios
+        .post(`${process.env.API_URL}/api/activity/quit`, {
+          id: details.id,
+          pseudo: user.pseudo,
+        },
+        { withCredentials: true })
+        .then((response) => {
+          console.log('activité quittée', response);
+          store.dispatch(updateStatus('-'));
           store.dispatch(fetchUserActivities());
         })
         .catch((error) => {

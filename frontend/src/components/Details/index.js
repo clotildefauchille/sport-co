@@ -17,7 +17,13 @@ const Map = ReactMapboxGl({
     'pk.eyJ1IjoicnVzc29iZW5qYW1pbiIsImEiOiJja205OGxjNngxZm52MnFqeGk1MmwyajJrIn0.M7PtoR3vltTPsc7q-4QDkg',
 });
 
-const Details = ({ activity, fetchDataActivity, onClickJoin }) => {
+const Details = ({
+  activity,
+  userActivities,
+  fetchDataActivity,
+  onClickJoin,
+  onClickQuit,
+}) => {
   let currentSport = '';
   const { id } = useParams();
   useEffect(() => {
@@ -25,7 +31,13 @@ const Details = ({ activity, fetchDataActivity, onClickJoin }) => {
     fetchDataActivity(id);
   }, []);
 
-  console.log(activity.sport);
+  console.log(userActivities);
+  console.log(activity);
+
+  const alreadyJoin = userActivities.find(
+    (userActivity) => userActivity.id === activity.id,
+  );
+  console.log(alreadyJoin);
 
   if (activity.sport) {
     currentSport = sports[activity.sport.icon];
@@ -48,15 +60,24 @@ const Details = ({ activity, fetchDataActivity, onClickJoin }) => {
                 {activity.activity_place.city}
               </p>
               <p className="activity__duration">Durée : {activity.duration}</p>
-              <button
-                type="button"
-                className={
-                  'activity__join activity__join-' + activity.classname
-                }
-                onClick={onClickJoin}
-              >
-                {activity.message}
-              </button>
+              {alreadyJoin && (
+                <button
+                  type="button"
+                  className={`activity__join activity__join-quit activity__join-${activity.classname}`}
+                  onClick={onClickQuit}
+                >
+                  {activity.errorMessage} {activity.quitMessage}
+                </button>
+              )}
+              {!alreadyJoin && (
+                <button
+                  type="button"
+                  className={`activity__join activity__join-${activity.classname}`}
+                  onClick={onClickJoin}
+                >
+                  {activity.errorMessage} {activity.joinMessage}
+                </button>
+              )}
             </section>
             <section className="activity__details">
               <div className="activity__description">
@@ -126,6 +147,8 @@ Details.propTypes = {
   activity: PropTypes.object.isRequired,
   fetchDataActivity: PropTypes.func.isRequired,
   onClickJoin: PropTypes.func.isRequired,
+  onClickQuit: PropTypes.func.isRequired,
+  userActivities: PropTypes.array.isRequired,
 };
 
 export default Details;
