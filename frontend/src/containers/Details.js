@@ -4,6 +4,7 @@ import { fetchDataActivity, joinActivity } from 'src/actions/details';
 
 const mapStateToProps = (state) => ({
   activity: state.details,
+  userActivities: state.userActivities.list,
 });
 
 const mapDispatchToProps = (dispatch) => ({

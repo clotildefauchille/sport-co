@@ -17,14 +17,18 @@ const Map = ReactMapboxGl({
     'pk.eyJ1IjoicnVzc29iZW5qYW1pbiIsImEiOiJja205OGxjNngxZm52MnFqeGk1MmwyajJrIn0.M7PtoR3vltTPsc7q-4QDkg',
 });
 
-const Details = ({ activity, fetchDataActivity, onClickJoin }) => {
+const Details = ({ activity, userActivities, fetchDataActivity, onClickJoin }) => {
   let currentSport = '';
   const { id } = useParams();
   useEffect(() => {
     fetchDataActivity(id);
   }, []);
 
-  console.log(activity.sport);
+  console.log(userActivities);
+  console.log(activity);
+
+  const alreadyJoin = userActivities.find(userActivity => userActivity.id === activity.id);
+  console.log(alreadyJoin);
 
   if (activity.sport) {
     currentSport = sports[activity.sport.icon];
@@ -47,7 +51,16 @@ const Details = ({ activity, fetchDataActivity, onClickJoin }) => {
                 {activity.activity_place.city}
               </p>
               <p className="activity__duration">Durée : {activity.duration}</p>
-              <button
+              {alreadyJoin && <button
+                type="button"
+                className={
+                  'activity__join activity__join-success activity__join-' + activity.classname
+                }
+                onClick={onClickJoin}
+              >
+                Quitter l'activité
+              </button>}
+              {!alreadyJoin && <button
                 type="button"
                 className={
                   'activity__join activity__join-' + activity.classname
@@ -55,7 +68,7 @@ const Details = ({ activity, fetchDataActivity, onClickJoin }) => {
                 onClick={onClickJoin}
               >
                 {activity.message}
-              </button>
+              </button>}
             </section>
             <section className="activity__details">
               <div className="activity__description">
