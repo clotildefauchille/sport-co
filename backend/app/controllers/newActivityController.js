@@ -10,7 +10,6 @@ const newActivityController = {
     try {
       const sport_id = parseInt(req.body.sport_id);
       const min_participant = parseInt(req.body.min_participant);
-
       const { title, description, creator_id, date, time, duration } = req.body;
       const dataPlace = req.body.place;
       console.log('---------->dataplace', dataPlace);
@@ -44,9 +43,12 @@ const newActivityController = {
         { include: ['activity_place'] },
       );
 
+
       const user = await User.findByPk(creator_id);
 
       // ajoute les points motiv 
+      // console.log('---------->user', user.dataValues.reward_count);
+
       const new_reward_count = user.dataValues.reward_count + 100;
       user.reward_count = new_reward_count;
       

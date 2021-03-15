@@ -163,6 +163,11 @@
   }
 }
 
+.mapboxgl-canvas {
+  outline: none;
+  border: none;
+}
+
 @media (max-width: 800px) {
   .activity__details {
     grid-template-columns: 1fr;
