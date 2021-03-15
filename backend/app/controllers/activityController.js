@@ -21,9 +21,6 @@ const activityController = {
     }
     try {
       const activities = await Activity.findAll({
-        where: {
-          activity_status_id: 3,
-        },
         attributes: { 
           exclude: ['activity_status_id','activity_place_id','sport_id','creator_id'] 
         },
@@ -47,6 +44,18 @@ const activityController = {
             attributes: ['pseudo']
           },
         ],
+        where: {
+          [Op.and]: [
+            {
+              activity_status_id: 3,
+            },
+            {
+              date: {
+                [Op.gte]: sequelize.fn('NOW'),
+              }
+            }
+          ]
+        },
         offset: (page - 1) * activityController.defaultNumCardInPage,
         limit: activityController.defaultNumCardInPage,
         order: [['created_at', 'DESC']],
@@ -155,7 +164,7 @@ const activityController = {
           },
           {
             association: 'activity_place',
-            attributes: ['city']
+            attributes: ['city', 'lat', 'lng']
           },
           {
             association: 'creator',
@@ -179,6 +188,11 @@ const activityController = {
             ),
             {
               activity_status_id: 3,
+            },
+            {
+              date: {
+                [Op.gte]: sequelize.fn('NOW'),
+              }
             }
           ]
         },
@@ -237,6 +251,7 @@ const activityController = {
           'sport',
           {
             association: 'activity_place',
+            attributes: ['city', 'lat', 'lng']
             /*
             attributes: {
               include: [[sequelize.literal(distanceCalculSQL(lat, lng)), 'distance']],
@@ -257,6 +272,11 @@ const activityController = {
             {
               sport_id: {
                 [Op.or]: sports
+              }
+            },
+            {
+              date: {
+                [Op.gte]: sequelize.fn('NOW'),
               }
             }
           ]
@@ -291,10 +311,8 @@ const activityController = {
 
 
   getActivitiesByUser: async (req, res) => {
-    console.log('----------> getActivitesByUserLocalisationAndSports');
+    console.log('----------> getActivitiesByUser');
 
-    let lat = parseFloat(req.query.lat);
-    let lng = parseFloat(req.query.lng);
     let page = parseInt(req.query.page);
     let userId = parseInt(req.params.id);
 
@@ -318,6 +336,11 @@ const activityController = {
             }
           },
         ],
+        where: {
+          date: {
+            [Op.gte]: sequelize.fn('NOW'),
+          }
+        },
         offset: (page - 1) * activityController.defaultNumCardInPage,
         order: [['date', 'ASC']],
       });
