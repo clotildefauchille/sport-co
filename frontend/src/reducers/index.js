@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import cards from './cards';
+import userActivities from './userActivities';
 import header from './header';
 import login from './login';
 import searchBar from './searchBar';
@@ -21,6 +22,7 @@ const globalReducer = combineReducers({
   details,
   registration,
   creationPage,
+  userActivities,
   filter,
   moreResults
 });

@@ -1,4 +1,4 @@
-@use 'src/styles/_vars.scss';
+@use 'src/styles/_vars.scss'as v;
 
 .header {
   width: 100%;
@@ -7,6 +7,8 @@
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
+  position: relative;
+  z-index: 100;
 
   &__home{
     display: flex;
@@ -29,7 +31,7 @@
     margin-right: 25px;
     display: flex;
     align-items: center;
-    color: vars.$darkColor;
+    color: v.$darkColor;
     font-weight: 500;
   }
 
@@ -38,7 +40,7 @@
     margin-right: 10px;
   }
   &__signup {
-    background-color: vars.$primaryColor;
+    background-color: v.$primaryColor;
     padding: 12px 30px;
     border-radius: 25px;
     color: white;
@@ -47,7 +49,7 @@
   }
 
   &__signup:hover {
-    box-shadow: vars.$shadow;
+    box-shadow: v.$shadow;
   }
 
   &__user {
@@ -55,10 +57,32 @@
     margin-right: -9px;
     z-index: 0;
   }
+  &__points{
+    // display: none;
+    margin-left: -3000px;
+    transition: transform ease-out 0.2s;
+    // display: block;
+    padding: 1rem 1.5rem;
+    color: v.$primaryColor;
+    text-align: center;
+    position:absolute;
+    background-color: white;
+    box-shadow: v.$shadow;
+    border-radius: 25px;
+    line-height: 1.2;
+  }
+strong{
+  font-weight: 600;
+}
   &__grade {
     width: 40px;
     margin-right: 12px;
-    
+
+  &:hover ~ .header__points {
+    margin-left: 0px;
+    transform: translateY(10px);
+  }
+  
   }
   &__buttons li:nth-child(0) {
     z-index: 0;
@@ -67,7 +91,7 @@
     z-index: 1;
   }
   &__disconnect {
-    color: vars.$darkColor;
+    color: v.$darkColor;
     font-size: 16px;
     background: none;
     border: none;

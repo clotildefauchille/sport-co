@@ -10,7 +10,7 @@ const initialState = {
   title: '',
   date: '',
   time: '',
-  duration: '',
+  duration: '01:00',
   min_participant: 0,
   description: '',
   adress: '',

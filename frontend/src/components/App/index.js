@@ -1,6 +1,7 @@
 // == Import npm
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // == Import
 import Accueil from 'src/containers/Accueil';
@@ -18,7 +19,12 @@ import Registration from 'src/containers/Registration';
 import './styles.css';
 
 // == Composant
-const App = () => {
+const App = ({ getUser, isLogged }) => {
+  useEffect(() => {
+    getUser();
+  }, []); 
+  console.log(isLogged);
+
   return (
     <>
       <Header />
@@ -33,14 +39,15 @@ const App = () => {
     
         <Route path="/inscription" exact>
             <Registration />
-          </Route>
+        </Route>
 
         <Route path="/search">
           <Search />
         </Route>
     
         <Route path="/activity/:id">
-          <Details />
+          {isLogged && <Details />}
+          {!isLogged && <Redirect to="/connexion" />}
         </Route>
 
         <Route path="/creation">
@@ -61,6 +68,10 @@ const App = () => {
       <LoginModal />
     </>
   );
+};
+
+App.propTypes = {
+  isLogged: PropTypes.bool.isRequired,
 };
 
 // == Export

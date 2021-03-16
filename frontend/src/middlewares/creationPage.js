@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   SEND_ACTIVITY_INFORMATION,
+  //saveCreationActivityInfo,
   FETCH_SPORTS,
   saveSports,
   errorNotFoundPlace,
@@ -8,7 +9,6 @@ import {
 } from 'src/actions/creationPage';
 
 const apiKey = '82a0b22e81932aad65c97e8bcc2f192a';
-
 
 const creationPage = (store) => (next) => (action) => {
   switch (action.type) {
@@ -39,7 +39,19 @@ const creationPage = (store) => (next) => (action) => {
               'responseapiPlace.postal_code',
               responseApiPlace.postal_code,
             );
-            
+
+            /*
+            // avec token stocké dans le local storage
+            let token;
+            if (localStorage.fairplayUser) {
+              const user = JSON.parse(localStorage.fairplayUser);
+              token = user.token;
+            } else {
+              return;
+            }
+            console.log('token ----> ', token);
+            */
+
             axios
               .post(`${process.env.API_URL}/api/newactivity`, {
                 title: creationPage.title,
@@ -60,9 +72,19 @@ const creationPage = (store) => (next) => (action) => {
                 },
                 activity_status_id: 3,
                 sport_id: creationPage.sport_id,
-              })
+              },
+              // pour set/get cookies /!\
+              { withCredentials: true }
+              // pour passer token de localStorage
+              /*, {
+                headers: {
+                  //Authorization: `bearer ${state.user.token}`,
+                  // recup token in localStorage
+                  Authorization: `bearer ${token}`,
+                }
+              }*/)
               .then((response)=> {
-                store.dispatch(activityCreated())
+                store.dispatch(activityCreated());
               });
           })
           .catch((error) => {
@@ -76,10 +98,8 @@ const creationPage = (store) => (next) => (action) => {
       axios
         .get(`${process.env.API_URL}/api/sports`, {})
         .then((response) => {
-
-          //  console.log('fetchsport response', response.data)
+          // console.log('fetchsport response', response.data)
           store.dispatch(saveSports(response.data));
-
         })
         .catch((error) => {
           console.log(error);

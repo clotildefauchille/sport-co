@@ -21,8 +21,11 @@ const CreationPage = ({
   errorMessage,
   sports,
   isCreated,
+  fetchUserActivities,
 }) => {
   if (isCreated) {
+    // pour récuperer l'activité créée en homepage on recherche les userActivities
+    fetchUserActivities();
     return <Redirect push to='/'></Redirect>;
   }
 
@@ -112,7 +115,6 @@ const CreationPage = ({
               type="time"
               // id="time"
               min="00:00"
-              max="10:00"
               // required
               name="duration"
               value={duration}
@@ -243,6 +245,7 @@ CreationPage.propTypes = {
   city: PropTypes.string.isRequired,
   onChangeForm: PropTypes.func.isRequired,
   fetchSports: PropTypes.func.isRequired,
+  fetchUserActivities: PropTypes.func.isRequired,
 };
 
 export default CreationPage;
