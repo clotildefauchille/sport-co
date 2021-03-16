@@ -11,6 +11,7 @@ import registration from './registration';
 import creationPage from './creationPage';
 import filter from './filter';
 import messages from './messages';
+import moreResults from './moreResults';
 
 const globalReducer = combineReducers({
   cards,
@@ -25,6 +26,7 @@ const globalReducer = combineReducers({
   userActivities,
   filter,
   messages,
+  moreResults,
 });
 
 export default globalReducer;

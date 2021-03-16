@@ -1,13 +1,12 @@
 import { connect } from 'react-redux';
-import Cards from 'src/components/Cards';
+import MapList from 'src/components/MapList';
 
 const mapStateToProps = (state) => ({
-  count: state.cards.count,
-  activities: state.cards.activities,
+  activities: state.search.activities,
   userActivitiesIds: state.userActivities.ids,
   userActivitiesCreatorIds: state.userActivities.idsCreator,
 });
 
 const mapDispatchToProps = (dispatch) => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cards);
+export default connect(mapStateToProps, mapDispatchToProps)(MapList);

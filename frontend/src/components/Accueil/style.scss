@@ -30,6 +30,16 @@
     line-height: 1.15;
   }
 
+  &__txt-user--orange{
+    color: v.$primaryColor;
+    font-weight: 600;
+  }
+
+  &__txt-user--green {
+    color: v.$secondaryColor;
+    font-weight: 600;
+  }
+
   &__title-color {
     color: v.$primaryColor;
   }
@@ -44,10 +54,22 @@
 
   &__txt-user {
     display: block;
-    padding-top: 1rem;
+    position: relative;
+    padding-top: 1.5rem;
     font-size: clamp(15px, 1.25vw, 22px);
     line-height: 1.5;
     opacity: .8;
+    padding-left: 80px;
+
+    &:before {
+      content: '';
+      position: absolute;
+      background: url('src/assets/images/points.svg');
+      width: 60px;
+      height: 60px;
+      left: 0;
+      top: 1rem;
+    }
   }
 }
 
