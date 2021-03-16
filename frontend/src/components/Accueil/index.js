@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import Cards from 'src/containers/Cards';
 import UserCards from 'src/containers/UserCards';
 import SearchBar from 'src/containers/SearchBar';
+import MoreResults from 'src/containers/MoreResults';
 
 import PropTypes from 'prop-types';
 
 import './style.scss';
+
 
 const Accueil = ({
   fetchData,
@@ -15,9 +17,21 @@ const Accueil = ({
   points,
   registredActivities,
   myCreatedActivities,
+    pageValue,
+    paginationReset,
 }) => {
-  useEffect(() => {
+    
+    useEffect(() => {
+    paginationReset();
     window.scrollTo(0, 0);
+  }, []);
+    
+    useEffect(() => {
+    fetchData();
+  }, [pageValue]);
+
+    
+  useEffect(() => {
     if (!isLogged) {
       fetchData();
     }
@@ -111,6 +125,7 @@ const Accueil = ({
           <Cards />
         </>
       )}
+
     </main>
   );
 };

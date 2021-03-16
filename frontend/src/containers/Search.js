@@ -9,6 +9,8 @@ import {
 
 const mapStateToProps = (state) => ({
   activities: state.search.activities,
+  pageValue: state.moreResults.page,
+  count: state.search.count,
   userActivitiesIds: state.userActivities.ids,
   userActivitiesCreatorIds: state.userActivities.idsCreator,
 });

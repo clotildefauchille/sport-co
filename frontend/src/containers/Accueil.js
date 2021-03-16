@@ -1,6 +1,12 @@
 import { connect } from 'react-redux';
 import Accueil from 'src/components/Accueil';
+
 import { fetchLastActivities, fetchUserActivities } from 'src/actions/cards';
+import {paginationReset} from 'src/actions/moreResults';
+
+const mapStateToProps = (state) => ({
+  
+
 
 const mapStateToProps = (state) => ({
   isLogged: state.header.isLogged,
@@ -9,14 +15,21 @@ const mapStateToProps = (state) => ({
   points: state.login.user.reward_count,
   registredActivities: state.userActivities.ids.length,
   myCreatedActivities: state.userActivities.idsCreator.length,
+  pageValue: state.moreResults.page,
+  count: state.cards.count,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchData: () => {
     dispatch(fetchLastActivities());
   },
+
+  paginationReset: ()=> {
+    dispatch(paginationReset())},
+
   fetchUserActivities: () => {
     dispatch(fetchUserActivities());
+
   },
 });
 

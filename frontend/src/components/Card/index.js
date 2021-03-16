@@ -13,8 +13,9 @@ import clock from 'src/assets/icons/clock.svg';
 import sports from './sports';
 
 // == Composant
+
 const Card = ({ card, isLogged, showLoginModal, userCard }) => {
-  
+  const extract = `${card.description.substr(0, 120)} [...]`;
   let cardClassName = 'card';
   if(userCard === 1) {
     cardClassName = 'card card--user';
@@ -83,7 +84,7 @@ const Card = ({ card, isLogged, showLoginModal, userCard }) => {
                 </p>
               </div>
             </div>
-            <p className="card__description">{card.description}</p>
+            <p className="card__description">{extract}</p>
           </button>
           <button
             onClick={showLoginModal}
@@ -95,6 +96,7 @@ const Card = ({ card, isLogged, showLoginModal, userCard }) => {
         </article>
       );
   }
+
 };
 
 Card.propTypes = {

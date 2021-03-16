@@ -8,7 +8,7 @@ const sequelize = require('../database.js');
 const Op = Sequelize.Op;
 
 const activityController = {
-  defaultNumCardInPage: 12,
+  defaultNumCardInPage: 8,
   defaultLimitDistance: 100, // en km
 
   getLastActivities: async (req, res) => {
@@ -20,28 +20,38 @@ const activityController = {
       page = 1;
     }
     try {
-      const activities = await Activity.findAll({
-        attributes: { 
-          exclude: ['activity_status_id','activity_place_id','sport_id','creator_id'] 
+
+      const activities = await Activity.findAndCountAll({
+        where: {
+          activity_status_id: 3,
+        },
+        attributes: {
+          exclude: [
+            'activity_status_id',
+            'activity_place_id',
+            'sport_id',
+            'creator_id',
+          ],
+
         },
         include: [
           {
             association: 'sport',
-            attributes: ['name','icon']
+            attributes: ['name', 'icon'],
           },
           {
             association: 'activity_statut',
             attributes: {
-              exclude: ['id']
+              exclude: ['id'],
             },
           },
           {
             association: 'activity_place',
-            attributes: ['city']
+            attributes: ['city'],
           },
           {
             association: 'creator',
-            attributes: ['pseudo']
+            attributes: ['pseudo'],
           },
         ],
         where: {
@@ -63,12 +73,12 @@ const activityController = {
       if (!activities) {
         res.status(204).json("Error : can't find Activity");
       } else {
-        formatedaActivities = formatActivities(activities);
+        formatedaActivities = formatActivities(activities.rows);
         if(formatedaActivities.length < 1) {
           res.status(204).json("Error : can't find Activity");
           return;
         }
-        res.json(formatedaActivities);
+        res.json({activities: formatedaActivities, count: activities.count});
       }
     } catch (error) {
       console.trace(error);
@@ -146,7 +156,7 @@ const activityController = {
     }
 
     try {
-      const activities = await Activity.findAll({
+      const activities = await Activity.findAndCountAll({
         attributes: { 
           // exclude: ['activity_status_id','activity_place_id','sport_id','creator_id'] 
           exclude: ['activity_place_id','sport_id','creator_id'] 
@@ -214,9 +224,8 @@ const activityController = {
         return;
       }
       */
-      formatedaActivities = formatActivities(activities);
-      res.json(formatedaActivities);
-      
+      formatedaActivities = formatActivities(activities.rows);
+      res.json({ activities: formatedaActivities, count: activities.count });
     } catch (error) {
       console.trace(error);
       res.status(500).json(error.toString());
@@ -244,7 +253,7 @@ const activityController = {
     }
 
     try {
-      const activities = await Activity.findAll({
+      const activities = await Activity.findAndCountAll({
         include: [
           'activity_statut',
           'creator',
@@ -298,8 +307,10 @@ const activityController = {
         return;
       }
       */
-      formatedaActivities = formatActivities(activities);
-      res.json(formatedaActivities);
+      //formatedaActivities = formatActivities(activities);
+      //res.json(formatedaActivities);
+      formatedaActivities = formatActivities(activities.rows);
+      res.json({ activities: formatedaActivities, count: activities.count });
 
     } catch (error) {
       console.trace(error);

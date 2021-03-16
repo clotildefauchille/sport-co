@@ -1,16 +1,19 @@
 import axios from 'axios';
 import {
   FETCH_LAST_ACTIVITIES,
+  saveAllActivities,
   FETCH_USER_ACTIVITIES,
   fetchUserActivities,
   saveActivities,
   saveUserActivities,
+
 } from 'src/actions/cards';
 
 import {
   FETCH_ACTIVITIES_BY_LOCALISATION,
   FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS,
   saveSearchedActivities,
+  saveAllSearchedActivities,
 } from 'src/actions/search';
 
 import {
@@ -22,28 +25,43 @@ import {
   errorStatus,
 } from 'src/actions/details';
 
+
 import { saveUserPoints } from 'src/actions/login';
 
 const activities = (store) => (next) => (action) => {
+
+  const { moreResults } = store.getState();
+  const page = moreResults.page;
+  console.log(page);
+  
   const idParams = action.id;
 
   const { details } = store.getState();
   const { user } = store.getState().login;
 
   switch (action.type) {
+
     case FETCH_LAST_ACTIVITIES:
       axios
-        .get(`${process.env.API_URL}/api/activities`)
+        .get(`${process.env.API_URL}/api/activities?page=${page}`)
         .then((response) => {
-          store.dispatch(saveActivities(response.data));
+          // if page > 1
+          console.log('response.data.activities', response.data.activities);
+          if (page > 1) {
+            store.dispatch(saveAllActivities(response.data));
+          } else {
+            store.dispatch(saveActivities(response.data));
+          }
         })
         .catch((error) => {
           console.log('error', error);
         });
       break;
 
+
     case FETCH_USER_ACTIVITIES:
       const userId = store.getState().login.user.id;
+
       axios
         .get(`${process.env.API_URL}/api/activities/user/${userId}`)
         .then((response) => {
@@ -74,9 +92,15 @@ const activities = (store) => (next) => (action) => {
       if (lat && lng) {
         console.log('FETCH_ACTIVITIES_BY_LOCALISATION');
         axios
-          .get(`${process.env.API_URL}/api/place?lat=${lat}&lng=${lng}&page=1`)
+
+          .get(`${process.env.API_URL}/api/place?lat=${lat}&lng=${lng}&page=${page}`)
           .then((response) => {
-            store.dispatch(saveSearchedActivities(response.data));
+            if (page > 1) {
+              store.dispatch(saveAllSearchedActivities(response.data));
+            } else {
+              store.dispatch(saveSearchedActivities(response.data));
+            }
+
           })
           .catch((error) => {
             console.log('error', error);
@@ -117,6 +141,7 @@ const activities = (store) => (next) => (action) => {
           'ERROR il faut être connecté pour quitter une activité',
         );
         break;
+
       }
       axios
         .post(`${process.env.API_URL}/api/activity/quit`, {
