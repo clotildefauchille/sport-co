@@ -23,12 +23,17 @@ const mapDispatchToProps = (dispatch) => ({
   },
 
   paginationReset: ()=> {
-    dispatch(paginationReset())},
+    dispatch(paginationReset())
+  },
 
   fetchUserActivities: () => {
     dispatch(fetchUserActivities());
-
   },
+
+  fetchUserActivities: () => {
+    dispatch(fetchUserActivities());
+  },
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Accueil);

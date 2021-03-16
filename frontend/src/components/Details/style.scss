@@ -49,7 +49,8 @@
   &__join {
     background-color: v.$primaryColor;
     transition: all 0.3s;
-    padding: 12px 30px;
+    padding: 15px 30px;
+    font-size: 1.05em;
     border-radius: 25px;
     color: white;
     font-weight: 500;
@@ -156,10 +157,25 @@
   }
 
   &__map {
-    height: 40vh;
-    margin: 0px 100px 120px;
+    height: 100%;
+    //margin: 0px 100px 120px;
     border-radius: 16px;
     border: none;
+  }
+
+  &__map-messages {
+    //margin: 50px;
+    height: 400px;
+    position: relative;
+    padding: 0 100px 25px;
+    z-index: 10;
+    width: 100%;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    justify-items: stretch;
+    margin-bottom: 30px;
   }
 }
 

@@ -26,13 +26,14 @@ const Details = ({
   onClickJoin,
   onClickQuit,
 }) => {
+
   let currentSport = '';
   const { id } = useParams();
+
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchDataActivity(id);
   }, []);
-
 
   console.log('activity.id -----> ', activity.id );
 
@@ -42,23 +43,27 @@ const Details = ({
   const alreadyJoin = userActivities.find(
     (userActivity) => userActivity.id === activity.id,
   );
+
   console.log(alreadyJoin);
   
   if (activity.sport) {
     currentSport = sports[activity.sport.icon];
   }
 
-
   return (
     <>
-      <main
-        className="activity"
-        style={{
-          backgroundImage: `url(${currentSport})`,
-        }}
-      >
+      
+
         {activity.id && (
           <>
+
+            <main
+                    className="activity"
+                    style={{
+                      backgroundImage: `url(${currentSport})`,
+                    }}
+                  >
+                    
             <section className="activity__header">
               <h1 className="activity__title">{activity.title}</h1>
               <p className="activity__timeplace">
@@ -85,6 +90,7 @@ const Details = ({
                 </button>
               )}
             </section>
+
             <section className="activity__details">
               <div className="activity__description">
                 <h2 className="activity__descriptionTitle">Description :</h2>
@@ -117,67 +123,44 @@ const Details = ({
                 </div>
               </div>
             </section>
-          </>
-        )}
-      </main>
-      {activity.id && (
 
-        <>
-        <section className="activity__header">
-          <h1 className="activity__title">{activity.title}</h1>
-          <p className="activity__timeplace">Le {activity.date} à {activity.time} à {activity.activity_place.city}</p>
-          <p className="activity__duration">Durée : {activity.duration}</p>
-          <button className="activity__join">Rejoindre</button>
-        </section>
-        <section className="activity__details">
-          <p className="activity__description">{activity.description}</p>
-          <div className="activity__creator">
-            <img className="activity__userIcon" />
-            <div className="activity__container">
-              <p className="activity__pseudo">{activity.creator.pseudo}</p>
-              <p className="activity__role">Créateur</p>
-          </div>  
-          </div>
-          <div className="activity__participants">
-            <img className="activity__participantsIcon" /> 
-            <div className="activity__container">
-              <p className="activity__participantsNumber">{activity.participant_count} participant(s)</p>
-              <p className="activity__minParticipants">Participants minimum : {activity.min_participant}</p>
+            </main>
+
+            <div className="activity__map-messages">
+              <Map
+                center={[activity.activity_place.lng, activity.activity_place.lat]}
+                zoom={[17]}
+                style="mapbox://styles/mapbox/streets-v11"
+                className="activity__map"
+              >
+                <Marker
+                  coordinates={[
+                    activity.activity_place.lng,
+                    activity.activity_place.lat,
+                  ]}
+                  anchor="bottom"
+                >
+                  <img src={pin} alt="pin on map" className="activity__pin" />
+                </Marker>
+                {/* <Layer
+                    type="symbol"
+                    layout={{ 'icon-image': 'harbor-15' }}
+                    wrapped
+                  >
+                    <Feature coordinates={[activity.activity_place.lng, activity.activity_place.lat]} />
+                  </Layer> */}
+              </Map>
+              <Messages activityId={activity.id} />
             </div>
-          </div>
-        </section>
-        
-        <Map
-          center={[activity.activity_place.lng, activity.activity_place.lat]}
-          zoom={[17]}
-          style="mapbox://styles/mapbox/streets-v11"
-          className="activity__map"
-        >
-          <Marker
-            coordinates={[
-              activity.activity_place.lng,
-              activity.activity_place.lat,
-            ]}
-            anchor="bottom"
-          >
-            <img src={pin} alt="pin on map" className="activity__pin" />
-          </Marker>
-          {/* <Layer
-              type="symbol"
-              layout={{ 'icon-image': 'harbor-15' }}
-              wrapped
-            >
-              <Feature coordinates={[activity.activity_place.lng, activity.activity_place.lat]} />
-            </Layer> */}
-        </Map>
-
-        <Messages activityId={activity.id} />
 
         </>
       )}
-    </>
-  );
-};
+
+    
+</>
+  )
+
+}
 
 Details.propTypes = {
   activity: PropTypes.object.isRequired,

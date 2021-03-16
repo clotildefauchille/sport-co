@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 
 import './style.scss';
 
-
 const Accueil = ({
   fetchData,
   isLogged,
@@ -19,12 +18,15 @@ const Accueil = ({
   myCreatedActivities,
   pageValue,
   paginationReset,
+  fetchUserActivities,
 }) => {
     
   useEffect(() => {
     paginationReset();
     if (!isLogged) {
       fetchData();
+    } else {
+      fetchUserActivities();
     }
     window.scrollTo(0, 0);
   }, []);
@@ -36,6 +38,8 @@ const Accueil = ({
   useEffect(() => {
     if (!isLogged) {
       fetchData();
+    } else {
+      fetchUserActivities();
     }
   }, [isLogged]);
 
