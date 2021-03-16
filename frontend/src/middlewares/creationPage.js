@@ -8,6 +8,10 @@ import {
   activityCreated,
 } from 'src/actions/creationPage';
 
+import {
+  fetchUserActivities,
+} from 'src/actions/cards';
+
 const apiKey = '82a0b22e81932aad65c97e8bcc2f192a';
 
 const creationPage = (store) => (next) => (action) => {
@@ -85,6 +89,7 @@ const creationPage = (store) => (next) => (action) => {
               }*/)
               .then((response)=> {
                 store.dispatch(activityCreated());
+                store.dispatch(fetchUserActivities());
               });
           })
           .catch((error) => {

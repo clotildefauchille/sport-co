@@ -25,7 +25,8 @@ const CreationPage = ({
 }) => {
   if (isCreated) {
     // pour récuperer l'activité créée en homepage on recherche les userActivities
-    fetchUserActivities();
+    //fetchUserActivities();
+    // déplacé dans middleware
     return <Redirect push to='/'></Redirect>;
   }
 

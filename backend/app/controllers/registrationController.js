@@ -57,6 +57,7 @@ const registrationController = {
             pseudo: newUser.pseudo,
             firsname: newUser.firstname,
             lastname: newUser.lastname,
+            id: newUser.id,
           },
         });
       } catch (error) {

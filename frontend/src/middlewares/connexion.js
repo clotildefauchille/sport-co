@@ -35,7 +35,6 @@ const connexion = (store) => (next) => (action) => {
             lastname: response.data.lastname,
             pseudo: response.data.pseudo,
             points: response.data.points,
-
           });
         })
         .catch((error) => {

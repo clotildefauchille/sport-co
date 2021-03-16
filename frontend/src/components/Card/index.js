@@ -51,7 +51,7 @@ const Card = ({ card, isLogged, showLoginModal, userCard }) => {
                 </p>
               </div>
             </div>
-            <p className="card__description">{card.description}</p>
+            <p className="card__description">{extract}</p>
           </Link>
           <button className="card__join" type="button">
             Rejoindre

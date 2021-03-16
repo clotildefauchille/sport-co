@@ -4,10 +4,8 @@ import Accueil from 'src/components/Accueil';
 import { fetchLastActivities, fetchUserActivities } from 'src/actions/cards';
 import {paginationReset} from 'src/actions/moreResults';
 
-const mapStateToProps = (state) => ({
+
   
-
-
 const mapStateToProps = (state) => ({
   isLogged: state.header.isLogged,
   user: state.login.user,

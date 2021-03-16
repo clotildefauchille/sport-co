@@ -17,20 +17,22 @@ const Accueil = ({
   points,
   registredActivities,
   myCreatedActivities,
-    pageValue,
-    paginationReset,
+  pageValue,
+  paginationReset,
 }) => {
     
-    useEffect(() => {
+  useEffect(() => {
     paginationReset();
+    if (!isLogged) {
+      fetchData();
+    }
     window.scrollTo(0, 0);
   }, []);
     
-    useEffect(() => {
+  useEffect(() => {
     fetchData();
   }, [pageValue]);
 
-    
   useEffect(() => {
     if (!isLogged) {
       fetchData();
@@ -125,7 +127,6 @@ const Accueil = ({
           <Cards />
         </>
       )}
-
     </main>
   );
 };

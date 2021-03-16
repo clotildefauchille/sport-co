@@ -16,6 +16,12 @@ const newActivityController = {
       console.log('------------------>zipcode', dataPlace.zip_code);
       console.log('------------>', sport_id);
 
+
+
+      console.log('-------------------> 0 creator_id', creator_id);
+
+
+
       // On crée la nouvelle activité :
       const newActivity = await Activity.create(
         {
@@ -44,13 +50,19 @@ const newActivityController = {
       );
 
 
+      console.log('-------------------> 1');
+
       const user = await User.findByPk(creator_id);
+
+      console.log('-------------------> 1', user);
 
       // ajoute les points motiv 
       // console.log('---------->user', user.dataValues.reward_count);
 
       const new_reward_count = user.dataValues.reward_count + 100;
       user.reward_count = new_reward_count;
+
+      console.log('-------------------> 3 new_reward_count', new_reward_count);
       
       // on verif à quel user_grade corresponde les points
       const grades = await UserGrade.findAll({
@@ -61,10 +73,18 @@ const newActivityController = {
         },
         order: [['point', 'DESC']],
       });
-      user.user_grade_id = grades[0].id;
-      await user.save();
 
+      console.log('-------------------> 4 grades', grades);
+
+      user.user_grade_id = grades[0].id;
+
+
+      console.log('-------------------> 5 user.user_grade_id', user.user_grade_id);
+
+      await user.save();
       await newActivity.addUser(user);
+
+      console.log('-------------------> 6 END');
 
       res.status(201).send('newActivity well created');
     } catch (error) {

@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import {
   FETCH_LAST_ACTIVITIES,
   saveAllActivities,
