@@ -8,9 +8,9 @@ const connectionController = require('./controllers/connectionController');
 const sportsController = require('./controllers/sportsController');
 const newActivityController = require('./controllers/newActivityController');
 const registrationController = require("./controllers/registrationController");
+const messageController = require("./controllers/messageController");
 const joinActivityController = require("./controllers/joinActivityController");
 const quitActivityController = require("./controllers/quitActivityController");
-
 
 router.get('/', (req, res) => {
   res.send('hello');
@@ -59,6 +59,9 @@ router.get(
   '/api/activities/sports?',
   activityController.getActivitesByUserLocalisationAndSports,
 );
+
+router.post('/api/activity/:id/messages/', messageController.addMessageToActivity);
+router.get('/api/activity/:id/messages/', messageController.getMessageByActivity);
 
 //homepage user not connected searched by department
 // router.get(

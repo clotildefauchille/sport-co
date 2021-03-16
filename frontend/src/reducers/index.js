@@ -10,6 +10,7 @@ import details from './details';
 import registration from './registration';
 import creationPage from './creationPage';
 import filter from './filter';
+import messages from './messages';
 import moreResults from './moreResults';
 
 const globalReducer = combineReducers({
@@ -24,7 +25,8 @@ const globalReducer = combineReducers({
   creationPage,
   userActivities,
   filter,
-  moreResults
+  messages,
+  moreResults,
 });
 
 export default globalReducer;

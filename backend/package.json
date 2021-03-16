@@ -17,6 +17,7 @@
     "express": "^4.17.1",
     "express-jwt": "^6.0.0",
     "pg": "^8.5.1",
+    "sanitize-html": "^2.3.2",
     "sequelize": "^6.5.0"
   }
 }
