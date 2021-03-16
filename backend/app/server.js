@@ -10,10 +10,12 @@ const app = express();
 
 app.use(cookieParser());
 
-app.use(cors({
-  origin: 'http://localhost:8080',
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: 'http://ec2-54-160-66-108.compute-1.amazonaws.com',
+    credentials: true,
+  }),
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
