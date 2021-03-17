@@ -19,9 +19,9 @@ export const saveActivities = (data) => ({
   data,
 });
 
-export const saveUserActivities = (activities) => ({
+export const saveUserActivities = (data) => ({
   type: SAVE_USER_ACTIVITIES,
-  activities,
+  data,
 });
 
 export const showLoginModal = () => ({

@@ -58,22 +58,27 @@ const activities = (store) => (next) => (action) => {
         });
       break;
 
+      
     case FETCH_USER_ACTIVITIES:
       const userId = store.getState().login.user.id;
 
-      // console.log('userId ---->', userId);
+      console.log('userId ---->', userId);
 
       axios
         .get(`${process.env.API_URL}/api/activities/user/${userId}`)
         .then((response) => {
-          // console.log('response.data USER ', response.data.activities);
-          store.dispatch(saveUserActivities(response.data.activities));
+
+          console.log('response.data IN MIDDLEWARE', response.data);
+
+          store.dispatch(saveUserActivities(response.data));
+
           //store.dispatch(saveUserPoints(response.data.user));
         })
         .catch((error) => {
           console.log('error', error);
         });
       break;
+
 
     case FETCH_DATA_ACTTIVITY:
       axios
@@ -85,6 +90,7 @@ const activities = (store) => (next) => (action) => {
           console.log('error', error);
         });
       break;
+
 
     case FETCH_ACTIVITIES_BY_LOCALISATION:
       // console.log('action.query ----> ', action.query);
@@ -109,6 +115,7 @@ const activities = (store) => (next) => (action) => {
           });
       }
       break;
+
 
     case JOIN_ACTIVITY:
       if (!user.pseudo) {
@@ -137,6 +144,7 @@ const activities = (store) => (next) => (action) => {
         });
       break;
 
+
     case QUIT_ACTIVITY:
       if (!user.pseudo) {
         console.error('ERROR il faut être connecté pour quitter une activité');
@@ -161,6 +169,7 @@ const activities = (store) => (next) => (action) => {
           store.dispatch(errorStatus());
         });
       break;
+
 
     case FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS:
       // console.log(

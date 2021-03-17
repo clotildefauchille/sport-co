@@ -21,7 +21,6 @@ const CreationPage = ({
   errorMessage,
   sports,
   isCreated,
-  fetchUserActivities,
   createdPassToFalse,
 }) => {
   const history = useHistory();
@@ -262,7 +261,6 @@ CreationPage.propTypes = {
   onChangeForm: PropTypes.func.isRequired,
   fetchSports: PropTypes.func.isRequired,
   createdPassToFalse: PropTypes.func.isRequired,
-  fetchUserActivities: PropTypes.func.isRequired,
 };
 
 export default CreationPage;

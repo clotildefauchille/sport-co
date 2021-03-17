@@ -8,21 +8,34 @@ const initialState = {
 
 const userActivities = (state = initialState, action = {}) => {
   switch (action.type) {
+    
     case SAVE_USER_ACTIVITIES:
+
+    console.log('action.data.activities', action.data.activities);
+
+
       const idsCreator = [];
       const idsRegistered = [];
-      action.activities.forEach(activity => {
-        if(activity.creator_id === activity.users[0].id) {
+
+      const activities = action.data.activities;
+
+      activities.forEach(activity => {
+
+        if(activity.creator_id === action.data.user.id) {
           idsCreator.push(activity.id)
         }
         idsRegistered.push(activity.id);
+
       });
+      
       return {
         ...state,
-        list: [...action.activities],
+        list: [...activities],
         ids: idsRegistered,
         idsCreator,
       };
+      
+
 
     case CLEAR_USER_ACTIVITIES:
       return {
