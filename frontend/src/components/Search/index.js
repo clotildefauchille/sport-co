@@ -65,7 +65,6 @@ const Search = ({
 
   return (
     <main className="home search">
-
         <SearchBar />
         <h2 ref={filter} className="heading-2">Dernières activités proche de : <span className="heading-2__txt-color">{query.get("query")}</span></h2>
         <Filter />
@@ -82,7 +81,6 @@ const Search = ({
           )}
         </section>
         {count-1 > activities.length ? <MoreResults /> : <></>}
-
     </main>
   );
 };

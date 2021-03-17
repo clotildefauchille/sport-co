@@ -24,6 +24,9 @@ const creationPage = (store) => (next) => (action) => {
         // console.log('sport_id', creationPage.sport_id);
         // console.log('idUser', login.user.id);
         // console.log('adress TEST ', creationPage.adress);
+
+        console.log('sendActivityInformation', creationPage, login);
+        
         axios
           .get(
             `http://api.positionstack.com/v1/forward?access_key=${apiKey}&country=FR&limit=1&query=${creationPage.adress},${creationPage.zip_code},${creationPage.city}`,

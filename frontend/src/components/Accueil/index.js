@@ -41,7 +41,6 @@ const Accueil = ({
     }
   }, [pageValue]);
 
-
   const mainClassName = isLogged
     ? 'home home--img home--logged'
     : 'home home--img';

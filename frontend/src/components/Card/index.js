@@ -53,9 +53,9 @@ const Card = ({ card, isLogged, showLoginModal, userCard }) => {
             </div>
             <p className="card__description">{extract}</p>
           </Link>
-          <button className="card__join" type="button">
-            Rejoindre
-          </button>
+          <Link to={urlPath} className="card__join" type="button">
+            Voir le détails
+          </Link>
         </article>
       );
     default:
@@ -91,7 +91,7 @@ const Card = ({ card, isLogged, showLoginModal, userCard }) => {
             className="card__join"
             type="button"
           >
-            Rejoindre
+            Voir le détail
           </button>
         </article>
       );

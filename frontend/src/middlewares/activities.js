@@ -42,10 +42,10 @@ const activities = (store) => (next) => (action) => {
       axios
         .get(`${process.env.API_URL}/api/activities?page=${page}`)
         .then((response) => {
-          console.log("page", page);
+          // console.log("page", page);
           // if page > 1
           
-          console.log('response.data.activities', response.data.activities);
+          // console.log('response.data.activities', response.data.activities);
           
           if (page > 1) {
             store.dispatch(saveAllActivities(response.data));
@@ -61,12 +61,12 @@ const activities = (store) => (next) => (action) => {
     case FETCH_USER_ACTIVITIES:
       const userId = store.getState().login.user.id;
 
-      console.log('userId ---->', userId);
+      // console.log('userId ---->', userId);
 
       axios
         .get(`${process.env.API_URL}/api/activities/user/${userId}`)
         .then((response) => {
-          console.log('response.data USER ', response.data.activities);
+          // console.log('response.data USER ', response.data.activities);
           store.dispatch(saveUserActivities(response.data.activities));
           //store.dispatch(saveUserPoints(response.data.user));
         })

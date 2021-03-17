@@ -12,6 +12,8 @@ import {
   fetchUserActivities,
 } from 'src/actions/cards';
 
+import {createdPassToFalse} from 'src/actions/creationPage';
+
 const mapStateToProps = (state) => ({
   title: state.creationPage.title,
   date: state.creationPage.date,
@@ -41,10 +43,13 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(sendActivityInformation());
   },
   fetchSports: () => {
-   dispatch(fetchSports());
+    dispatch(fetchSports());
   },
   fetchUserActivities: () => {
-    dispatch(fetchUserActivities())
+    dispatch(fetchUserActivities());
+  },
+  createdPassToFalse: () => {
+    dispatch(createdPassToFalse());
   },
 });
 

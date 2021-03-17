@@ -76,6 +76,26 @@ const SearchBar = ({
     placeInput.current.focus();
   };
 
+  const handleClickCreateActivity = (e) => {
+    e.preventDefault();
+    console.log('handleClickCreateActivity ---------------> isLogged : ', isLogged);
+
+    if(isLogged) {
+
+      console.log('go to /creation')
+
+      history.push(
+        `/creation`,
+      );
+
+    } else {
+
+      console.log('show modal')
+
+      showLoginModal();
+    }
+  }
+
   return (
     <section className="searchbar">
         <form onSubmit={handleOnSubmit} className="searchbar__container">
@@ -115,7 +135,14 @@ const SearchBar = ({
         </form>
         <p className="searchbar__spacer">OU</p>
 
-        {isLogged ? (
+        <button
+          onClick={handleClickCreateActivity}
+          className="searchbar__link"
+        >
+          Créer une activité
+        </button>
+
+        {/* {isLogged ? (
           <Link
             className="searchbar__link"
             to="/creation"
@@ -129,7 +156,7 @@ const SearchBar = ({
           >
             Créer une activité
           </button>
-        )}
+        )} */}
 
     </section>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import './style.scss';
 // import Field from './Field';
 import PropTypes from 'prop-types';
@@ -22,17 +22,29 @@ const CreationPage = ({
   sports,
   isCreated,
   fetchUserActivities,
+  createdPassToFalse,
 }) => {
-  if (isCreated) {
-    // pour récuperer l'activité créée en homepage on recherche les userActivities
-    //fetchUserActivities();
-    // déplacé dans middleware
-    return <Redirect push to='/'></Redirect>;
-  }
+  const history = useHistory();
 
   useEffect(() => {
-    fetchSports();
+    console.log('useEffect 1');
+    if (isCreated) {
+      history.push('/');
+      createdPassToFalse();
+      //return <Redirect to="/" />;
+    } else {
+      fetchSports();
+    }
   }, []);
+  
+  useEffect(() => {
+    console.log('useEffect 2');
+    if (isCreated) {
+      createdPassToFalse();
+      history.push('/');
+      //return <Redirect to="/" />;
+    }
+  }, [isCreated]);
 
   const today = new Date();
   const year = today.getFullYear();
@@ -45,14 +57,17 @@ const CreationPage = ({
     // console.log('handleselect', e.target.value);
     onChangeFormSelect(e.target.value);
   };
+  
   const handleChange = (evt) => {
     onChangeForm(evt.target.value, evt.target.name);
   };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    console.log('handleOnSubmit');
     onSubmit();
   };
+
   return (
     <section className="create-form">
       <form className="create-form__container" onSubmit={handleOnSubmit}>
@@ -246,6 +261,7 @@ CreationPage.propTypes = {
   city: PropTypes.string.isRequired,
   onChangeForm: PropTypes.func.isRequired,
   fetchSports: PropTypes.func.isRequired,
+  createdPassToFalse: PropTypes.func.isRequired,
   fetchUserActivities: PropTypes.func.isRequired,
 };
 
