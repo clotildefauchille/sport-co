@@ -21,6 +21,7 @@ const mapStateToProps = (state) => ({
   passwordError: state.registration.passwordError,
   emailError: state.registration.emailError,
   pseudoError: state.registration.pseudoError,
+  cityError: state.registration.cityError,
 });
 
 const mapDispatchToProps = (dispatch) => ({

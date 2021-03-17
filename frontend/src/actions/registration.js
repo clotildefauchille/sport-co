@@ -4,6 +4,7 @@ export const PSEUDO_ERROR = 'PSEUDO_ERROR';
 export const EMAIL_ERROR = 'EMAIL_ERROR';
 export const FETCH_REGISTRATION_FORM = 'FETCH_REGISTRATION_FORM';
 export const RESET_ERRORS = 'RESET_ERRORS';
+export const CITY_ERROR = 'CITY_ERROR';
 
 export const saveRegistrationValue = (value, input) => ({
   type: SAVE_REGISTRATION_VALUE,
@@ -29,4 +30,8 @@ export const fetchRegistrationForm = () => ({
 
 export const resetErrors = () => ({
   type: RESET_ERRORS,
+});
+
+export const cityError = () => ({
+  type: CITY_ERROR,
 });

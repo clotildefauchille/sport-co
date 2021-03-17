@@ -1,6 +1,7 @@
 import {
   SAVE_REGISTRATION_VALUE,
   PASSWORD_ERROR,
+  CITY_ERROR,
   EMAIL_ERROR,
   PSEUDO_ERROR,
   RESET_ERRORS,
@@ -20,6 +21,7 @@ const initialState = {
   passwordError: false,
   emailError: false,
   pseudoError: false,
+  cityError: false,
 };
 
 const registration = (state = initialState, action = {}) => {
@@ -30,6 +32,7 @@ const registration = (state = initialState, action = {}) => {
         passwordError: false,
         emailError: false,
         pseudoError: false,
+        cityError: false,
       };
     case SAVE_REGISTRATION_VALUE:
       return {
@@ -53,6 +56,11 @@ const registration = (state = initialState, action = {}) => {
         ...state,
         pseudoError: true,
         pseudo: '',
+      };
+    case CITY_ERROR:
+      return {
+        ...state,
+        cityError: true,
       };
     default:
       return state;

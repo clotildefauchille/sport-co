@@ -23,6 +23,7 @@ const Registration = ({
   passwordError,
   emailError,
   pseudoError,
+  cityError,
 
   OnSubmitForm,
   OnChangeValue,
@@ -139,6 +140,11 @@ const Registration = ({
         <label htmlFor="address" className="registration__label">
           <h2 className="registration__inputName">
             Adresse<span className="registration__required">*</span>
+            {cityError && (
+              <span className="registration__error">
+                Il n'existe pas d'adresse à ce nom, veuillez réessayer
+              </span>
+            )}
           </h2>
           <input
             id="address"
@@ -222,6 +228,7 @@ Registration.propTypes = {
   passwordError: PropTypes.bool.isRequired,
   emailError: PropTypes.bool.isRequired,
   pseudoError: PropTypes.bool.isRequired,
+  cityError: PropTypes.bool.isRequired,
 };
 
 // == Export

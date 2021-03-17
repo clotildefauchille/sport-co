@@ -4,6 +4,7 @@ import {
   passwordError,
   emailError,
   pseudoError,
+  cityError,
   resetErrors,
 } from 'src/actions/registration';
 import { saveConnexionStatut } from 'src/actions/login';
@@ -59,7 +60,8 @@ const registration = (store) => (next) => (action) => {
               });
           })
           .catch((error) => {
-            console.error('error', error.response.data);
+            store.dispatch(cityError());
+            console.error('City ERROR', error);
           });
 
         break;
