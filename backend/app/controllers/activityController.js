@@ -375,7 +375,8 @@ const activityController = {
               },
             ],
           },
-        ], 
+        ],
+        order: [['activities', 'date', 'ASC']],
       });
       const formatedaActivities = user.activities.map((activity) => {
         return {
@@ -404,68 +405,6 @@ const activityController = {
       res.status(500).json(error.toString());
     }
   }, 
-
-
-/*
-  getActivitiesByUser: async (req, res) => {
-    console.log('----------> getActivitiesByUser');
-
-    let page = parseInt(req.query.page);
-    let userId = parseInt(req.params.id);
-
-    console.log('userId', userId);
-
-    if (!page) {
-      page = 1;
-    }
-
-    try {
-      const activities = await Activity.findAll({
-        include: [
-          'activity_statut',
-          'creator',
-          'sport',
-          'activity_place',
-          {
-            association: 'users',
-            where: {
-              id: userId
-            }
-          },
-        ],
-        where: {
-          date: {
-            [Op.gte]: sequelize.fn('NOW'),
-          }
-        },
-        offset: (page - 1) * activityController.defaultNumCardInPage,
-        order: [['date', 'ASC']],
-      });
-
-      if (!activities) {
-        res.status(204).json("Error : can't find Activity");
-        return;
-      }
-
-      formatedaActivities = formatActivities(activities);
-
-      //const user = await User.findByPk(userId);
-      const user = await User.findOne({
-        where: {
-          id: userId,
-        },
-        include : ['user_grade'],
-        attributes: ['id','firstname','lastname','pseudo','reward_count'],
-      });
-      res.json({activities: formatedaActivities, user: user});
-
-
-    } catch (error) {
-      console.trace(error);
-      res.status(500).json(error.toString());
-    }
-  }, 
-*/
 
 };
 

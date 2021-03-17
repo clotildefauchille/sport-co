@@ -36,7 +36,6 @@ const Details = ({
   }, []);
 
   // console.log('activity.id -----> ', activity.id );
-
   // console.log(userActivities);
   // console.log(activity);
 

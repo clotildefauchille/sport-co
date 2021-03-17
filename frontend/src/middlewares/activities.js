@@ -61,25 +61,18 @@ const activities = (store) => (next) => (action) => {
       
     case FETCH_USER_ACTIVITIES:
       const userId = store.getState().login.user.id;
-
-      console.log('userId ---->', userId);
-
       axios
         .get(`${process.env.API_URL}/api/activities/user/${userId}`)
         .then((response) => {
-
-          console.log('response.data IN MIDDLEWARE', response.data);
-
           store.dispatch(saveUserActivities(response.data));
-
-          //store.dispatch(saveUserPoints(response.data.user));
+          store.dispatch(saveUserPoints(response.data.user));
         })
         .catch((error) => {
           console.log('error', error);
         });
       break;
 
-
+      
     case FETCH_DATA_ACTTIVITY:
       axios
         .get(`${process.env.API_URL}/api/activity/${idParams}`)
@@ -136,7 +129,7 @@ const activities = (store) => (next) => (action) => {
         .then((response) => {
           // console.log('activité rejointe', response);
           store.dispatch(updateStatus('+'));
-          //store.dispatch(fetchUserActivities());
+          store.dispatch(fetchUserActivities());
         })
         .catch((error) => {
           console.log('error', error.response.data);
@@ -162,7 +155,7 @@ const activities = (store) => (next) => (action) => {
         .then((response) => {
           // console.log('activité quittée', response);
           store.dispatch(updateStatus('-'));
-          //store.dispatch(fetchUserActivities());
+          store.dispatch(fetchUserActivities());
         })
         .catch((error) => {
           console.log('error', error.response.data);

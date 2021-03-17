@@ -92,7 +92,7 @@ const creationPage = (store) => (next) => (action) => {
               }*/)
               .then((response)=> {
                 store.dispatch(activityCreated());
-                //store.dispatch(fetchUserActivities());
+                store.dispatch(fetchUserActivities());
               });
           })
           .catch((error) => {

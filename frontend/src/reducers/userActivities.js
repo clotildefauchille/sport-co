@@ -10,24 +10,15 @@ const userActivities = (state = initialState, action = {}) => {
   switch (action.type) {
     
     case SAVE_USER_ACTIVITIES:
-
-    console.log('action.data.activities', action.data.activities);
-
-
       const idsCreator = [];
       const idsRegistered = [];
-
       const activities = action.data.activities;
-
       activities.forEach(activity => {
-
         if(activity.creator_id === action.data.user.id) {
           idsCreator.push(activity.id)
         }
         idsRegistered.push(activity.id);
-
       });
-      
       return {
         ...state,
         list: [...activities],
@@ -35,8 +26,6 @@ const userActivities = (state = initialState, action = {}) => {
         idsCreator,
       };
       
-
-
     case CLEAR_USER_ACTIVITIES:
       return {
         list: [],

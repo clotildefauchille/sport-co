@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './style.scss';
 
-const Messages = ({ messages, sendMessage, userId, activityId }) => {
+const Messages = ({ messages, sendMessage, /* userId, */ activityId }) => {
 
   const [inputValue, setInputValue] = useState('');
 
@@ -13,13 +13,14 @@ const Messages = ({ messages, sendMessage, userId, activityId }) => {
     // console.log('activityId comp', activityId);
     // console.log('---------------------------------- userId > ', userId );
 
-    if(userId) {
+    //if(userId) {
       sendMessage ({ 
         comment: inputValue,
         activityId: parseInt(activityId),
-        userId: parseInt(userId),
+        //userId: parseInt(userId),
       });
-    }
+    //}
+
   }
 
   const handleOnChange = (e) => {
@@ -49,12 +50,14 @@ const Messages = ({ messages, sendMessage, userId, activityId }) => {
 Messages.propTypes = {
   messages: PropTypes.array.isRequired,
   sendMessage: PropTypes.func.isRequired,
-  userId: PropTypes.number,
+  //userId: PropTypes.number,
   activityId: PropTypes.number.isRequired,
 };
 
+/*
 Messages.defaultProps = {
   userId: null,
 };
+*/
 
 export default Messages;
