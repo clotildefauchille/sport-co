@@ -48,3 +48,12 @@
 .mapboxgl-ctrl-bottom-right {
   display: none !important;
 }
+
+@media (max-width: 500px) {
+  .map-list {
+    height: 250px;
+    &--open {
+      height: 100vh;
+    }
+  }
+}

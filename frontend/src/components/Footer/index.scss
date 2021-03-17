@@ -12,10 +12,6 @@
   flex-wrap: wrap;
   color: vars.$darkColor;
 
-  &__copyrights {
-
-  }
-
   &__links {
     display: flex;
     flex-direction: row;
@@ -36,6 +32,7 @@
 
   &__links {
     padding-top: 10px;
+    justify-content: center;
   }
   }
 }
