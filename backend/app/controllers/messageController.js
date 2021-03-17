@@ -60,9 +60,11 @@ const messageController = {
       }
     },
 
+    /*
     getMessageByActivity: async (req, res) => {
         console.log('----------> getMessageByActivity');
         let activityId = parseInt(req.params.id);
+
         try {
             const messages = await Message.findAll({
                 include: [
@@ -92,6 +94,7 @@ const messageController = {
             res.status(500).json(error.toString());
         }
     }
+    */
 }
 
 module.exports = messageController;

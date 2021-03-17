@@ -61,7 +61,8 @@ router.get(
 );
 
 router.post('/api/activity/:id/messages/', messageController.addMessageToActivity);
-router.get('/api/activity/:id/messages/', messageController.getMessageByActivity);
+// déplacé dans get activité
+//router.get('/api/activity/:id/messages/', messageController.getMessageByActivity);
 
 //homepage user not connected searched by department
 // router.get(

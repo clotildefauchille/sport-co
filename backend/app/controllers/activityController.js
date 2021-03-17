@@ -1,4 +1,4 @@
-const { Activity, Sport, ActivityStatut, ActivityPlace, User } = require('../models');
+const { Activity, Sport, ActivityStatut, ActivityPlace, User, Message } = require('../models');
 
 const { distanceCalculSQL } = require('../selectors/distanceCalculSQL');
 const { formatActivities, formatActivity, formatActivitiesFilterByDistance } = require('../selectors/formatActivities');
@@ -119,10 +119,21 @@ const activityController = {
             },
           },
           {
+            association: 'messages',
+            attributes: ['activity_id', 'id', 'comment', 'created_at'],
+            include: [
+              {
+                association: 'users',
+                attributes: ['id','pseudo'],
+              },
+            ],
+          },
+          {
             association: 'creator',
             attributes: ['pseudo','firstname','lastname','avatar','reward_count']
           },
         ],
+        order: [['messages', 'created_at', 'DESC']],
       });
       if (!activity) {
         res.status(204).json("Error : can't find Activity");

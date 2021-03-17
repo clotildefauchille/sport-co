@@ -78,7 +78,6 @@ const newActivityController = {
 
       user.user_grade_id = grades[0].id;
 
-
       console.log('-------------------> 5 user.user_grade_id', user.user_grade_id);
 
       await user.save();

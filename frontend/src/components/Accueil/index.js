@@ -146,6 +146,6 @@ Accueil.propTypes = {
 
 Accueil.defaultProps = {
   points: 0,
-  
 };
+
 export default Accueil;

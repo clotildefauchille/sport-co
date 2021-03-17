@@ -5,6 +5,7 @@ const initialState = {
   joinMessage: 'Rejoindre',
   quitMessage: "Quitter l'activité",
   errorMessage: '',
+  messages: [],
 };
 
 const details = (state = initialState, action = {}) => {
