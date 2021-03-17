@@ -53,17 +53,14 @@ const Details = ({
   return (
     <>
       
-
         {activity.id && (
           <>
-
             <main
-                    className="activity"
-                    style={{
-                      backgroundImage: `url(${currentSport})`,
-                    }}
-                  >
-                    
+              className="activity"
+              style={{
+                backgroundImage: `url(${currentSport})`,
+              }}
+            >
             <section className="activity__header">
               <h1 className="activity__title">{activity.title}</h1>
               <p className="activity__timeplace">
@@ -156,7 +153,6 @@ const Details = ({
         </>
       )}
 
-    
 </>
   )
 

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Messages from 'src/components/Messages';
 
-import { fetchMessages, sendMessages } from 'src/actions/messages';
+import { sendMessage } from 'src/actions/details';
 
 const mapStateToProps = (state, ownProps) => ({
   messages: state.messages,
@@ -9,11 +9,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchMessages: (activityId) => {
-    dispatch(fetchMessages(activityId));
-  },
-  sendMessages: (message) => {
-    dispatch(sendMessages(message));
+  sendMessage: (message) => {
+    dispatch(sendMessage(message));
   },
 });
 

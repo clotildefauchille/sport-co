@@ -1,14 +1,14 @@
-import { SAVE_MESSAGES, SAVE_NEW_MESSAGES } from 'src/actions/messages';
+import { SAVE_ACTTIVITY, SAVE_NEW_MESSAGE } from 'src/actions/details';
 
 const initialState = [];
 
 const messages = (state = initialState, action = {}) => {
   switch (action.type) {
 
-    case SAVE_MESSAGES:
-      return [...action.data];
+    case SAVE_ACTTIVITY:
+      return [...action.data.messages];
 
-    case SAVE_NEW_MESSAGES:
+    case SAVE_NEW_MESSAGE:
       return [action.message, ...state];
 
     default:

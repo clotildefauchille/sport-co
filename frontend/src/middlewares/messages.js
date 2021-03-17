@@ -1,28 +1,14 @@
 import axios from 'axios';
 
 import {
-  FETCH_MESSAGES,
-  SEND_MESSAGES,
-  saveMessages,
+  SEND_MESSAGE,
   saveNewMessage,
-} from 'src/actions/messages';
+} from 'src/actions/details';
 
 const messages = (store) => (next) => (action) => {
   switch (action.type) {
 
-    case FETCH_MESSAGES:
-      axios
-        .get(`${process.env.API_URL}/api/activity/${action.activityId}/messages`)
-        .then((response) => {
-          store.dispatch(saveMessages(response.data));
-        })
-        .catch((error) => {
-          console.log('error', error);
-        });
-      break;
-
-    case SEND_MESSAGES:
-
+    case SEND_MESSAGE:
         console.log('action.message.activityId -----> ', action.message.activityId );
 
       axios
@@ -35,6 +21,9 @@ const messages = (store) => (next) => (action) => {
         //, { withCredentials: true }
         )
         .then((response) => {
+
+          console.log('NEW MESSAGES ------------------> ', response.data)
+
           store.dispatch(saveNewMessage(response.data));
           console.log('send ok');
         })
