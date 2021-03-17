@@ -5,3 +5,23 @@
     padding-top: 3rem;
   }
 }
+
+.heading-2 {
+  font-family: vars.$fontHeading;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: vars.$darkColor;
+  padding-bottom: 1rem;
+  padding-top: 2rem;
+
+  &__txt-color {
+    color: vars.$primaryColor;
+  }
+}
+
+@media (max-width: 500px) {
+  .heading-2 {
+    padding: 20px;
+    text-align: center;
+  }
+}

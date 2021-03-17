@@ -73,12 +73,6 @@
   }
 
   &__details {
-    // display: grid;
-    // grid-template-columns: 2fr 1fr 1fr;
-    // align-items: center;
-    // max-width: 100%;
-    // width: 1240px;
-
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -158,30 +152,26 @@
 
   &__map {
     height: 100%;
-    //margin: 0px 100px 120px;
     border-radius: 16px;
     border: none;
   }
 
   &__map-messages {
-    //margin: 50px;
-    height: 400px;
-    position: relative;
-    padding: 0 100px 25px;
-    z-index: 10;
-    width: 100%;
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: 1fr 1fr;
-    align-items: stretch;
-    justify-items: stretch;
-    margin-bottom: 30px;
+    margin: 0 100px 50px 100px;
+    display: flex;
+    flex: 1;
   }
 }
 
 .mapboxgl-canvas {
   outline: none;
   border: none;
+}
+
+.activity__map {
+  flex: 1;
+  margin-right: 25px;
+  height: 400px;
 }
 
 
@@ -200,6 +190,9 @@
 
   .activity__map{
     margin: 0px 40px 80px;
+  }
+  .activity__map-messages {
+    margin: 0 45px 50px 45px;
   }
 }
 
@@ -241,6 +234,15 @@
     }
     &__participantsNumber {
       margin-top: 0;
+    }
+
+    &__map {
+      flex: initial;
+      margin: 0 0 50px 0;
+    }
+    &__map-messages {
+      flex-direction: column;
+      margin: 0 45px 50px;
     }
   }
 }
