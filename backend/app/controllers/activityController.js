@@ -33,7 +33,6 @@ const activityController = {
             'sport_id',
             'creator_id',
           ],
-
         },
         include: [
           {
@@ -62,7 +61,7 @@ const activityController = {
             },
             {
               date: {
-                [Op.gte]: sequelize.fn('NOW'),
+                [Op.gte]: Sequelize.literal('NOW() - INTERVAL \'1d\''),
               }
             }
           ]
@@ -213,7 +212,7 @@ const activityController = {
             },
             {
               date: {
-                [Op.gte]: sequelize.fn('NOW'),
+                [Op.gte]: Sequelize.literal('NOW() - INTERVAL \'1d\''),
               }
             }
           ]
@@ -297,7 +296,7 @@ const activityController = {
             },
             {
               date: {
-                [Op.gte]: sequelize.fn('NOW'),
+                [Op.gte]: Sequelize.literal('NOW() - INTERVAL \'1d\''),
               }
             }
           ]
@@ -374,6 +373,18 @@ const activityController = {
                 attributes: ['pseudo'],
               },
             ],
+            where: {
+              [Op.and]: [
+                {
+                  activity_status_id: 3,
+                },
+                {
+                  date: {
+                    [Op.gte]: Sequelize.literal('NOW() - INTERVAL \'1d\''),
+                  }
+                }
+              ]
+            },
           },
         ],
         order: [['activities', 'date', 'ASC']],

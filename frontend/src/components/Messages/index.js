@@ -33,7 +33,7 @@ const Messages = ({ messages, sendMessage, /* userId, */ activityId }) => {
     {messages.map((message, index) => {
       return (
         <div key={`message-${index}`} className="messages__message">
-          <div className="messages__content">{message.activity_id} {message.comment}</div>
+          <div className="messages__content">{message.comment}</div>
           <div><span className="messages__pseudo">{message.users.pseudo}</span> <span className="messages__date">{message.created_at}</span></div>
         </div>
       );
