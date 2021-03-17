@@ -27,7 +27,7 @@ const Filter = ({ fetchFilterSportsByLocalisation, sportsList }) => {
   if(querySports) { querySports.split(',') }
 
   useEffect(() => {
-    console.log('fetchFilterSportsByLocalisation');
+    // console.log('fetchFilterSportsByLocalisation');
     fetchFilterSportsByLocalisation({lat, lng});
   }, [lat, lng])
 
@@ -47,7 +47,7 @@ const Filter = ({ fetchFilterSportsByLocalisation, sportsList }) => {
   }, [sportsList])
 
   const handleCheck = (index) => {
-    console.log('handleCheck');
+    // console.log('handleCheck');
     const updatedSport = [...sportsFilter];
     if(updatedSport[index].isChecked) {
       updatedSport[index].isChecked = false;
@@ -58,14 +58,14 @@ const Filter = ({ fetchFilterSportsByLocalisation, sportsList }) => {
   }
 
   const handleOnClick = () => {
-    console.log('handleOnClick');
+    // console.log('handleOnClick');
     const selectedSportIds = [];
     sportsFilter.forEach(sport => {
       if(sport.isChecked === true) {
         selectedSportIds.push(sport.id); 
       }
     });
-    console.log(selectedSportIds.join(','));
+    // console.log(selectedSportIds.join(','));
     history.push(`/search?lat=${lat}&lng=${lng}&sports=${selectedSportIds.join(',')}&query=${queryString}`);
   }
   

@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import './style.scss';
 
 const Accueil = ({
-  fetchData,
+  fetchLastActivities,
   isLogged,
   user,
   userActivities,
@@ -23,27 +23,25 @@ const Accueil = ({
     
   useEffect(() => {
     paginationReset();
-    if (!isLogged) {
-      fetchData();
-    } else {
-      fetchUserActivities();
-    }
     window.scrollTo(0, 0);
   }, []);
-    
-  useEffect(() => {
-    fetchData();
-  }, [pageValue]);
 
   useEffect(() => {
+    paginationReset();
     if (!isLogged) {
-      fetchData();
+      fetchLastActivities();
     } else {
       fetchUserActivities();
     }
   }, [isLogged]);
 
-  console.log('isLogged', isLogged, user);
+  useEffect(() => {
+    if (!isLogged) {
+      fetchLastActivities();
+    }
+  }, [pageValue]);
+
+
   const mainClassName = isLogged
     ? 'home home--img home--logged'
     : 'home home--img';
@@ -106,8 +104,8 @@ const Accueil = ({
             de ton quartier
           </h1>
           <div className="hero__sub-title">
-            Découvres et programmes de nouvelles activités sportives autour de
-            toi, boostes ta motivation grâce au groupe et activités régulières !
+            Découvre et programme de nouvelles activités sportives autour de
+            toi, booste ta motivation en groupe et avec des activités régulières !
           </div>
         </div>
       )}
@@ -126,7 +124,7 @@ const Accueil = ({
       ) : (
         <>
           <h2 className="heading-2">
-            Explorez les dernières activités proposées :
+            Explore les dernières activités proposées :
           </h2>
           <Cards />
         </>
@@ -136,7 +134,7 @@ const Accueil = ({
 };
 
 Accueil.propTypes = {
-  fetchData: PropTypes.func.isRequired,
+  fetchLastActivities: PropTypes.func.isRequired,
   fetchUserActivities: PropTypes.func.isRequired,
   isLogged: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,

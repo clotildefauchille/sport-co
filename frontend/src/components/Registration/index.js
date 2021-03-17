@@ -48,7 +48,6 @@ const Registration = ({
             name="pseudo"
             className="registration__input"
             type="text"
-            placeholder="entrez votre pseudo"
             required
             value={pseudo}
             onChange={OnChangeValue}
@@ -68,7 +67,7 @@ const Registration = ({
             name="email"
             className="registration__input"
             type="email"
-            placeholder="entrez votre adresse email"
+            placeholder="exemple@mail.com"
             required
             value={email}
             onChange={OnChangeValue}
@@ -90,7 +89,7 @@ const Registration = ({
             className="registration__input password"
             type="password"
             name="password"
-            placeholder="entrez votre mot de passe"
+            placeholder="Entre un mot de passe"
             required
             value={password}
             onChange={OnChangeValue}
@@ -99,7 +98,7 @@ const Registration = ({
             className="registration__input password"
             type="password"
             name="confirmPassword"
-            placeholder="confirmez votre mot de passe"
+            placeholder="Confirme ton mot de passe"
             required
             value={confirmPassword}
             onChange={OnChangeValue}
@@ -115,7 +114,7 @@ const Registration = ({
               name="firstname"
               className="registration__input registration__firsname"
               type="text"
-              placeholder="entrez votre prénom"
+              placeholder="Teddy"
               required
               value={firstname}
               onChange={OnChangeValue}
@@ -130,7 +129,7 @@ const Registration = ({
               name="lastname"
               className="registration__input registration__lastname"
               type="text"
-              placeholder="entrez votre nom"
+              placeholder="Riner"
               required
               value={lastname}
               onChange={OnChangeValue}
@@ -146,7 +145,6 @@ const Registration = ({
             name="address"
             className="registration__input"
             type="text"
-            placeholder="entrez votre adresse"
             required
             value={address}
             onChange={OnChangeValue}
@@ -162,7 +160,6 @@ const Registration = ({
               name="city"
               className="registration__input registration__firsname"
               type="text"
-              placeholder="entrez votre prénom"
               required
               value={city}
               onChange={OnChangeValue}
@@ -177,7 +174,6 @@ const Registration = ({
               name="postalCode"
               className="registration__input registration__lastname"
               type="text"
-              placeholder="entrez votre nom"
               required
               value={postalCode}
               onChange={OnChangeValue}
@@ -190,7 +186,7 @@ const Registration = ({
             id="presentation"
             name="presentation"
             className="registration__input registration__textarea"
-            placeholder="présentez vous en quelques lignes"
+            placeholder="Présente-toi en quelques lignes"
             value={presentation}
             onChange={OnChangeValue}
           />
@@ -200,7 +196,7 @@ const Registration = ({
             Inscription
           </button>
           <Link to="/connexion" className="registration__link">
-            J'ai déjà un compte
+            Tu as déjà un compte ?
           </Link>
         </div>
       </form>

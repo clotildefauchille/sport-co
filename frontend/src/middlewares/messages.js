@@ -9,7 +9,7 @@ const messages = (store) => (next) => (action) => {
   switch (action.type) {
 
     case SEND_MESSAGE:
-        console.log('action.message.activityId -----> ', action.message.activityId );
+        // console.log('action.message.activityId -----> ', action.message.activityId );
 
       axios
         .post(`${process.env.API_URL}/api/activity/${action.message.activityId}/messages`,
@@ -22,10 +22,10 @@ const messages = (store) => (next) => (action) => {
         )
         .then((response) => {
 
-          console.log('NEW MESSAGES ------------------> ', response.data)
+          // console.log('NEW MESSAGES ------------------> ', response.data)
 
           store.dispatch(saveNewMessage(response.data));
-          console.log('send ok');
+          // console.log('send ok');
         })
         .catch((error) => {
           console.log('error', error);

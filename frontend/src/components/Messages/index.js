@@ -10,8 +10,8 @@ const Messages = ({ messages, sendMessage, userId, activityId }) => {
   const handleClickForm = (e) => {
     e.preventDefault();
 
-    console.log('activityId comp', activityId);
-    console.log('---------------------------------- userId > ', userId );
+    // console.log('activityId comp', activityId);
+    // console.log('---------------------------------- userId > ', userId );
 
     if(userId) {
       sendMessage ({ 

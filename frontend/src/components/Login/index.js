@@ -22,10 +22,10 @@ const Login = ({
           <form className="login_container" onSubmit={OnClickLoginForm}>
             <h1 className="login__title">Connexion</h1>
             {error && <p className="login__error">Adresse email ou mot de passe invalide</p>}
-            <input className="login__input" type="email" placeholder="Votre adresse email" value={email} onChange={OnChangeValue} />
-            <input className="login__input" type="password" placeholder="Votre mot de passe" value={password} onChange={OnChangeValue} />
+            <input className="login__input" type="email" placeholder="Adresse e-mail" value={email} onChange={OnChangeValue} />
+            <input className="login__input" type="password" placeholder="Mot de passe" value={password} onChange={OnChangeValue} />
             <button type="submit" className="login__button">Connexion</button>
-            <Link to="/inscription" className="login__noAccount">Vous n'avez pas de compte ?</Link>
+            <Link to="/inscription" className="login__noAccount">Tu n'as pas de compte ?</Link>
           </form>
         </section>
       );

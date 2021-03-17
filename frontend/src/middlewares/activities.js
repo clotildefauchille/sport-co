@@ -7,7 +7,6 @@ import {
   fetchUserActivities,
   saveActivities,
   saveUserActivities,
-
 } from 'src/actions/cards';
 
 import {
@@ -26,28 +25,28 @@ import {
   errorStatus,
 } from 'src/actions/details';
 
-
 import { saveUserPoints } from 'src/actions/login';
 
 const activities = (store) => (next) => (action) => {
-
   const { moreResults } = store.getState();
   const page = moreResults.page;
-  console.log(page);
-  
+  // console.log(page);
+
   const idParams = action.id;
 
   const { details } = store.getState();
   const { user } = store.getState().login;
 
   switch (action.type) {
-
     case FETCH_LAST_ACTIVITIES:
       axios
         .get(`${process.env.API_URL}/api/activities?page=${page}`)
         .then((response) => {
+          console.log("page", page);
           // if page > 1
+          
           console.log('response.data.activities', response.data.activities);
+          
           if (page > 1) {
             store.dispatch(saveAllActivities(response.data));
           } else {
@@ -59,16 +58,17 @@ const activities = (store) => (next) => (action) => {
         });
       break;
 
-
     case FETCH_USER_ACTIVITIES:
       const userId = store.getState().login.user.id;
+
+      console.log('userId ---->', userId);
 
       axios
         .get(`${process.env.API_URL}/api/activities/user/${userId}`)
         .then((response) => {
-          console.log('response.data USER ', response.data);
+          console.log('response.data USER ', response.data.activities);
           store.dispatch(saveUserActivities(response.data.activities));
-          store.dispatch(saveUserPoints(response.data.user));
+          //store.dispatch(saveUserPoints(response.data.user));
         })
         .catch((error) => {
           console.log('error', error);
@@ -87,21 +87,22 @@ const activities = (store) => (next) => (action) => {
       break;
 
     case FETCH_ACTIVITIES_BY_LOCALISATION:
-      console.log('action.query ----> ', action.query);
+      // console.log('action.query ----> ', action.query);
       const lat = parseFloat(action.query.lat);
       const lng = parseFloat(action.query.lng);
       if (lat && lng) {
-        console.log('FETCH_ACTIVITIES_BY_LOCALISATION');
+        // console.log('FETCH_ACTIVITIES_BY_LOCALISATION');
         axios
 
-          .get(`${process.env.API_URL}/api/place?lat=${lat}&lng=${lng}&page=${page}`)
+          .get(
+            `${process.env.API_URL}/api/place?lat=${lat}&lng=${lng}&page=${page}`,
+          )
           .then((response) => {
             if (page > 1) {
               store.dispatch(saveAllSearchedActivities(response.data));
             } else {
               store.dispatch(saveSearchedActivities(response.data));
             }
-
           })
           .catch((error) => {
             console.log('error', error);
@@ -126,9 +127,9 @@ const activities = (store) => (next) => (action) => {
           { withCredentials: true },
         )
         .then((response) => {
-          console.log('activité rejointe', response);
+          // console.log('activité rejointe', response);
           store.dispatch(updateStatus('+'));
-          store.dispatch(fetchUserActivities());
+          //store.dispatch(fetchUserActivities());
         })
         .catch((error) => {
           console.log('error', error.response.data);
@@ -138,22 +139,22 @@ const activities = (store) => (next) => (action) => {
 
     case QUIT_ACTIVITY:
       if (!user.pseudo) {
-        console.error(
-          'ERROR il faut être connecté pour quitter une activité',
-        );
+        console.error('ERROR il faut être connecté pour quitter une activité');
         break;
-
       }
       axios
-        .post(`${process.env.API_URL}/api/activity/quit`, {
-          id: details.id,
-          pseudo: user.pseudo,
-        },
-        { withCredentials: true })
+        .post(
+          `${process.env.API_URL}/api/activity/quit`,
+          {
+            id: details.id,
+            pseudo: user.pseudo,
+          },
+          { withCredentials: true },
+        )
         .then((response) => {
-          console.log('activité quittée', response);
+          // console.log('activité quittée', response);
           store.dispatch(updateStatus('-'));
-          store.dispatch(fetchUserActivities());
+          //store.dispatch(fetchUserActivities());
         })
         .catch((error) => {
           console.log('error', error.response.data);
@@ -162,18 +163,18 @@ const activities = (store) => (next) => (action) => {
       break;
 
     case FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS:
-      console.log(
-        'action.query FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS ----> ',
-        action.query,
-      );
+      // console.log(
+      //   'action.query FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS ----> ',
+      //   action.query,
+      // );
       const lat2 = parseFloat(action.query.lat);
       const lng2 = parseFloat(action.query.lng);
       const sports = action.query.sports;
 
-      console.log(action.query.sports);
+      // console.log(action.query.sports);
 
       if (lat2 && lng2 && sports) {
-        console.log('FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS');
+        // console.log('FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS');
         axios
           .get(
             `${process.env.API_URL}/api/activities/sports/?lat=${lat2}&lng=${lng2}&sports=${sports}&page=1`,

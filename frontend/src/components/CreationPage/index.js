@@ -56,7 +56,7 @@ const CreationPage = ({
   return (
     <section className="create-form">
       <form className="create-form__container" onSubmit={handleOnSubmit}>
-        <h1 className="create-form__title">Créez ici votre activité :</h1>
+        <h1 className="create-form__title">Créer ton activité :</h1>
 
         <label htmlFor="title" className="create-form__label">
           Nom de l'activité<span className="create-form__required">*</span>
@@ -64,7 +64,7 @@ const CreationPage = ({
         <input
           className="create-form__input create-form__input--large"
           type="text"
-          placeholder="nom de l'activité"
+          placeholder="Nom de l'activité"
           name="title"
           value={title}
           onChange={handleChange}
@@ -136,7 +136,7 @@ const CreationPage = ({
               id="sport-select"
               onChange={handleSelectInput}
             >
-              <option value="">choississez un sport</option>
+              <option value="">Choisis un sport</option>
               {sports.map((sport) => {
                 return (
                   <option
@@ -189,7 +189,7 @@ const CreationPage = ({
         <input
           className="create-form__input create-form__input--large"
           type="text"
-          placeholder="Entrez une adresse"
+          placeholder="Entre une adresse"
           name="adress"
           value={adress}
           onChange={handleChange}
@@ -197,12 +197,12 @@ const CreationPage = ({
         <div className="create-form__container-inner">
           <div className="col">
             <label htmlFor="code postal" className="create-form__label">
-              Code-postal
+              Code postal
             </label>
             <input
               className="create-form__input"
               type="text"
-              placeholder="code postal"
+              placeholder="Code postal"
               name="zip_code"
               value={zip_code}
               onChange={handleChange}
@@ -217,7 +217,7 @@ const CreationPage = ({
               required
               className="create-form__input"
               type="text"
-              placeholder="ville"
+              placeholder="Ville"
               name="city"
               value={city}
               onChange={handleChange}

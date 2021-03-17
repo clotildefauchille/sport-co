@@ -23,7 +23,7 @@ const App = ({ getUser, isLogged }) => {
   useEffect(() => {
     getUser();
   }, []); 
-  console.log(isLogged);
+  // console.log(isLogged);
 
   return (
     <>

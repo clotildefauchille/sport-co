@@ -35,16 +35,16 @@ const Details = ({
     fetchDataActivity(id);
   }, []);
 
-  console.log('activity.id -----> ', activity.id );
+  // console.log('activity.id -----> ', activity.id );
 
-  console.log(userActivities);
-  console.log(activity);
+  // console.log(userActivities);
+  // console.log(activity);
 
   const alreadyJoin = userActivities.find(
     (userActivity) => userActivity.id === activity.id,
   );
 
-  console.log(alreadyJoin);
+  // console.log(alreadyJoin);
   
   if (activity.sport) {
     currentSport = sports[activity.sport.icon];

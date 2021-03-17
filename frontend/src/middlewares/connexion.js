@@ -24,10 +24,10 @@ const connexion = (store) => (next) => (action) => {
           { withCredentials: true },
         )
         .then((response) => {
-          console.log('response', response.data);
+          // console.log('response', response.data);
 
           store.dispatch(saveConnexionStatut(response.data));
-          store.dispatch(fetchUserActivities());
+          //store.dispatch(fetchUserActivities());
 
           localStorage.fairplayUser = JSON.stringify({
             firsname: response.data.firsname,
@@ -48,7 +48,7 @@ const connexion = (store) => (next) => (action) => {
       if (localStorage.fairplayUser) {
         const user = JSON.parse(localStorage.fairplayUser);
         store.dispatch(saveConnexionStatut(user));
-        store.dispatch(fetchUserActivities());
+        //store.dispatch(fetchUserActivities());
       }
       break;
 

@@ -23,14 +23,14 @@ const creationPage = (store) => (next) => (action) => {
         const { creationPage, login } = store.getState();
         // console.log('sport_id', creationPage.sport_id);
         // console.log('idUser', login.user.id);
-        console.log('adress TEST ', creationPage.adress);
+        // console.log('adress TEST ', creationPage.adress);
         axios
           .get(
             `http://api.positionstack.com/v1/forward?access_key=${apiKey}&country=FR&limit=1&query=${creationPage.adress},${creationPage.zip_code},${creationPage.city}`,
           )
           .then((response) => {
             
-            console.log("response apiPlace", response.data);
+            // console.log("response apiPlace", response.data);
             const responseApiPlace = response.data.data[0];
 
             if(!responseApiPlace || !responseApiPlace.name) {
@@ -39,10 +39,10 @@ const creationPage = (store) => (next) => (action) => {
               return;
             }
 
-            console.log(
-              'responseapiPlace.postal_code',
-              responseApiPlace.postal_code,
-            );
+            // console.log(
+            //   'responseapiPlace.postal_code',
+            //   responseApiPlace.postal_code,
+            // );
 
             /*
             // avec token stocké dans le local storage
@@ -89,7 +89,7 @@ const creationPage = (store) => (next) => (action) => {
               }*/)
               .then((response)=> {
                 store.dispatch(activityCreated());
-                store.dispatch(fetchUserActivities());
+                //store.dispatch(fetchUserActivities());
               });
           })
           .catch((error) => {
@@ -109,7 +109,6 @@ const creationPage = (store) => (next) => (action) => {
         .catch((error) => {
           console.log(error);
         });
-
       break;
 
     default:

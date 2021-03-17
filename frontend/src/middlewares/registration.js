@@ -24,8 +24,7 @@ const registration = (store) => (next) => (action) => {
             `http://api.positionstack.com/v1/forward?access_key=${apiKey}&country=FR&query=${formData.address},${formData.postalCode},${formData.city}`,
           )
           .then((response) => {
-            console.log('verif position stack REGISTRATION ', response.data);
-
+            //console.log('verif position stack REGISTRATION ', response.data);
             const responsePlace = response.data.data[0];
             axios
               .post(`${process.env.API_URL}/api/registration`, {
@@ -47,11 +46,11 @@ const registration = (store) => (next) => (action) => {
                 presentation: formData.presentation,
               })
               .then((APIresponse) => {
-                console.log('response', APIresponse.data);
+                //console.log('response', APIresponse.data);
                 store.dispatch(saveConnexionStatut(APIresponse.data.user));
               })
               .catch((error) => {
-                console.error('error', error.response.data);
+                //console.error('error', error.response.data);
                 if (error.response.data.error === 'mail') {
                   store.dispatch(emailError());
                 } else if (error.response.data.error === 'pseudo') {

@@ -3,7 +3,7 @@ import Card from 'src/components/Card';
 import {showLoginModal} from 'src/actions/cards'
 
 const mapStateToProps = (state) => ({
-  isLogged: state.header.isLogged
+  isLogged: state.header.isLogged,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,5 +1,5 @@
 // == Import npm
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 // == Import
@@ -15,16 +15,11 @@ const Cards = ({
   activities,
   userActivitiesIds,
   userActivitiesCreatorIds,
+  isLogged,
 }) => {
-  /*
-  const cardsCreated = cards.map((oneCard) => (
 
-    <Card key={oneCard.id} card={oneCard} />
-  ));
-  */
   const cardsCreated = [];
-
-  if (activities) {
+  if ((!isLogged && activities) || (isLogged && activities && userActivitiesIds)) {
     activities.forEach((card) => {
       if (userActivitiesCreatorIds.includes(card.id)) {
         cardsCreated.push(
@@ -45,16 +40,21 @@ const Cards = ({
   return (
     <>
       <section className="container cards">{cardsCreated}</section>
-      {count > cardsCreated.length ? <MoreResults /> : <></>}
+      {count-1 > cardsCreated.length ? <MoreResults /> : <></>}
     </>
   );
 };
 
 Cards.propTypes = {
-  // activities: PropTypes.array.isRequired,
   count: PropTypes.number,
+  activities: PropTypes.array.isRequired,
   userActivitiesIds: PropTypes.array.isRequired,
   userActivitiesCreatorIds: PropTypes.array.isRequired,
+  isLogged: PropTypes.bool,
+};
+
+Cards.defaultProps = {
+  isLogged: false,
 };
 
 // == Export

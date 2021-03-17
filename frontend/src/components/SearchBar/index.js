@@ -82,7 +82,7 @@ const SearchBar = ({
           <input
             className="searchbar__input"
             type="text"
-            placeholder="Cherchez une activité autour de vous"
+            placeholder="Cherche une activité près de chez toi"
             value={inputValue}
             onChange={handleOnChange}
             ref={placeInput}
@@ -109,7 +109,7 @@ const SearchBar = ({
           </button>
           {errorLocalisation && (
             <div className="searchbar__error">
-              Localisation non trouvée, veuillez rééssayer
+              Localisation non trouvée, il faut que tu réessayes
             </div>
           )}
         </form>
