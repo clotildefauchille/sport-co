@@ -95,7 +95,6 @@ const activities = (store) => (next) => (action) => {
         });
       break;
 
-
     case FETCH_ACTIVITIES_BY_LOCALISATION:
       // console.log('action.query ----> ', action.query);
       const lat = parseFloat(action.query.lat);
@@ -118,7 +117,6 @@ const activities = (store) => (next) => (action) => {
           });
       }
       break;
-
 
     case JOIN_ACTIVITY:
       if (!user.pseudo) {
@@ -150,7 +148,6 @@ const activities = (store) => (next) => (action) => {
           console.log('error', error.response.data);
         });
       break;
-
 
     case QUIT_ACTIVITY:
       if (!user.pseudo) {

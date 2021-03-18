@@ -16,11 +16,8 @@ const initialState = {
   id: '',
   email: '',
   password: '',
-  user: {
-
-  },
+  user: {},
   error: false,
-
 };
 
 const login = (state = initialState, action = {}) => {

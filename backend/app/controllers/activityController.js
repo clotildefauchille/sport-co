@@ -138,7 +138,10 @@ const activityController = {
       if (!activity) {
         res.status(204).json("Error : can't find Activity");
       } else {
+
         formatedaActivity = formatActivity(activity);
+
+
         if(!formatedaActivity) {
           res.status(204).json("Error : can't find Activity");
           return;

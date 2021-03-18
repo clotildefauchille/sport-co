@@ -19,6 +19,8 @@ const Messages = ({ messages, sendMessage, /* userId, */ activityId }) => {
         activityId: parseInt(activityId),
         //userId: parseInt(userId),
       });
+      setInputValue('');
+
     //}
 
   }
@@ -41,7 +43,7 @@ const Messages = ({ messages, sendMessage, /* userId, */ activityId }) => {
     </div>
     <form action="" onSubmit={handleClickForm} className="messages__form">
       <input className="messages__input" type="text" onChange={handleOnChange} value={inputValue} placeholder="Ecrire un message"/>
-      <button className="messages__button" type="submit" >send</button>
+      <button className="messages__button" type="submit" >ENVOYER</button>
     </form>
    </div>
   );

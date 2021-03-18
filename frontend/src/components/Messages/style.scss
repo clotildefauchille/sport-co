@@ -57,7 +57,7 @@
     display: grid;
     position: relative;
     z-index: 2;
-    grid-template-columns: 1fr 80px;
+    grid-template-columns: 1fr 100px;
   }
   
   &__input {
@@ -72,10 +72,12 @@
   &__button {
     border: none;
     background-color: v.$primaryColor;
+    font-family: v.$fontHeading;
     color: white;
     box-shadow: v.$shadow;
     padding: 1em, 4em;
     border-radius: 0 0 10px 0;
+    font-weight: 500;
   }
 
 }

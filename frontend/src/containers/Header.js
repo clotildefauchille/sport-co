@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   DisconnectOnClick: () => {
     dispatch(disconnect());
-    dispatch(logOut());
+    //dispatch(logOut());
     dispatch(clearUserActivities());
   },
 });
