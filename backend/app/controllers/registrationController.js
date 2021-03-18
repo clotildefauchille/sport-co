@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const jsonwebtoken = require('jsonwebtoken');
 
 const { User, UserPlace } = require('../models');
 
@@ -51,6 +52,16 @@ const registrationController = {
             include: ['user_place'],
           },
         );
+
+          const jwtSecret = process.env.JWT_SECRET;
+          const jwtContent = { userId: newUser.id };
+          const jwtOptions = {
+            algorithm: 'HS256',
+            expiresIn: '3h',
+          };
+          const token = jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions);
+          res.cookie('token', token, { httpOnly: true });
+
         res.status(200).json({
           result: 'Inscription effectuée!',
           user: {
@@ -58,6 +69,7 @@ const registrationController = {
             firsname: newUser.firstname,
             lastname: newUser.lastname,
             id: newUser.id,
+            points: newUser.reward_count,
           },
         });
       } catch (error) {

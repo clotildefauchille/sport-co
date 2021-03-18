@@ -47,7 +47,14 @@ const registration = (store) => (next) => (action) => {
                 presentation: formData.presentation,
               })
               .then((APIresponse) => {
-                //console.log('response', APIresponse.data);
+                console.log('response', APIresponse.data.user);
+                localStorage.fairplayUser = JSON.stringify({
+                  firsname: APIresponse.data.user.firsname,
+                  id: APIresponse.data.user.id,
+                  lastname: APIresponse.data.user.lastname,
+                  pseudo: APIresponse.data.user.pseudo,
+                  points: APIresponse.data.user.points,
+                });
                 store.dispatch(saveConnexionStatut(APIresponse.data.user));
               })
               .catch((error) => {
