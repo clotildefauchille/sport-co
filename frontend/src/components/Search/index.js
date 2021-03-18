@@ -36,16 +36,17 @@ const Search = ({
   const sports = query.get('sports');
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    paginationReset();
+  }, []);
+
+  useEffect(() => {
     if (sports) {
       fetchActivitiesByLocalisationAndSports({ queryString, lat, lng, sports });
     } else {
       fetchActivitiesByLocalisation({ queryString, lat, lng });
     }
   }, [lat, lng, queryString, sports, pageValue]);
-
-  useEffect(() => {
-    paginationReset();
-  }, []);
 
   const cardsCreated = [];
   activities.forEach((card) => {
