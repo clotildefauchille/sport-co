@@ -27,13 +27,13 @@ const Search = ({
   loaded,
   userActivitiesIds,
   userActivitiesCreatorIds,
+  paginationReset,
 }) => {
-  
   const query = useQuery();
-  const queryString = query.get("query");
-  const lat = query.get("lat");
-  const lng = query.get("lng");
-  const sports = query.get("sports");
+  const queryString = query.get('query');
+  const lat = query.get('lat');
+  const lng = query.get('lng');
+  const sports = query.get('sports');
 
   useEffect(() => {
     if (sports) {
@@ -43,52 +43,68 @@ const Search = ({
     }
   }, [lat, lng, queryString, sports, pageValue]);
 
+  useEffect(() => {
+    paginationReset();
+  }, []);
+
   const cardsCreated = [];
-  activities.forEach(card => {
-    if(userActivitiesCreatorIds.includes(card.id)) {
-      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={2} />)
-    } else if(userActivitiesIds.includes(card.id)) {
-      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={1} />)
+  activities.forEach((card) => {
+    if (userActivitiesCreatorIds.includes(card.id)) {
+      cardsCreated.push(
+        <Card key={`card-${card.id}`} card={card} userCard={2} />,
+      );
+    } else if (userActivitiesIds.includes(card.id)) {
+      cardsCreated.push(
+        <Card key={`card-${card.id}`} card={card} userCard={1} />,
+      );
     } else {
-      cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={0} />)
+      cardsCreated.push(
+        <Card key={`card-${card.id}`} card={card} userCard={0} />,
+      );
     }
   });
-  
+
   const filter = useRef(null);
   const scrollToFilter = () => {
-    filter.current.scrollIntoView({behavior: "smooth"});
-  }
+    filter.current.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <main className="home search">
-        <SearchBar />
+      <SearchBar />
 
-        {loaded && (
-          <>
-            <h2 ref={filter} className="heading-2">Dernières activités proche de : <span className="heading-2__txt-color">{query.get("query")}</span></h2>
-            <Filter />
-            
-            {cardsCreated.length > 0 && (
-              <MapList lat={lat} lng={lng} scrollToFilter={scrollToFilter} />
-            )}
-            
-            {cardsCreated.length > 0 && (
-              <section className="container cards">
-                {cardsCreated}
-              </section>
-            )}
+      {loaded && (
+        <>
+          <h2 ref={filter} className="heading-2">
+            Dernières activités proche de :{' '}
+            <span className="heading-2__txt-color">{query.get('query')}</span>
+          </h2>
+          <Filter />
 
-            {cardsCreated.length === 0 && (
-              <>
-              <div className="search__no-result">Désolé aucune activité trouvée </div>
-              <img src={img} alt="pas d'activites" className="search__no-result-img"/>
-              </>
-            )}
-            
-            {activities.length < count-1 ? <MoreResults /> : <></>}
-          </>
-        )}
+          {cardsCreated.length > 0 && (
+            <MapList lat={lat} lng={lng} scrollToFilter={scrollToFilter} />
+          )}
 
+          {cardsCreated.length > 0 && (
+            <section className="container cards">{cardsCreated}</section>
+          )}
+
+          {cardsCreated.length === 0 && (
+            <>
+              <div className="search__no-result">
+                Désolé aucune activité trouvée{' '}
+              </div>
+              <img
+                src={img}
+                alt="pas d'activites"
+                className="search__no-result-img"
+              />
+            </>
+          )}
+
+          {activities.length < count - 1 ? <MoreResults /> : <></>}
+        </>
+      )}
     </main>
   );
 };

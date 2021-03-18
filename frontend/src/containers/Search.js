@@ -6,6 +6,8 @@ import {
   fetchActivitiesByLocalisation, 
   fetchActivitiesByLocalisationAndSports
 } from 'src/actions/search';
+import { paginationReset } from 'src/actions/moreResults';
+
 
 const mapStateToProps = (state) => ({
   activities: state.search.activities,
@@ -25,6 +27,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   fetchActivitiesByLocalisationAndSports: (query) => {
     dispatch(fetchActivitiesByLocalisationAndSports(query));
+  },
+  paginationReset: () => {
+    dispatch(paginationReset());
   },
 });
 
