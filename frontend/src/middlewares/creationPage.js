@@ -96,6 +96,9 @@ const creationPage = (store) => (next) => (action) => {
               });
           })
           .catch((error) => {
+            if(error.response.status === 401) {
+              store.dispatch(disconnect());
+            }
             console.log(error);
           });
       }

@@ -25,7 +25,10 @@ import {
   errorStatus,
 } from 'src/actions/details';
 
-import { saveUserPoints } from 'src/actions/login';
+import { 
+  saveUserPoints, 
+  disconnect,
+} from 'src/actions/login';
 
 const activities = (store) => (next) => (action) => {
   const { moreResults } = store.getState();
@@ -62,12 +65,17 @@ const activities = (store) => (next) => (action) => {
     case FETCH_USER_ACTIVITIES:
       const userId = store.getState().login.user.id;
       axios
-        .get(`${process.env.API_URL}/api/activities/user/${userId}`)
+        .get(`${process.env.API_URL}/api/activities/user/${userId}`,
+          { withCredentials: true }
+        )
         .then((response) => {
           store.dispatch(saveUserActivities(response.data));
           store.dispatch(saveUserPoints(response.data.user));
         })
         .catch((error) => {
+          if(error.response.status === 401) {
+            store.dispatch(disconnect());
+          }
           console.log('error', error);
         });
       break;
@@ -75,11 +83,15 @@ const activities = (store) => (next) => (action) => {
       
     case FETCH_DATA_ACTTIVITY:
       axios
-        .get(`${process.env.API_URL}/api/activity/${idParams}`)
+        .get(`${process.env.API_URL}/api/activity/${idParams}`,
+        { withCredentials: true })
         .then((response) => {
           store.dispatch(saveActivity(response.data));
         })
         .catch((error) => {
+          if(error.response.status === 401) {
+            store.dispatch(disconnect());
+          }
           console.log('error', error);
         });
       break;
@@ -92,7 +104,6 @@ const activities = (store) => (next) => (action) => {
       if (lat && lng) {
         // console.log('FETCH_ACTIVITIES_BY_LOCALISATION');
         axios
-
           .get(
             `${process.env.API_URL}/api/place?lat=${lat}&lng=${lng}&page=${page}`,
           )
@@ -132,8 +143,12 @@ const activities = (store) => (next) => (action) => {
           store.dispatch(fetchUserActivities());
         })
         .catch((error) => {
+          if(error.response.status === 401) {
+            store.dispatch(disconnect());
+          } else {
+            store.dispatch(errorStatus());
+          }
           console.log('error', error.response.data);
-          store.dispatch(errorStatus());
         });
       break;
 
@@ -158,8 +173,12 @@ const activities = (store) => (next) => (action) => {
           store.dispatch(fetchUserActivities());
         })
         .catch((error) => {
+          if(error.response.status === 401) {
+            store.dispatch(disconnect());
+          } else {
+            store.dispatch(errorStatus());
+          }
           console.log('error', error.response.data);
-          store.dispatch(errorStatus());
         });
       break;
 

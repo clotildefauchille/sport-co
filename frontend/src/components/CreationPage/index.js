@@ -70,7 +70,7 @@ const CreationPage = ({
   return (
     <section className="create-form">
       <form className="create-form__container" onSubmit={handleOnSubmit}>
-        <h1 className="create-form__title">Créer ton activité :</h1>
+        <h1 className="create-form__title">Crée ton activité :</h1>
 
         <label htmlFor="title" className="create-form__label">
           Nom de l'activité<span className="create-form__required">*</span>
