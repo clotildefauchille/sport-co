@@ -80,7 +80,6 @@ const activities = (store) => (next) => (action) => {
         });
       break;
 
-      
     case FETCH_DATA_ACTTIVITY:
       axios
         .get(`${process.env.API_URL}/api/activity/${idParams}`,

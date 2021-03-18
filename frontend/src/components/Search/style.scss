@@ -3,8 +3,20 @@
 .search {
   &__no-result {
     padding-top: 3rem;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: vars.$primaryColor;
+  }
+  &__no-result-img{
+    position: relative;
+    margin-top: -5vw;
+    width: 700px;
+    max-width: 90%;
+    height: auto;
   }
 }
+
 
 .heading-2 {
   font-family: vars.$fontHeading;

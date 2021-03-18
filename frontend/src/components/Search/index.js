@@ -7,7 +7,7 @@ import SearchBar from 'src/containers/SearchBar';
 import Filter from 'src/containers/Filter';
 import MoreResults from 'src/containers/MoreResults';
 import MapList from 'src/containers/MapList';
-
+import img from 'src/assets/images/noActivities.svg';
 
 import './style.scss';
 
@@ -33,7 +33,6 @@ const Search = ({
   const lat = query.get("lat");
   const lng = query.get("lng");
   const sports = query.get("sports");
-
 
   useEffect(() => {
     if (sports) {
@@ -71,15 +70,18 @@ const Search = ({
         {cardsCreated.length > 0 && (
           <MapList lat={lat} lng={lng} scrollToFilter={scrollToFilter} />
         )}
-        <section className="container cards">
+        
           {cardsCreated.length > 0 ? (
-            <>
-            {cardsCreated}
-            </>
+            <section className="container cards">
+              {cardsCreated}
+            </section>
           ) : (
-            <div className="search__no-result">Désolé aucune activité trouvée :(</div>
+            <>
+            <div className="search__no-result">Désolé aucune activité trouvée </div>
+            <img src={img} alt="pas d'activites" className="search__no-result-img"/>
+            </>
           )}
-        </section>
+          
         {count-1 > activities.length ? <MoreResults /> : <></>}
     </main>
   );

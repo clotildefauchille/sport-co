@@ -344,6 +344,8 @@ const activityController = {
     }
 
     try {
+
+      /*
       const user = await User.findOne({
         where: {
           id: userId,
@@ -351,6 +353,7 @@ const activityController = {
         attributes: ['id','firstname','lastname','pseudo','reward_count'],
         include : [
           'user_grade',
+          
           {
             association: 'activities',
             include: [
@@ -374,29 +377,75 @@ const activityController = {
               },
             ],
             where: {
-              [Op.and]: [
-                {
-                  activity_status_id: 3,
-                },
-                {
-                  date: {
-                    [Op.gte]: Sequelize.literal('NOW() - INTERVAL \'1d\''),
-                  }
-                }
-              ]
+              date: {
+                [Op.gte]: Sequelize.literal('NOW() - INTERVAL \'1d\''),
+              }
             },
           },
         ],
         order: [['activities', 'date', 'ASC']],
       });
-      const formatedaActivities = user.activities.map((activity) => {
-        return {
-          ...activity.dataValues,
-          date: formatDate(activity.date),
-          time: formatTime(activity.time),
-          duration: formatTime(activity.duration),
-        }
+      */
+
+      const user = await User.findByPk(userId, {
+        attributes: ['id','firstname','lastname','pseudo','reward_count'],
+        include : ['user_grade'],
       });
+
+      if(!user) {
+        console.trace(`can't find user`);
+        res.status(500).json(`can't find user`);
+        return;
+      }
+
+      const activities = await Activity.findAll({
+        include: [
+          {
+            association: 'users',
+            attributes: ['id', 'pseudo'],
+            where: {
+              id: user.id,
+            },
+          },
+          {
+            association: 'sport',
+            attributes: ['name', 'icon'],
+          },
+          {
+            association: 'activity_statut',
+            attributes: {
+              exclude: ['id'],
+            },
+          },
+          {
+            association: 'activity_place',
+            attributes: ['city'],
+          },
+          {
+            association: 'creator',
+            attributes: ['pseudo'],
+          },
+        ],
+        where: {
+          date: {
+            [Op.gte]: Sequelize.literal('NOW() - INTERVAL \'1d\''),
+          }
+        },
+        order: [['date', 'ASC']],
+      });
+
+      let formatedaActivities = [];
+      if(activities) {
+        formatedaActivities = activities.map((activity) => {
+          return {
+            ...activity.dataValues,
+            date: formatDate(activity.date),
+            time: formatTime(activity.time),
+            duration: formatTime(activity.duration),
+          }
+        });
+      }
+
       const userForFront = {
         firstname: user.firstname,
         id:user.id,
@@ -409,6 +458,7 @@ const activityController = {
           point: user.user_grade.point,
         }
       }
+      
       res.json({activities: formatedaActivities, user: userForFront});
 
     } catch (error) {

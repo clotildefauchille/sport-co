@@ -18,7 +18,7 @@ const searchBar = (store) => (next) => (action) => {
   switch (action.type) {
       case FETCH_PLACES_AUTOCOMPLETION:
 
-        console.log('FETCH_PLACES_AUTOCOMPLETION');
+        console.log('FETCH_PLACES_AUTOCOMPLETION'); 
 
         // ne pas relancer la recherche avec l'API si la liste autocompletion est déjà enregistré sur la même inputValue
         let lastAutocompleteQuery = store.getState().searchBar.autocomplete.query;
