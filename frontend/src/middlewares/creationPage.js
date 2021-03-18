@@ -25,7 +25,7 @@ const creationPage = (store) => (next) => (action) => {
         // console.log('idUser', login.user.id);
         // console.log('adress TEST ', creationPage.adress);
 
-        console.log('sendActivityInformation', creationPage, login);
+        //console.log('sendActivityInformation', creationPage, login);
         
         axios
           .get(

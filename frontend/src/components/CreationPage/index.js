@@ -26,7 +26,7 @@ const CreationPage = ({
   const history = useHistory();
 
   useEffect(() => {
-    console.log('useEffect 1');
+    //console.log('useEffect 1');
     if (isCreated) {
       history.push('/');
       createdPassToFalse();
@@ -37,7 +37,7 @@ const CreationPage = ({
   }, []);
   
   useEffect(() => {
-    console.log('useEffect 2');
+    //console.log('useEffect 2');
     if (isCreated) {
       createdPassToFalse();
       history.push('/');

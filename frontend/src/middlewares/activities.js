@@ -200,7 +200,6 @@ const activities = (store) => (next) => (action) => {
             `${process.env.API_URL}/api/activities/sports/?lat=${lat2}&lng=${lng2}&sports=${sports}&page=1`,
           )
           .then((response) => {
-            console.log('ressss', response.data);
             store.dispatch(saveSearchedActivities(response.data));
           })
           .catch((error) => {

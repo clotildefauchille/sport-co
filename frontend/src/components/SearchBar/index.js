@@ -55,15 +55,10 @@ const SearchBar = ({
     const value = e.target.value;
     changeValue(value);
     // timer pour déclencher le fetch après 1s sans onchange dans l'input
-
-    console.log('handleOnChange');
-
     clearTimeout(timer.current);
     timer.current = setTimeout(() => {
       // pas de réponse api (https://positionstack.com/documentation) si <= 2
-
-      console.log('handleOnChange TIME');
-
+      // console.log('handleOnChange TIME');
       if (value.length > 2) {
         fetchPlacesAutoCompletion();
       } else {
@@ -105,7 +100,7 @@ const SearchBar = ({
           <input
             className="searchbar__input"
             type="text"
-            placeholder="Cherche une activité près de chez toi"
+            placeholder="Cherche un lieu"
             value={inputValue}
             onChange={handleOnChange}
             ref={placeInput}
@@ -144,22 +139,6 @@ const SearchBar = ({
         >
           Créer une activité
         </button>
-
-        {/* {isLogged ? (
-          <Link
-            className="searchbar__link"
-            to="/creation"
-          >
-            Créer une activité
-          </Link>
-        ) : (
-          <button
-            onClick={showLoginModal}
-            className="searchbar__link"
-          >
-            Créer une activité
-          </button>
-        )} */}
 
     </section>
   );

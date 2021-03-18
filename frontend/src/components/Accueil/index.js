@@ -3,7 +3,7 @@ import Cards from 'src/containers/Cards';
 import UserCards from 'src/containers/UserCards';
 import SearchBar from 'src/containers/SearchBar';
 import MoreResults from 'src/containers/MoreResults';
-
+import img from 'src/assets/images/noActivities.svg';
 import PropTypes from 'prop-types';
 
 import './style.scss';
@@ -18,7 +18,7 @@ const Accueil = ({
   myCreatedActivities,
   pageValue,
   paginationReset,
-  fetchUserActivities,
+  fetchUserActivities, 
 }) => {
     
   useEffect(() => {
@@ -76,12 +76,11 @@ const Accueil = ({
                     <span className="hero__txt-user--orange">
                       {registredActivities} activité(s)
                     </span>{' '}
-                    !
+                    !<br />
                   </>
                 )}
                 {points > 0 && (
                   <>
-                    <br />
                     et gagné{' '}
                     <span className="hero__txt-user--orange">
                       {points} points
@@ -104,7 +103,7 @@ const Accueil = ({
           </h1>
           <div className="hero__sub-title">
             Découvre et programme de nouvelles activités sportives autour de
-            toi, booste ta motivation en groupe et avec des activités régulières !
+            toi, booste ta motivation en groupe, avec des activités régulières !
           </div>
         </div>
       )}
@@ -113,10 +112,18 @@ const Accueil = ({
 
       {isLogged ? (
         <>
-          {userActivities.length > 0 && (
+          {userActivities.length > 0 ? (
             <>
               <h2 className="heading-2">Mes prochaines activités :</h2>
               <UserCards />
+            </>
+          ) : (
+            <>
+              <div className="home__no-result">
+                Encore inscris à aucune activité ?<br />
+                <span className="home__no-result--color">Crées en une ou inscris toi vite !</span>
+              </div>
+              <img src={img} alt="pas d'activites" className="home__no-result-img"/>
             </>
           )}
         </>

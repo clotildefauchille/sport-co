@@ -344,49 +344,6 @@ const activityController = {
     }
 
     try {
-
-      /*
-      const user = await User.findOne({
-        where: {
-          id: userId,
-        },
-        attributes: ['id','firstname','lastname','pseudo','reward_count'],
-        include : [
-          'user_grade',
-          
-          {
-            association: 'activities',
-            include: [
-              {
-                association: 'sport',
-                attributes: ['name', 'icon'],
-              },
-              {
-                association: 'activity_statut',
-                attributes: {
-                  exclude: ['id'],
-                },
-              },
-              {
-                association: 'activity_place',
-                attributes: ['city'],
-              },
-              {
-                association: 'creator',
-                attributes: ['pseudo'],
-              },
-            ],
-            where: {
-              date: {
-                [Op.gte]: Sequelize.literal('NOW() - INTERVAL \'1d\''),
-              }
-            },
-          },
-        ],
-        order: [['activities', 'date', 'ASC']],
-      });
-      */
-
       const user = await User.findByPk(userId, {
         attributes: ['id','firstname','lastname','pseudo','reward_count'],
         include : ['user_grade'],
@@ -466,7 +423,6 @@ const activityController = {
       res.status(500).json(error.toString());
     }
   }, 
-
 };
 
 module.exports = activityController;

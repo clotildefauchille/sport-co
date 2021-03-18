@@ -11,6 +11,7 @@ const mapStateToProps = (state) => ({
   activities: state.search.activities,
   pageValue: state.moreResults.page,
   count: state.search.count,
+  loaded: state.search.loaded,
   userActivitiesIds: state.userActivities.ids,
   userActivitiesCreatorIds: state.userActivities.idsCreator,
 });

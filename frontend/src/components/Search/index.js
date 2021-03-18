@@ -24,7 +24,8 @@ const Search = ({
   fetchActivitiesByLocalisationAndSports,
   pageValue,
   count,
-   userActivitiesIds,
+  loaded,
+  userActivitiesIds,
   userActivitiesCreatorIds,
 }) => {
   
@@ -41,10 +42,6 @@ const Search = ({
       fetchActivitiesByLocalisation({ queryString, lat, lng });
     }
   }, [lat, lng, queryString, sports, pageValue]);
-
-  // useEffect(() => {
-  //   fetchActivitiesByLocalisation({ queryString, lat, lng }
-  // ), [pageValue]});
 
   const cardsCreated = [];
   activities.forEach(card => {
@@ -65,30 +62,40 @@ const Search = ({
   return (
     <main className="home search">
         <SearchBar />
-        <h2 ref={filter} className="heading-2">Dernières activités proche de : <span className="heading-2__txt-color">{query.get("query")}</span></h2>
-        <Filter />
-        {cardsCreated.length > 0 && (
-          <MapList lat={lat} lng={lng} scrollToFilter={scrollToFilter} />
+
+        {loaded && (
+          <>
+            <h2 ref={filter} className="heading-2">Dernières activités proche de : <span className="heading-2__txt-color">{query.get("query")}</span></h2>
+            <Filter />
+            
+            {cardsCreated.length > 0 && (
+              <MapList lat={lat} lng={lng} scrollToFilter={scrollToFilter} />
+            )}
+            
+            {cardsCreated.length > 0 && (
+              <section className="container cards">
+                {cardsCreated}
+              </section>
+            )}
+
+            {cardsCreated.length === 0 && (
+              <>
+              <div className="search__no-result">Désolé aucune activité trouvée </div>
+              <img src={img} alt="pas d'activites" className="search__no-result-img"/>
+              </>
+            )}
+            
+            {activities.length < count-1 ? <MoreResults /> : <></>}
+          </>
         )}
-        
-          {cardsCreated.length > 0 ? (
-            <section className="container cards">
-              {cardsCreated}
-            </section>
-          ) : (
-            <>
-            <div className="search__no-result">Désolé aucune activité trouvée </div>
-            <img src={img} alt="pas d'activites" className="search__no-result-img"/>
-            </>
-          )}
-          
-        {count-1 > activities.length ? <MoreResults /> : <></>}
+
     </main>
   );
 };
 
 Search.propTypes = {
   activities: PropTypes.array.isRequired,
+  loaded: PropTypes.bool.isRequired,
   fetchActivitiesByLocalisation: PropTypes.func.isRequired,
   fetchActivitiesByLocalisationAndSports: PropTypes.func.isRequired,
   userActivitiesIds: PropTypes.array.isRequired,
