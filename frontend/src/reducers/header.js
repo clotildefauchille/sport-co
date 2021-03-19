@@ -1,8 +1,8 @@
 import { SAVE_CONNEXION_STATUT, DISCONNECT } from 'src/actions/login';
 
 const initialState = {
-  isLogged: false 
-  //isLogged: true 
+  isLogged: false,
+  //isLogged: true
 };
 
 const header = (state = initialState, action = {}) => {

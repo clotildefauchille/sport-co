@@ -42,22 +42,29 @@ const SearchBar = ({
         `/search?lat=${validLocalisation.lat}&lng=${validLocalisation.lng}&query=${inputValue}`,
       );
     }
+
+    // quant le component unmount clearTimeout : pour ne pas afficher l'autocompletion sur la page suivante :
+    /*
+    return () => {
+      clearTimeout(timer.current);
+    }
+    */
   });
 
   const handleOnChange = (e) => {
     const value = e.target.value;
     changeValue(value);
     // timer pour déclencher le fetch après 1s sans onchange dans l'input
-
     clearTimeout(timer.current);
     timer.current = setTimeout(() => {
       // pas de réponse api (https://positionstack.com/documentation) si <= 2
+      // console.log('handleOnChange TIME');
       if (value.length > 2) {
         fetchPlacesAutoCompletion();
       } else {
         clearListAutocompleteData();
       }
-    }, 1000);
+    }, 500);
   };
 
   const handleOnSubmit = (e) => {
@@ -76,13 +83,24 @@ const SearchBar = ({
     placeInput.current.focus();
   };
 
+  const handleClickCreateActivity = (e) => {
+    e.preventDefault();
+    if(isLogged) {
+      history.push(
+        `/creation`,
+      );
+    } else {
+      showLoginModal();
+    }
+  }
+
   return (
     <section className="searchbar">
         <form onSubmit={handleOnSubmit} className="searchbar__container">
           <input
             className="searchbar__input"
             type="text"
-            placeholder="Cherchez une activité autour de vous"
+            placeholder="Cherche un lieu"
             value={inputValue}
             onChange={handleOnChange}
             ref={placeInput}
@@ -109,27 +127,18 @@ const SearchBar = ({
           </button>
           {errorLocalisation && (
             <div className="searchbar__error">
-              Localisation non trouvée, veuillez rééssayer
+              Localisation non trouvée, il faut que tu réessayes
             </div>
           )}
         </form>
         <p className="searchbar__spacer">OU</p>
 
-        {isLogged ? (
-          <Link
-            className="searchbar__link"
-            to="/creation"
-          >
-            Créer une activité
-          </Link>
-        ) : (
-          <button
-            onClick={showLoginModal}
-            className="searchbar__link"
-          >
-            Créer une activité
-          </button>
-        )}
+        <button
+          onClick={handleClickCreateActivity}
+          className="searchbar__link"
+        >
+          Créer une activité
+        </button>
 
     </section>
   );

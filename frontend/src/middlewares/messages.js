@@ -9,27 +9,27 @@ const messages = (store) => (next) => (action) => {
   switch (action.type) {
 
     case SEND_MESSAGE:
-        console.log('action.message.activityId -----> ', action.message.activityId );
-
-      axios
+      const userId = store.getState().login.user.id;
+      if(userId) {
+        axios
         .post(`${process.env.API_URL}/api/activity/${action.message.activityId}/messages`,
         {
           comment: action.message.comment,
           activityId: action.message.activityId,
-          userId: action.message.userId,
-        }
-        //, { withCredentials: true }
+          userId: userId,
+        },
+        { withCredentials: true }
         )
         .then((response) => {
-
-          console.log('NEW MESSAGES ------------------> ', response.data)
-
           store.dispatch(saveNewMessage(response.data));
-          console.log('send ok');
         })
         .catch((error) => {
+          if(error.response.status === 401) {
+            store.dispatch(disconnect());
+          }
           console.log('error', error);
         });
+      }
       break;
 
     default:

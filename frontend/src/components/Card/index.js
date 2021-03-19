@@ -42,20 +42,14 @@ const Card = ({ card, isLogged, showLoginModal, userCard }) => {
                 <img src={pin} alt="" className="card__icon" />
                 <p className="card__text">
                   {card.activity_place.city}
-                  {card.activity_place.distance && (
-                    <>
-                      <br />(
-                      {parseFloat(card.activity_place.distance).toFixed(1)} km)
-                    </>
-                  )}
                 </p>
               </div>
             </div>
             <p className="card__description">{extract}</p>
           </Link>
-          <button className="card__join" type="button">
-            Rejoindre
-          </button>
+          <Link to={urlPath} className="card__join" type="button">
+            Voir le détails
+          </Link>
         </article>
       );
     default:
@@ -75,12 +69,6 @@ const Card = ({ card, isLogged, showLoginModal, userCard }) => {
                 <img src={pin} alt="" className="card__icon" />
                 <p className="card__text">
                   {card.activity_place.city}
-                  {card.activity_place.distance && (
-                    <>
-                      <br />(
-                      {parseFloat(card.activity_place.distance).toFixed(1)} km)
-                    </>
-                  )}
                 </p>
               </div>
             </div>
@@ -91,7 +79,7 @@ const Card = ({ card, isLogged, showLoginModal, userCard }) => {
             className="card__join"
             type="button"
           >
-            Rejoindre
+            Voir le détail
           </button>
         </article>
       );

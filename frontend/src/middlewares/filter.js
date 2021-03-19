@@ -12,7 +12,7 @@ const filter = (store) => (next) => (action) => {
       axios
         .get(`${process.env.API_URL}/api/sports`)
         .then((response) => {
-          console.log('response', response.data);
+          // console.log('response', response.data);
           store.dispatch(saveFilterSports(response.data));
         })
         .catch((error) => {
@@ -26,7 +26,7 @@ const filter = (store) => (next) => (action) => {
       axios
         .get(`${process.env.API_URL}/api/sports/localisation/?lat=${lat}&lng=${lng}`)
         .then((response) => {
-          console.log('response', response.data);
+          // console.log('response', response.data);
           store.dispatch(saveFilterSports(response.data));
         })
         .catch((error) => {

@@ -10,27 +10,23 @@ export const fetchLastActivities = () => ({
   type: FETCH_LAST_ACTIVITIES,
 });
 
-
-
 export const fetchUserActivities = () => ({
   type: FETCH_USER_ACTIVITIES,
 });
 
 export const saveActivities = (data) => ({
-
   type: SAVE_ACTIVITIES,
   data,
 });
 
-export const saveUserActivities = (activities) => ({
+export const saveUserActivities = (data) => ({
   type: SAVE_USER_ACTIVITIES,
-  activities,
+  data,
 });
 
 export const showLoginModal = () => ({
   type: SHOW_LOGIN_MODAL,
 });
-
 
 export const saveAllActivities = (data) => ({
   type: SAVE_ALL_ACTIVITIES,
@@ -40,5 +36,3 @@ export const saveAllActivities = (data) => ({
 export const clearUserActivities = () => ({
   type: CLEAR_USER_ACTIVITIES,
 });
-
-

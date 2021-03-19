@@ -3,10 +3,12 @@ import {
   FETCH_LOGIN,
   GET_USER,
   LOG_OUT,
+  DISCONNECT,
   saveConnexionStatut,
   loginError,
 } from 'src/actions/login';
-import { fetchUserActivities } from 'src/actions/cards';
+
+//import { fetchUserActivities } from 'src/actions/cards';
 
 const connexion = (store) => (next) => (action) => {
   switch (action.type) {
@@ -24,10 +26,10 @@ const connexion = (store) => (next) => (action) => {
           { withCredentials: true },
         )
         .then((response) => {
-          console.log('response', response.data);
+          // console.log('response', response.data);
 
           store.dispatch(saveConnexionStatut(response.data));
-          store.dispatch(fetchUserActivities());
+          //store.dispatch(fetchUserActivities());
 
           localStorage.fairplayUser = JSON.stringify({
             firsname: response.data.firsname,
@@ -48,7 +50,7 @@ const connexion = (store) => (next) => (action) => {
       if (localStorage.fairplayUser) {
         const user = JSON.parse(localStorage.fairplayUser);
         store.dispatch(saveConnexionStatut(user));
-        store.dispatch(fetchUserActivities());
+        //store.dispatch(fetchUserActivities());
       }
       break;
 
@@ -56,6 +58,14 @@ const connexion = (store) => (next) => (action) => {
       if (localStorage.fairplayUser) {
         localStorage.removeItem('fairplayUser');
       }
+      break;
+
+    case DISCONNECT:
+      if (localStorage.fairplayUser) {
+        localStorage.removeItem('fairplayUser');
+      }
+      // laisse passer l'action pour DISCONNECT aussi dans le reducer login.js ( suppr le user aussi du state )
+      next(action);
       break;
 
     default:

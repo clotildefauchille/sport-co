@@ -1,8 +1,6 @@
 const express = require('express');
 const router = require('./router');
 const cookieParser = require('cookie-parser');
-const jwt = require('express-jwt');
-const jsonwebtoken = require('jsonwebtoken');
 const cors = require("cors");
 
 const PORT = process.env.PORT || 5000;

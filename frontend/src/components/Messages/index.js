@@ -3,23 +3,26 @@ import PropTypes from 'prop-types';
 
 import './style.scss';
 
-const Messages = ({ messages, sendMessage, userId, activityId }) => {
+const Messages = ({ messages, sendMessage, /* userId, */ activityId }) => {
 
   const [inputValue, setInputValue] = useState('');
 
   const handleClickForm = (e) => {
     e.preventDefault();
 
-    console.log('activityId comp', activityId);
-    console.log('---------------------------------- userId > ', userId );
+    // console.log('activityId comp', activityId);
+    // console.log('---------------------------------- userId > ', userId );
 
-    if(userId) {
+    //if(userId) {
       sendMessage ({ 
         comment: inputValue,
         activityId: parseInt(activityId),
-        userId: parseInt(userId),
+        //userId: parseInt(userId),
       });
-    }
+      setInputValue('');
+
+    //}
+
   }
 
   const handleOnChange = (e) => {
@@ -32,7 +35,7 @@ const Messages = ({ messages, sendMessage, userId, activityId }) => {
     {messages.map((message, index) => {
       return (
         <div key={`message-${index}`} className="messages__message">
-          <div className="messages__content">{message.activity_id} {message.comment}</div>
+          <div className="messages__content">{message.comment}</div>
           <div><span className="messages__pseudo">{message.users.pseudo}</span> <span className="messages__date">{message.created_at}</span></div>
         </div>
       );
@@ -40,7 +43,7 @@ const Messages = ({ messages, sendMessage, userId, activityId }) => {
     </div>
     <form action="" onSubmit={handleClickForm} className="messages__form">
       <input className="messages__input" type="text" onChange={handleOnChange} value={inputValue} placeholder="Ecrire un message"/>
-      <button className="messages__button" type="submit" >send</button>
+      <button className="messages__button" type="submit" >ENVOYER</button>
     </form>
    </div>
   );
@@ -49,12 +52,14 @@ const Messages = ({ messages, sendMessage, userId, activityId }) => {
 Messages.propTypes = {
   messages: PropTypes.array.isRequired,
   sendMessage: PropTypes.func.isRequired,
-  userId: PropTypes.number,
+  //userId: PropTypes.number,
   activityId: PropTypes.number.isRequired,
 };
 
+/*
 Messages.defaultProps = {
   userId: null,
 };
+*/
 
 export default Messages;

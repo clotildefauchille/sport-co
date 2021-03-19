@@ -16,11 +16,11 @@ const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreato
   }
   */
 
-  console.log(userActivitiesIds, userActivitiesCreatorIds);
+  // console.log(userActivitiesIds, userActivitiesCreatorIds);
   const [classNameMap, setClassNameMap] = useState('map-list')
 
   useEffect(() => {
-    console.log(activities);
+    // console.log(activities);
   }, [activities])
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreato
   const [btOpenMapTxt, setbtOpenMapTxt] = useState('Voir sur la carte');
   
   const handleChangeMapSize = () => {
-    console.log('test');
+    // console.log('test');
     if(classNameMap === 'map-list') {
       map.current.scrollIntoView({behavior: "smooth"})  
       setClassNameMap('map-list map-list--open');

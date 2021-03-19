@@ -5,7 +5,7 @@ import { sendMessage } from 'src/actions/details';
 
 const mapStateToProps = (state, ownProps) => ({
   messages: state.messages,
-  userId: state.login.user.id,
+  //userId: state.login.user.id,
 });
 
 const mapDispatchToProps = (dispatch) => ({

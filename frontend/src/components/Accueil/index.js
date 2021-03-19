@@ -3,13 +3,13 @@ import Cards from 'src/containers/Cards';
 import UserCards from 'src/containers/UserCards';
 import SearchBar from 'src/containers/SearchBar';
 import MoreResults from 'src/containers/MoreResults';
-
+import img from 'src/assets/images/noActivities.svg';
 import PropTypes from 'prop-types';
 
 import './style.scss';
 
 const Accueil = ({
-  fetchData,
+  fetchLastActivities,
   isLogged,
   user,
   userActivities,
@@ -18,32 +18,29 @@ const Accueil = ({
   myCreatedActivities,
   pageValue,
   paginationReset,
-  fetchUserActivities,
+  fetchUserActivities, 
 }) => {
     
   useEffect(() => {
     paginationReset();
-    if (!isLogged) {
-      fetchData();
-    } else {
-      fetchUserActivities();
-    }
     window.scrollTo(0, 0);
   }, []);
-    
-  useEffect(() => {
-    fetchData();
-  }, [pageValue]);
 
   useEffect(() => {
+    paginationReset();
     if (!isLogged) {
-      fetchData();
+      fetchLastActivities();
     } else {
       fetchUserActivities();
     }
   }, [isLogged]);
 
-  console.log('isLogged', isLogged, user);
+  useEffect(() => {
+    if (!isLogged) {
+      fetchLastActivities();
+    }
+  }, [pageValue]);
+
   const mainClassName = isLogged
     ? 'home home--img home--logged'
     : 'home home--img';
@@ -79,12 +76,11 @@ const Accueil = ({
                     <span className="hero__txt-user--orange">
                       {registredActivities} activité(s)
                     </span>{' '}
-                    !
+                    !<br />
                   </>
                 )}
                 {points > 0 && (
                   <>
-                    <br />
                     et gagné{' '}
                     <span className="hero__txt-user--orange">
                       {points} points
@@ -106,8 +102,8 @@ const Accueil = ({
             de ton quartier
           </h1>
           <div className="hero__sub-title">
-            Découvres et programmes de nouvelles activités sportives autour de
-            toi, boostes ta motivation grâce au groupe et activités régulières !
+            Découvre et programme de nouvelles activités sportives autour de
+            toi, booste ta motivation en groupe, avec des activités régulières !
           </div>
         </div>
       )}
@@ -116,17 +112,25 @@ const Accueil = ({
 
       {isLogged ? (
         <>
-          {userActivities.length > 0 && (
+          {userActivities.length > 0 ? (
             <>
               <h2 className="heading-2">Mes prochaines activités :</h2>
               <UserCards />
+            </>
+          ) : (
+            <>
+              <div className="home__no-result">
+                Encore inscris à aucune activité ?<br />
+                <span className="home__no-result--color">Crées en une ou inscris toi vite !</span>
+              </div>
+              <img src={img} alt="pas d'activites" className="home__no-result-img"/>
             </>
           )}
         </>
       ) : (
         <>
           <h2 className="heading-2">
-            Explorez les dernières activités proposées :
+            Explore les dernières activités proposées :
           </h2>
           <Cards />
         </>
@@ -136,7 +140,7 @@ const Accueil = ({
 };
 
 Accueil.propTypes = {
-  fetchData: PropTypes.func.isRequired,
+  fetchLastActivities: PropTypes.func.isRequired,
   fetchUserActivities: PropTypes.func.isRequired,
   isLogged: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,

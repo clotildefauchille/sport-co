@@ -29,6 +29,7 @@ const searchBar = (state = initialState, action = {}) => {
     case CHANGE_INPUT_VALUE_SEARCHBAR: {
       return {
         ...state,
+        errorLocalisation: false,
         inputValue: action.value,
       }
     }

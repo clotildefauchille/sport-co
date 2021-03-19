@@ -7,19 +7,13 @@ const sanitizeHtml = require('sanitize-html');
 const messageController = {
 
     addMessageToActivity: async (req, res) => {
-        console.log('----------> addMessageToActivity');
         let activityId = parseInt(req.params.id);
         const { userId, comment } = req.body;
-
-        console.log('--------------------------> id back', activityId );
-
         // nettoie toutes les balises
         const cleanComment = sanitizeHtml(comment, {
             allowedTags: [],
             allowedAttributes: {}
         });
-
-        console.log('cleanComment', cleanComment);
 
         try {
             const newMessage = await Message.create({
@@ -46,8 +40,6 @@ const messageController = {
                 }
             });
 
-            console.log('--------------------------> id back message2', message.id );
-
             const formatedMessage =  {
                 ...message.dataValues,
                 created_at: formatDate(message.created_at),
@@ -60,41 +52,6 @@ const messageController = {
       }
     },
 
-    /*
-    getMessageByActivity: async (req, res) => {
-        console.log('----------> getMessageByActivity');
-        let activityId = parseInt(req.params.id);
-
-        try {
-            const messages = await Message.findAll({
-                include: [
-                    {
-                        association: 'users',
-                        attributes: ['id', 'pseudo'],
-                    }
-                ],
-                attributes: ['id','created_at', 'comment', 'activity_id'],
-                where: {
-                    activity_id: activityId,
-                },
-                order: [['created_at', 'DESC']],
-            });
-            
-            const formatedMessages = messages.map((message) => {
-                return {
-                  ...message.dataValues,
-                  created_at: formatDate(message.created_at),
-                }
-            });
-
-            res.json(formatedMessages);
-
-        } catch (error) {
-            console.trace(error);
-            res.status(500).json(error.toString());
-        }
-    }
-    */
 }
 
 module.exports = messageController;

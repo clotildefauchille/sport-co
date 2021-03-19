@@ -2,6 +2,7 @@ const { Activity, Sport, ActivityStatut, ActivityPlace, User, Message } = requir
 
 const { distanceCalculSQL } = require('../selectors/distanceCalculSQL');
 const { formatActivities, formatActivity, formatActivitiesFilterByDistance } = require('../selectors/formatActivities');
+const { formatDate, formatTime } = require('../selectors/formatDate');
 
 const Sequelize = require("sequelize");
 const sequelize = require('../database.js');
@@ -32,7 +33,6 @@ const activityController = {
             'sport_id',
             'creator_id',
           ],
-
         },
         include: [
           {
@@ -61,7 +61,7 @@ const activityController = {
             },
             {
               date: {
-                [Op.gte]: sequelize.fn('NOW'),
+                [Op.gte]: Sequelize.literal('NOW() - INTERVAL \'1d\''),
               }
             }
           ]
@@ -138,7 +138,10 @@ const activityController = {
       if (!activity) {
         res.status(204).json("Error : can't find Activity");
       } else {
+
         formatedaActivity = formatActivity(activity);
+
+
         if(!formatedaActivity) {
           res.status(204).json("Error : can't find Activity");
           return;
@@ -212,7 +215,7 @@ const activityController = {
             },
             {
               date: {
-                [Op.gte]: sequelize.fn('NOW'),
+                [Op.gte]: Sequelize.literal('NOW() - INTERVAL \'1d\''),
               }
             }
           ]
@@ -296,7 +299,7 @@ const activityController = {
             },
             {
               date: {
-                [Op.gte]: sequelize.fn('NOW'),
+                [Op.gte]: Sequelize.literal('NOW() - INTERVAL \'1d\''),
               }
             }
           ]
@@ -329,8 +332,7 @@ const activityController = {
     }
   }, 
 
-
-
+  
 
   getActivitiesByUser: async (req, res) => {
     console.log('----------> getActivitiesByUser');
@@ -345,43 +347,79 @@ const activityController = {
     }
 
     try {
+      const user = await User.findByPk(userId, {
+        attributes: ['id','firstname','lastname','pseudo','reward_count'],
+        include : ['user_grade'],
+      });
+
+      if(!user) {
+        console.trace(`can't find user`);
+        res.status(500).json(`can't find user`);
+        return;
+      }
+
       const activities = await Activity.findAll({
         include: [
-          'activity_statut',
-          'creator',
-          'sport',
-          'activity_place',
           {
             association: 'users',
+            attributes: ['id', 'pseudo'],
             where: {
-              id: userId
-            }
+              id: user.id,
+            },
+          },
+          {
+            association: 'sport',
+            attributes: ['name', 'icon'],
+          },
+          {
+            association: 'activity_statut',
+            attributes: {
+              exclude: ['id'],
+            },
+          },
+          {
+            association: 'activity_place',
+            attributes: ['city'],
+          },
+          {
+            association: 'creator',
+            attributes: ['pseudo'],
           },
         ],
         where: {
           date: {
-            [Op.gte]: sequelize.fn('NOW'),
+            [Op.gte]: Sequelize.literal('NOW() - INTERVAL \'1d\''),
           }
         },
-        offset: (page - 1) * activityController.defaultNumCardInPage,
         order: [['date', 'ASC']],
       });
 
-      if (!activities) {
-        res.status(204).json("Error : can't find Activity");
-        return;
+      let formatedaActivities = [];
+      if(activities) {
+        formatedaActivities = activities.map((activity) => {
+          return {
+            ...activity.dataValues,
+            date: formatDate(activity.date),
+            time: formatTime(activity.time),
+            duration: formatTime(activity.duration),
+          }
+        });
       }
-      formatedaActivities = formatActivities(activities);
 
-      //const user = await User.findByPk(userId);
-      const user = await User.findOne({
-        where: {
-          id: userId,
-        },
-        include : ['user_grade'],
-        attributes: ['id','firstname','lastname','pseudo','reward_count'],
-      });
-      res.json({activities: formatedaActivities, user: user});
+      const userForFront = {
+        firstname: user.firstname,
+        id:user.id,
+        lastname: user.lastname,
+        pseudo: user.pseudo,
+        reward_count:user.reward_count,
+        user_grade: {
+          id: user.user_grade.id,
+          name: user.user_grade.name,
+          point: user.user_grade.point,
+        }
+      }
+      
+      res.json({activities: formatedaActivities, user: userForFront});
 
     } catch (error) {
       console.trace(error);

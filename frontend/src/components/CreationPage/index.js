@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import './style.scss';
 // import Field from './Field';
 import PropTypes from 'prop-types';
@@ -21,18 +21,29 @@ const CreationPage = ({
   errorMessage,
   sports,
   isCreated,
-  fetchUserActivities,
+  createdPassToFalse,
 }) => {
-  if (isCreated) {
-    // pour récuperer l'activité créée en homepage on recherche les userActivities
-    //fetchUserActivities();
-    // déplacé dans middleware
-    return <Redirect push to='/'></Redirect>;
-  }
+  const history = useHistory();
 
   useEffect(() => {
-    fetchSports();
+    //console.log('useEffect 1');
+    if (isCreated) {
+      history.push('/');
+      createdPassToFalse();
+      //return <Redirect to="/" />;
+    } else {
+      fetchSports();
+    }
   }, []);
+  
+  useEffect(() => {
+    //console.log('useEffect 2');
+    if (isCreated) {
+      createdPassToFalse();
+      history.push('/');
+      //return <Redirect to="/" />;
+    }
+  }, [isCreated]);
 
   const today = new Date();
   const year = today.getFullYear();
@@ -45,18 +56,21 @@ const CreationPage = ({
     // console.log('handleselect', e.target.value);
     onChangeFormSelect(e.target.value);
   };
+  
   const handleChange = (evt) => {
     onChangeForm(evt.target.value, evt.target.name);
   };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    console.log('handleOnSubmit');
     onSubmit();
   };
+
   return (
     <section className="create-form">
       <form className="create-form__container" onSubmit={handleOnSubmit}>
-        <h1 className="create-form__title">Créez ici votre activité :</h1>
+        <h1 className="create-form__title">Crée ton activité :</h1>
 
         <label htmlFor="title" className="create-form__label">
           Nom de l'activité<span className="create-form__required">*</span>
@@ -64,7 +78,7 @@ const CreationPage = ({
         <input
           className="create-form__input create-form__input--large"
           type="text"
-          placeholder="nom de l'activité"
+          placeholder="Nom de l'activité"
           name="title"
           value={title}
           onChange={handleChange}
@@ -136,7 +150,7 @@ const CreationPage = ({
               id="sport-select"
               onChange={handleSelectInput}
             >
-              <option value="">choississez un sport</option>
+              <option value="">Choisis un sport</option>
               {sports.map((sport) => {
                 return (
                   <option
@@ -158,7 +172,7 @@ const CreationPage = ({
               className="create-form__input create-form__input--select"
               type="number"
               name="min_participant"
-              min="0"
+              min="1"
               max="40"
               value={min_participant}
               onChange={handleChange}
@@ -189,7 +203,7 @@ const CreationPage = ({
         <input
           className="create-form__input create-form__input--large"
           type="text"
-          placeholder="Entrez une adresse"
+          placeholder="Entre une adresse"
           name="adress"
           value={adress}
           onChange={handleChange}
@@ -197,12 +211,12 @@ const CreationPage = ({
         <div className="create-form__container-inner">
           <div className="col">
             <label htmlFor="code postal" className="create-form__label">
-              Code-postal
+              Code postal
             </label>
             <input
               className="create-form__input"
               type="text"
-              placeholder="code postal"
+              placeholder="Code postal"
               name="zip_code"
               value={zip_code}
               onChange={handleChange}
@@ -217,7 +231,7 @@ const CreationPage = ({
               required
               className="create-form__input"
               type="text"
-              placeholder="ville"
+              placeholder="Ville"
               name="city"
               value={city}
               onChange={handleChange}
@@ -246,7 +260,7 @@ CreationPage.propTypes = {
   city: PropTypes.string.isRequired,
   onChangeForm: PropTypes.func.isRequired,
   fetchSports: PropTypes.func.isRequired,
-  fetchUserActivities: PropTypes.func.isRequired,
+  createdPassToFalse: PropTypes.func.isRequired,
 };
 
 export default CreationPage;

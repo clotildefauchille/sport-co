@@ -8,6 +8,26 @@
   align-items: center;
   flex-wrap: wrap;
   margin-bottom: 40px;
+
+  &__no-result {
+    padding-top: 3rem;
+    text-align : center;
+    font-size  : 1.25rem;
+    font-weight: 500;
+    line-height: 1.5;
+
+    &--color {
+      color : v.$primaryColor;
+    }
+  }
+
+  &__no-result-img {
+    position  : relative;
+    margin-top: -5vw;
+    width     : 700px;
+    max-width : 90%;
+    height    : auto;
+  }
 }
 
 .hero {
@@ -70,8 +90,10 @@
       left: 0;
       top: 1rem;
     }
+    
   }
 }
+
 
 @media (min-width: 960px) {  
   .home--img {

@@ -26,9 +26,7 @@ const searchBar = (store) => (next) => (action) => {
           )
           .then((response) => {
             const localisations = response.data.data;
-
-            console.log('FETCH_PLACES_AUTOCOMPLETION response.data.data', response.data.data);
-
+            //console.log('FETCH_PLACES_AUTOCOMPLETION response.data.data', response.data.data);
             if(localisations.length > 0) {
               const formatedData = [];
               localisations.forEach((element) => {
@@ -46,6 +44,7 @@ const searchBar = (store) => (next) => (action) => {
                   });
                 }
               });
+
               store.dispatch(saveAutocompletionList(formatedData));
             } else {
               store.dispatch(clearListAutocompleteData());
@@ -62,19 +61,20 @@ const searchBar = (store) => (next) => (action) => {
         // ne pas relancer la verif avec l'API si l'adresse à déjà été enregistré sur la même inputValue
         let lastValidLocalisationQuery = store.getState().searchBar.validLocalisation.query;
         if(inputValue.toLowerCase().trim() !== lastValidLocalisationQuery.toLowerCase().trim()) {
-          console.log('FETCH_ONE_PLACES_AUTOCOMPLETION ', inputValue );
-
+          //console.log('FETCH_ONE_PLACES_AUTOCOMPLETION ', inputValue );
           axios
           .get(
             `http://api.positionstack.com/v1/forward?access_key=${apiKey}&country=FR&limit=1&query=${inputValue}`,
           )
           .then((response) => {
+
+            console.log(response.data.data);
+            // pas de résultat : {data: Array(0)}
+
+
             const localisation = response.data.data[0];
-
             if(localisation && localisation.name) {
-
-              console.log('RESULTAT POUR RECHERCHE ----->>>', inputValue, localisation)
-
+              //console.log('RESULTAT POUR RECHERCHE ----->>>', inputValue, localisation)
               const validLocalisation = {
                 query: inputValue,
                 name: localisation.name,
@@ -83,20 +83,19 @@ const searchBar = (store) => (next) => (action) => {
                 lat: localisation.latitude,
                 lng: localisation.longitude,
               };
-
               store.dispatch(saveValidLocalisation(validLocalisation));
-
             } else {
-              console.log('PAS DE RESULTAT ----->>>')
+              //console.log('PAS DE RESULTAT ----->>>')
               store.dispatch(noResultInVerifLocalisation());
             }
+
 
           })
           .catch((error) => {
             console.log('error', error);
           });
         } else {
-          console.log('RESULTAT POUR RECHERCHE  2 ----->>>', inputValue)
+          // console.log('RESULTAT POUR RECHERCHE  2 ----->>>', inputValue)
           store.dispatch(confirmValidLocalisation());
         }
       break;

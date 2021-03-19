@@ -4,6 +4,7 @@ import {
   passwordError,
   emailError,
   pseudoError,
+  cityError,
   resetErrors,
 } from 'src/actions/registration';
 import { saveConnexionStatut } from 'src/actions/login';
@@ -24,8 +25,7 @@ const registration = (store) => (next) => (action) => {
             `http://api.positionstack.com/v1/forward?access_key=${apiKey}&country=FR&query=${formData.address},${formData.postalCode},${formData.city}`,
           )
           .then((response) => {
-            console.log('verif position stack REGISTRATION ', response.data);
-
+            //console.log('verif position stack REGISTRATION ', response.data);
             const responsePlace = response.data.data[0];
             axios
               .post(`${process.env.API_URL}/api/registration`, {
@@ -47,11 +47,18 @@ const registration = (store) => (next) => (action) => {
                 presentation: formData.presentation,
               })
               .then((APIresponse) => {
-                console.log('response', APIresponse.data);
+                console.log('response', APIresponse.data.user);
+                localStorage.fairplayUser = JSON.stringify({
+                  firsname: APIresponse.data.user.firsname,
+                  id: APIresponse.data.user.id,
+                  lastname: APIresponse.data.user.lastname,
+                  pseudo: APIresponse.data.user.pseudo,
+                  points: APIresponse.data.user.points,
+                });
                 store.dispatch(saveConnexionStatut(APIresponse.data.user));
               })
               .catch((error) => {
-                console.error('error', error.response.data);
+                //console.error('error', error.response.data);
                 if (error.response.data.error === 'mail') {
                   store.dispatch(emailError());
                 } else if (error.response.data.error === 'pseudo') {
@@ -60,7 +67,8 @@ const registration = (store) => (next) => (action) => {
               });
           })
           .catch((error) => {
-            console.error('error', error.response.data);
+            store.dispatch(cityError());
+            console.error('City ERROR', error);
           });
 
         break;

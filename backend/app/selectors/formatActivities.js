@@ -7,6 +7,12 @@ const formatActivity = (activity) => {
     date: formatDate(activity.date),
     time: formatTime(activity.time),
     duration: formatTime(activity.duration),
+    messages: activity.messages.map((message) => {
+      return {
+        ...message.dataValues,
+        created_at: formatDate(message.created_at),
+      }
+    })
   }
 };
 
