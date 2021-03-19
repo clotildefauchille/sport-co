@@ -67,6 +67,11 @@ const searchBar = (store) => (next) => (action) => {
             `http://api.positionstack.com/v1/forward?access_key=${apiKey}&country=FR&limit=1&query=${inputValue}`,
           )
           .then((response) => {
+
+            console.log(response.data.data);
+            // pas de résultat : {data: Array(0)}
+
+
             const localisation = response.data.data[0];
             if(localisation && localisation.name) {
               //console.log('RESULTAT POUR RECHERCHE ----->>>', inputValue, localisation)
@@ -83,6 +88,8 @@ const searchBar = (store) => (next) => (action) => {
               //console.log('PAS DE RESULTAT ----->>>')
               store.dispatch(noResultInVerifLocalisation());
             }
+
+
           })
           .catch((error) => {
             console.log('error', error);
