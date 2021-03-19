@@ -12,7 +12,7 @@ const initialState = {
   date: '',
   time: '',
   duration: '01:00',
-  min_participant: 0,
+  min_participant: 1,
   description: '',
   adress: '',
   zip_code: '',
