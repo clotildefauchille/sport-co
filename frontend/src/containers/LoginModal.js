@@ -3,7 +3,7 @@ import LoginModal from 'src/components/LoginModal';
 import {closeModal} from 'src/actions/login'
 
 const mapStateToProps = (state) => ({
-  displayed : state.loginModal.displayed,
+  displayed: state.loginModal.displayed,
 });
 
 const mapDispatchToProps = (dispatch) => ({

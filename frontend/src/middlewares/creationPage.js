@@ -8,15 +8,12 @@ import {
   activityCreated,
 } from 'src/actions/creationPage';
 
-import {
-  fetchUserActivities,
-} from 'src/actions/cards';
+import { fetchUserActivities } from 'src/actions/cards';
 
 const apiKey = '82a0b22e81932aad65c97e8bcc2f192a';
 
 const creationPage = (store) => (next) => (action) => {
   switch (action.type) {
-
     case SEND_ACTIVITY_INFORMATION:
       {
         // console.log('sendActivityInformation')
@@ -26,19 +23,22 @@ const creationPage = (store) => (next) => (action) => {
         // console.log('adress TEST ', creationPage.adress);
 
         //console.log('sendActivityInformation', creationPage, login);
-        
+
         axios
           .get(
             `http://api.positionstack.com/v1/forward?access_key=${apiKey}&country=FR&limit=1&query=${creationPage.adress},${creationPage.zip_code},${creationPage.city}`,
           )
           .then((response) => {
-            
             // console.log("response apiPlace", response.data);
             const responseApiPlace = response.data.data[0];
 
-            if(!responseApiPlace || !responseApiPlace.name) {
-              console.log('error')
-              store.dispatch(errorNotFoundPlace("il n'existe pas de lieu à ce nom, veuillez réssayer" ));
+            if (!responseApiPlace || !responseApiPlace.name) {
+              console.log('error');
+              store.dispatch(
+                errorNotFoundPlace(
+                  "il n'existe pas de lieu à ce nom, veuillez réssayer",
+                ),
+              );
               return;
             }
 
@@ -60,50 +60,52 @@ const creationPage = (store) => (next) => (action) => {
             */
 
             axios
-              .post(`${process.env.API_URL}/api/newactivity`, {
-                title: creationPage.title,
-                description: creationPage.description,
-                date: creationPage.date,
-                time: creationPage.time,
-                duration: creationPage.duration,
-                min_participant: creationPage.min_participant,
-                creator_id: login.user.id,
-                place: {
-                  city: responseApiPlace.locality,
-                  number: responseApiPlace.number,
-                  street: responseApiPlace.street,
-                  zip_code: responseApiPlace.postal_code,
-                  region: responseApiPlace.region,
-                  latitude: responseApiPlace.latitude,
-                  longitude: responseApiPlace.longitude,
+              .post(
+                `${process.env.API_URL}/api/newactivity`,
+                {
+                  title: creationPage.title,
+                  description: creationPage.description,
+                  date: creationPage.date,
+                  time: creationPage.time,
+                  duration: creationPage.duration,
+                  min_participant: creationPage.min_participant,
+                  creator_id: login.user.id,
+                  place: {
+                    city: responseApiPlace.locality,
+                    number: responseApiPlace.number,
+                    street: responseApiPlace.street,
+                    zip_code: responseApiPlace.postal_code,
+                    region: responseApiPlace.region,
+                    latitude: responseApiPlace.latitude,
+                    longitude: responseApiPlace.longitude,
+                  },
+                  activity_status_id: 3,
+                  sport_id: creationPage.sport_id,
                 },
-                activity_status_id: 3,
-                sport_id: creationPage.sport_id,
-              },
-              // pour set/get cookies /!\
-              { withCredentials: true }
-              // pour passer token de localStorage
-              /*, {
+                // pour set/get cookies /!\
+                { withCredentials: true },
+                // pour passer token de localStorage
+                /*, {
                 headers: {
                   //Authorization: `bearer ${state.user.token}`,
                   // recup token in localStorage
                   Authorization: `bearer ${token}`,
                 }
-              }*/)
-              .then((response)=> {
+              }*/
+              )
+              .then((response) => {
                 store.dispatch(activityCreated());
                 store.dispatch(fetchUserActivities());
               });
           })
           .catch((error) => {
-            if(error.response.status === 401) {
+            if (error.response.status === 401) {
               store.dispatch(disconnect());
             }
             console.log(error);
           });
       }
       break;
-
 
     case FETCH_SPORTS:
       axios

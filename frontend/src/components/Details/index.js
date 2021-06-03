@@ -26,7 +26,6 @@ const Details = ({
   onClickJoin,
   onClickQuit,
 }) => {
-
   let currentSport = '';
   const { id } = useParams();
 
@@ -44,22 +43,21 @@ const Details = ({
   );
 
   // console.log(alreadyJoin);
-  
+
   if (activity.sport) {
     currentSport = sports[activity.sport.icon];
   }
 
   return (
     <>
-      
-        {activity.id && (
-          <>
-            <main
-              className="activity"
-              style={{
-                backgroundImage: `url(${currentSport})`,
-              }}
-            >
+      {activity.id && (
+        <>weddin
+          <main
+            className="activity"
+            style={{
+              backgroundImage: `url(${currentSport})`,
+            }}
+          >
             <section className="activity__header">
               <h1 className="activity__title">{activity.title}</h1>
               <p className="activity__timeplace">
@@ -119,43 +117,42 @@ const Details = ({
                 </div>
               </div>
             </section>
+          </main>
 
-            </main>
-
-            <div className="activity__map-messages">
-              <Map
-                center={[activity.activity_place.lng, activity.activity_place.lat]}
-                zoom={[17]}
-                style="mapbox://styles/mapbox/streets-v11"
-                className="activity__map"
+          <div className="activity__map-messages">
+            <Map
+              center={[
+                activity.activity_place.lng,
+                activity.activity_place.lat,
+              ]}
+              zoom={[17]}
+              style="mapbox://styles/mapbox/streets-v11"
+              className="activity__map"
+            >
+              <Marker
+                coordinates={[
+                  activity.activity_place.lng,
+                  activity.activity_place.lat,
+                ]}
+                anchor="bottom"
               >
-                <Marker
-                  coordinates={[
-                    activity.activity_place.lng,
-                    activity.activity_place.lat,
-                  ]}
-                  anchor="bottom"
-                >
-                  <img src={pin} alt="pin on map" className="activity__pin" />
-                </Marker>
-                {/* <Layer
+                <img src={pin} alt="pin on map" className="activity__pin" />
+              </Marker>
+              {/* <Layer
                     type="symbol"
                     layout={{ 'icon-image': 'harbor-15' }}
                     wrapped
                   >
                     <Feature coordinates={[activity.activity_place.lng, activity.activity_place.lat]} />
                   </Layer> */}
-              </Map>
-              <Messages activityId={activity.id} />
-            </div>
-
+            </Map>
+            <Messages activityId={activity.id} />
+          </div>
         </>
       )}
-
-</>
-  )
-
-}
+    </>
+  );
+};
 
 Details.propTypes = {
   activity: PropTypes.object.isRequired,
