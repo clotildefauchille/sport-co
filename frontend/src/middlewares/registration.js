@@ -9,7 +9,8 @@ import {
 } from 'src/actions/registration';
 import { saveConnexionStatut } from 'src/actions/login';
 
-const apiKey = '82a0b22e81932aad65c97e8bcc2f192a';
+const apiKey = 'eb10b11d9271f0d376f20456833f4f9b';
+// const apiKey = '82a0b22e81932aad65c97e8bcc2f192a';
 
 const registration = (store) => (next) => (action) => {
   switch (action.type) {

@@ -1,15 +1,15 @@
 /* eslint-disable arrow-body-style */
 // == Import npm
-import React, { useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
 // == Import
-import './style.scss';
+import "./style.scss";
 
-import pin from 'src/assets/icons/pin.svg';
+import pin from "src/assets/icons/pin.svg";
 
 // == Composant
 const SearchBar = ({
@@ -39,7 +39,7 @@ const SearchBar = ({
       clearTimeout(timer.current);
       clearListAutocompleteData();
       history.push(
-        `/search?lat=${validLocalisation.lat}&lng=${validLocalisation.lng}&query=${inputValue}`,
+        `/search?lat=${validLocalisation.lat}&lng=${validLocalisation.lng}&query=${inputValue}`
       );
     }
 
@@ -85,61 +85,55 @@ const SearchBar = ({
 
   const handleClickCreateActivity = (e) => {
     e.preventDefault();
-    if(isLogged) {
-      history.push(
-        `/creation`,
-      );
+    if (isLogged) {
+      history.push(`/creation`);
     } else {
       showLoginModal();
     }
-  }
+  };
 
   return (
     <section className="searchbar">
-        <form onSubmit={handleOnSubmit} className="searchbar__container">
-          <input
-            className="searchbar__input"
-            type="text"
-            placeholder="Cherche un lieu"
-            value={inputValue}
-            onChange={handleOnChange}
-            ref={placeInput}
-          />
-          {listAutocompleteData.length > 0 && (
-            <ul className="autocomplete">
-              {listAutocompleteData.map((el, index) => {
-                return (
-                  <li
-                    className="autocomplete__item"
-                    onClick={() => handleClickItemAutocompletion(index)}
-                    key={`${el.lat}${el.lng}${index}`}
-                  >
-                    {el.name},{' '}
-                    <span className="autocomplete__detail">{el.reg}</span>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-          <img className="searchbar__icon" src={pin} alt="map pin" />
-          <button className="searchbar__button" type="submit">
-            Rechercher
-          </button>
-          {errorLocalisation && (
-            <div className="searchbar__error">
-              Localisation non trouvée, il faut que tu réessayes
-            </div>
-          )}
-        </form>
-        <p className="searchbar__spacer">OU</p>
-
-        <button
-          onClick={handleClickCreateActivity}
-          className="searchbar__link"
-        >
-          Créer une activité
+      <form onSubmit={handleOnSubmit} className="searchbar__container">
+        <input
+          className="searchbar__input"
+          type="text"
+          placeholder="Cherche un lieu"
+          value={inputValue}
+          onChange={handleOnChange}
+          ref={placeInput}
+        />
+        {listAutocompleteData.length > 0 && (
+          <ul className="autocomplete">
+            {listAutocompleteData.map((el, index) => {
+              return (
+                <li
+                  className="autocomplete__item"
+                  onClick={() => handleClickItemAutocompletion(index)}
+                  key={`${el.lat}${el.lng}${index}`}
+                >
+                  {el.name},{" "}
+                  <span className="autocomplete__detail">{el.reg}</span>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+        <img className="searchbar__icon" src={pin} alt="map pin" />
+        <button className="searchbar__button" type="submit">
+          Rechercher
         </button>
+        {errorLocalisation && (
+          <div className="searchbar__error">
+            Localisation non trouvée, il faut que tu réessayes
+          </div>
+        )}
+      </form>
+      <p className="searchbar__spacer">OU</p>
 
+      <button type="button" alt="create an activity" onClick={handleClickCreateActivity} className="searchbar__link">
+        Créer une activité
+      </button>
     </section>
   );
 };
@@ -159,7 +153,7 @@ SearchBar.propTypes = {
 };
 
 SearchBar.defaultProps = {
-  inputValue: '',
+  inputValue: "",
 };
 
 // == Export

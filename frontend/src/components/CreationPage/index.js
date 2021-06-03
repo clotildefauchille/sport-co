@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
-import './style.scss';
+import React, { useEffect } from "react";
+import { Redirect, useHistory } from "react-router-dom";
+import "./style.scss";
 // import Field from './Field';
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const CreationPage = ({
   title,
@@ -28,27 +28,27 @@ const CreationPage = ({
   useEffect(() => {
     //console.log('useEffect 1');
     if (isCreated) {
-      history.push('/');
+      history.push("/");
       createdPassToFalse();
       //return <Redirect to="/" />;
     } else {
       fetchSports();
     }
   }, []);
-  
+
   useEffect(() => {
     //console.log('useEffect 2');
     if (isCreated) {
       createdPassToFalse();
-      history.push('/');
+      history.push("/");
       //return <Redirect to="/" />;
     }
   }, [isCreated]);
 
   const today = new Date();
   const year = today.getFullYear();
-  const month = ('0' + (today.getMonth() + 1)).slice(-2);
-  const day = ('0' + today.getDate()).slice(-2);
+  const month = ("0" + (today.getMonth() + 1)).slice(-2);
+  const day = ("0" + today.getDate()).slice(-2);
   const todayFormat = `${year}-${month}-${day}`;
   // console.log(todayFormat);
 
@@ -56,14 +56,14 @@ const CreationPage = ({
     // console.log('handleselect', e.target.value);
     onChangeFormSelect(e.target.value);
   };
-  
+
   const handleChange = (evt) => {
     onChangeForm(evt.target.value, evt.target.name);
   };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log('handleOnSubmit');
+    console.log("handleOnSubmit");
     onSubmit();
   };
 

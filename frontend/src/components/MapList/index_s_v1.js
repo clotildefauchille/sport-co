@@ -64,7 +64,8 @@ const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreato
             height="100%"
             onViewportChange={(viewport) => setViewport(viewport)}
             // TOKEN à sécurisé
-            mapboxApiAccessToken={'pk.eyJ1IjoiYm9yaXNjb3VkZXJjIiwiYSI6ImNrbGszY2pjODF5YTAydnByaTZveGs5azIifQ.lyPoAYY3DSqpu8D8R1ULGw'}
+            mapboxApiAccessToken={'pk.eyJ1IjoiY2xvdGlsZGVmYXVjaGlsbGUiLCJhIjoiY2ttbHNmN2NqMDkybTJxbGV1cXVtajN1ciJ9.HwrFTMH3ACUvSoQQ1NBB_g'}
+            // mapboxApiAccessToken={'pk.eyJ1IjoiYm9yaXNjb3VkZXJjIiwiYSI6ImNrbGszY2pjODF5YTAydnByaTZveGs5azIifQ.lyPoAYY3DSqpu8D8R1ULGw'}
           >
             {activities[0] &&
               activities.map((activity, index) => {
