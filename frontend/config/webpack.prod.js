@@ -20,7 +20,7 @@ module.exports = merge(common, {
     // API backend ONLINE
     new webpack.DefinePlugin({
       "process.env.API_URL": JSON.stringify(
-        "http://ec2-54-160-66-108.compute-1.amazonaws.com:4000"
+        "http://92.222.167.180:4000"
       ),
     }),
   ],
