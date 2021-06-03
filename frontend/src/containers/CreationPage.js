@@ -12,7 +12,7 @@ import {
   fetchUserActivities,
 } from 'src/actions/cards';
 
-import {createdPassToFalse} from 'src/actions/creationPage';
+import { createdPassToFalse } from 'src/actions/creationPage';
 
 const mapStateToProps = (state) => ({
   title: state.creationPage.title,

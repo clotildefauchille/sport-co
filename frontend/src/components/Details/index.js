@@ -15,8 +15,10 @@ import pin from 'src/assets/icons/pin.svg';
 import sports from 'src/components/Card/sports';
 
 const Map = ReactMapboxGl({
+  // accessToken:
+  //   'pk.eyJ1IjoicnVzc29iZW5qYW1pbiIsImEiOiJja205OGxjNngxZm52MnFqeGk1MmwyajJrIn0.M7PtoR3vltTPsc7q-4QDkg',
   accessToken:
-    'pk.eyJ1IjoicnVzc29iZW5qYW1pbiIsImEiOiJja205OGxjNngxZm52MnFqeGk1MmwyajJrIn0.M7PtoR3vltTPsc7q-4QDkg',
+  'pk.eyJ1IjoiY2xvdGlsZGVmYXVjaGlsbGUiLCJhIjoiY2ttbHNmN2NqMDkybTJxbGV1cXVtajN1ciJ9.HwrFTMH3ACUvSoQQ1NBB_g',
 });
 
 const Details = ({
@@ -51,7 +53,7 @@ const Details = ({
   return (
     <>
       {activity.id && (
-        <>weddin
+        <>
           <main
             className="activity"
             style={{

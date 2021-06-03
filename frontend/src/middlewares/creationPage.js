@@ -9,8 +9,8 @@ import {
 } from 'src/actions/creationPage';
 
 import { fetchUserActivities } from 'src/actions/cards';
-
-const apiKey = '82a0b22e81932aad65c97e8bcc2f192a';
+const apiKey = 'eb10b11d9271f0d376f20456833f4f9b';
+// const apiKey = '82a0b22e81932aad65c97e8bcc2f192a';
 
 const creationPage = (store) => (next) => (action) => {
   switch (action.type) {

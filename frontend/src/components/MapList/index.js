@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
-import './style.scss';
+import React, { useState, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+import "./style.scss";
 
-import ReactMapGL, { NavigationControl } from 'react-map-gl';
-import CustomMarker from './CustomMarker';
+import ReactMapGL, { NavigationControl } from "react-map-gl";
+import CustomMarker from "./CustomMarker";
 
 const navControlStyle = {
   right: 10,
@@ -38,17 +38,17 @@ const MapList = ({
     const activityLng = Math.round(activity.activity_place.lng * 1000) / 1000;
 
     // controle si le user logged est creator ou participant
-    let userRole = '';
+    let userRole = "";
     if (userActivitiesCreatorIds.includes(activity.id)) {
       //cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={2} />)
-      userRole = 'creator';
+      userRole = "creator";
     } else if (userActivitiesIds.includes(activity.id)) {
       //cardsCreated.push(<Card key={`card-${card.id}`} card={card} userCard={1} />)
-      userRole = 'registered';
+      userRole = "registered";
     }
 
     let markerFind = markerPoints.find(
-      (marker) => marker.lat === activityLat && marker.lng === activityLng,
+      (marker) => marker.lat === activityLat && marker.lng === activityLng
     );
     if (markerFind) {
       markerFind.activities.push(formatedActivity(activity, userRole));
@@ -90,30 +90,30 @@ const MapList = ({
     //touchRotate: false,
     //keyboard: false,
     //doubleClickZoom: false
-    mapStyle: 'mapbox://styles/mapbox/streets-v11',
+    mapStyle: "mapbox://styles/mapbox/streets-v11",
   });
 
   useEffect(() => {
     return () => {
       // au unmount du composent (changement de page ... ) o  veux être dur de remettre le body overflow à visible
-      document.body.style.overflow = 'visible';
+      document.body.style.overflow = "visible";
     };
   }, []);
 
   const map = useRef(null);
-  const [btOpenMapTxt, setbtOpenMapTxt] = useState('Voir sur la carte');
-  const [classNameMap, setClassNameMap] = useState('map-list');
+  const [btOpenMapTxt, setbtOpenMapTxt] = useState("Voir sur la carte");
+  const [classNameMap, setClassNameMap] = useState("map-list");
   const handleChangeMapSize = () => {
-    if (classNameMap === 'map-list') {
-      map.current.scrollIntoView({ behavior: 'smooth' });
-      setClassNameMap('map-list map-list--open');
-      setbtOpenMapTxt('Fermer la carte');
-      document.body.style.overflow = 'hidden';
+    if (classNameMap === "map-list") {
+      map.current.scrollIntoView({ behavior: "smooth" });
+      setClassNameMap("map-list map-list--open");
+      setbtOpenMapTxt("Fermer la carte");
+      document.body.style.overflow = "hidden";
     } else {
       scrollToFilter();
-      setClassNameMap('map-list');
-      setbtOpenMapTxt('Voir sur la carte');
-      document.body.style.overflow = 'visible';
+      setClassNameMap("map-list");
+      setbtOpenMapTxt("Voir sur la carte");
+      document.body.style.overflow = "visible";
     }
   };
 
@@ -134,9 +134,10 @@ const MapList = ({
             height="100%"
             onViewportChange={(viewport) => setViewport(viewport)}
             // TOKEN à sécurisé
-            mapboxApiAccessToken={
-              'pk.eyJ1IjoiYm9yaXNjb3VkZXJjIiwiYSI6ImNrbGszY2pjODF5YTAydnByaTZveGs5azIifQ.lyPoAYY3DSqpu8D8R1ULGw'
-            }
+            // mapboxApiAccessToken={
+            //   "pk.eyJ1IjoiYm9yaXNjb3VkZXJjIiwiYSI6ImNrbGszY2pjODF5YTAydnByaTZveGs5azIifQ.lyPoAYY3DSqpu8D8R1ULGw"
+            // }
+            mapboxApiAccessToken={'pk.eyJ1IjoiY2xvdGlsZGVmYXVjaGlsbGUiLCJhIjoiY2ttbHNmN2NqMDkybTJxbGV1cXVtajN1ciJ9.HwrFTMH3ACUvSoQQ1NBB_g'}
           >
             <NavigationControl style={navControlStyle} />
             <CustomMarker
