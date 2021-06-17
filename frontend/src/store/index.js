@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
+//allowed to use the redux-devtools-extension
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from 'src/reducers';
 
@@ -9,7 +10,6 @@ import registration from '../middlewares/registration';
 import creationPage from 'src/middlewares/creationPage';
 import filter from 'src/middlewares/filter';
 import messages from 'src/middlewares/messages';
-
 
 const store = createStore(reducer, composeWithDevTools(
   applyMiddleware(activities, searchBar, connexion, registration, creationPage, filter, messages),

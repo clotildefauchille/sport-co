@@ -116,6 +116,7 @@ Search.propTypes = {
   fetchActivitiesByLocalisation: PropTypes.func.isRequired,
   fetchActivitiesByLocalisationAndSports: PropTypes.func.isRequired,
   userActivitiesIds: PropTypes.array.isRequired,
+  pageValue: PropTypes.number.isRequired,
 };
 
 export default Search;

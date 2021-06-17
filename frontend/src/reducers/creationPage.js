@@ -4,7 +4,7 @@ import {
   SAVE_SPORTS,
   ACTIVITY_CREATED,
   ERROR_NOT_FOUND_PLACE,
-  CREATED_PASS_TO_FALSE
+  CREATED_PASS_TO_FALSE,
 } from 'src/actions/creationPage';
 
 const initialState = {
@@ -34,7 +34,7 @@ const creationPage = (state = initialState, action = {}) => {
     case ERROR_NOT_FOUND_PLACE:
       return {...state, error_message: action.message};
     case ACTIVITY_CREATED:
-      return {...state, isCreated: true}
+      return {...state, isCreated: true};
     case CREATED_PASS_TO_FALSE:
       return { 
         ...state,
@@ -50,7 +50,7 @@ const creationPage = (state = initialState, action = {}) => {
         sport_id: '',
         error_message: '',
         isCreated: false,
-      }
+      };
     default:
       return state;
   }

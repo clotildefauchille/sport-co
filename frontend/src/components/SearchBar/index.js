@@ -42,7 +42,6 @@ const SearchBar = ({
         `/search?lat=${validLocalisation.lat}&lng=${validLocalisation.lng}&query=${inputValue}`
       );
     }
-
     // quant le component unmount clearTimeout : pour ne pas afficher l'autocompletion sur la page suivante :
     /*
     return () => {

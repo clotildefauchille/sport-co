@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import Cards from 'src/containers/Cards';
 import UserCards from 'src/containers/UserCards';
 import SearchBar from 'src/containers/SearchBar';
-import MoreResults from 'src/containers/MoreResults';
 import img from 'src/assets/images/noActivities.svg';
 import PropTypes from 'prop-types';
 
@@ -20,7 +19,6 @@ const Accueil = ({
   paginationReset,
   fetchUserActivities, 
 }) => {
-    
   useEffect(() => {
     paginationReset();
     window.scrollTo(0, 0);
@@ -145,7 +143,8 @@ Accueil.propTypes = {
   isLogged: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
   points: PropTypes.number,
-  
+  pageValue: PropTypes.number.isRequired,
+
 };
 
 Accueil.defaultProps = {

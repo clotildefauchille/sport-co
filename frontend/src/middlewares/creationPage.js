@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import {
   SEND_ACTIVITY_INFORMATION,
   //saveCreationActivityInfo,
@@ -6,10 +6,10 @@ import {
   saveSports,
   errorNotFoundPlace,
   activityCreated,
-} from 'src/actions/creationPage';
+} from "src/actions/creationPage";
 
-import { fetchUserActivities } from 'src/actions/cards';
-const apiKey = 'eb10b11d9271f0d376f20456833f4f9b';
+import { fetchUserActivities } from "src/actions/cards";
+const apiKey = "eb10b11d9271f0d376f20456833f4f9b";
 // const apiKey = '82a0b22e81932aad65c97e8bcc2f192a';
 
 const creationPage = (store) => (next) => (action) => {
@@ -18,22 +18,15 @@ const creationPage = (store) => (next) => (action) => {
       {
         // console.log('sendActivityInformation')
         const { creationPage, login } = store.getState();
-        // console.log('sport_id', creationPage.sport_id);
-        // console.log('idUser', login.user.id);
-        // console.log('adress TEST ', creationPage.adress);
-
-        //console.log('sendActivityInformation', creationPage, login);
-
         axios
           .get(
-            `http://api.positionstack.com/v1/forward?access_key=${apiKey}&country=FR&limit=1&query=${creationPage.adress},${creationPage.zip_code},${creationPage.city}`,
+            `http://api.positionstack.com/v1/forward?access_key=${apiKey}&country=FR&limit=1&query=${creationPage.adress},${creationPage.zip_code},${creationPage.city}`
           )
           .then((response) => {
-            // console.log("response apiPlace", response.data);
             const responseApiPlace = response.data.data[0];
 
             if (!responseApiPlace || !responseApiPlace.name) {
-              console.log('error');
+              console.log("error");
               store.dispatch(
                 errorNotFoundPlace(
                   "il n'existe pas de lieu à ce nom, veuillez réssayer",
@@ -41,12 +34,6 @@ const creationPage = (store) => (next) => (action) => {
               );
               return;
             }
-
-            // console.log(
-            //   'responseapiPlace.postal_code',
-            //   responseApiPlace.postal_code,
-            // );
-
             /*
             // avec token stocké dans le local storage
             let token;
@@ -83,7 +70,7 @@ const creationPage = (store) => (next) => (action) => {
                   sport_id: creationPage.sport_id,
                 },
                 // pour set/get cookies /!\
-                { withCredentials: true },
+                { withCredentials: true }
                 // pour passer token de localStorage
                 /*, {
                 headers: {
@@ -100,7 +87,7 @@ const creationPage = (store) => (next) => (action) => {
           })
           .catch((error) => {
             if (error.response.status === 401) {
-              store.dispatch(disconnect());
+              // store.dispatch(disconnect());
             }
             console.log(error);
           });

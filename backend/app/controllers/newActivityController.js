@@ -43,16 +43,7 @@ const newActivityController = {
         { include: ['activity_place'] },
       );
 
-
-      // console.log('-------------------> 1');
-
       const user = await User.findByPk(creator_id);
-
-      // console.log('-------------------> 1', user);
-
-      // ajoute les points motiv 
-      // console.log('---------->user', user.dataValues.reward_count);
-
       const new_reward_count = user.dataValues.reward_count + 100;
       user.reward_count = new_reward_count;
 

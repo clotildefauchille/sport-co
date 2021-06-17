@@ -1,28 +1,28 @@
 // == Import npm
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 // == Import
-import './style.scss';
+import "./style.scss";
 
 // images sport
-import pin from 'src/assets/icons/pin.svg';
-import clock from 'src/assets/icons/clock.svg';
+import pin from "src/assets/icons/pin.svg";
+import clock from "src/assets/icons/clock.svg";
 
-import sports from './sports';
+import sports from "./sports";
 
 // == Composant
 
 const Card = ({ card, isLogged, showLoginModal, userCard }) => {
   const extract = `${card.description.substr(0, 120)} [...]`;
-  let cardClassName = 'card';
-  if(userCard === 1) {
-    cardClassName = 'card card--user';
-  } else if(userCard === 2) {
-    cardClassName = 'card card--user card--creator';
+  let cardClassName = "card";
+  if (userCard === 1) {
+    cardClassName = "card card--user";
+  } else if (userCard === 2) {
+    cardClassName = "card card--user card--creator";
   }
-  
+
   const urlPath = `/activity/${card.id}`;
   switch (isLogged) {
     case true:
@@ -40,9 +40,7 @@ const Card = ({ card, isLogged, showLoginModal, userCard }) => {
               </div>
               <div className="card__container">
                 <img src={pin} alt="" className="card__icon" />
-                <p className="card__text">
-                  {card.activity_place.city}
-                </p>
+                <p className="card__text">{card.activity_place.city}</p>
               </div>
             </div>
             <p className="card__description">{extract}</p>
@@ -67,24 +65,17 @@ const Card = ({ card, isLogged, showLoginModal, userCard }) => {
               </div>
               <div className="card__container">
                 <img src={pin} alt="" className="card__icon" />
-                <p className="card__text">
-                  {card.activity_place.city}
-                </p>
+                <p className="card__text">{card.activity_place.city}</p>
               </div>
             </div>
             <p className="card__description">{extract}</p>
           </button>
-          <button
-            onClick={showLoginModal}
-            className="card__join"
-            type="button"
-          >
+          <button onClick={showLoginModal} className="card__join" type="button">
             Voir le détail
           </button>
         </article>
       );
   }
-
 };
 
 Card.propTypes = {

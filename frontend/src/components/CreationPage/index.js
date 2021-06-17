@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
-import { Redirect, useHistory } from "react-router-dom";
-import "./style.scss";
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import './style.scss';
 // import Field from './Field';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 const CreationPage = ({
   title,
   date,
   time,
-  min_participant,
+  minParticipant,
   description,
   adress,
-  zip_code,
+  zipCode,
   city,
   duration,
   onChangeForm,
@@ -26,22 +26,22 @@ const CreationPage = ({
   const history = useHistory();
 
   useEffect(() => {
-    //console.log('useEffect 1');
+    // console.log('useEffect 1');
     if (isCreated) {
-      history.push("/");
+      history.push('/');
       createdPassToFalse();
-      //return <Redirect to="/" />;
+      // return <Redirect to="/" />;
     } else {
       fetchSports();
     }
   }, []);
 
   useEffect(() => {
-    //console.log('useEffect 2');
+    // console.log('useEffect 2');
     if (isCreated) {
       createdPassToFalse();
-      history.push("/");
-      //return <Redirect to="/" />;
+      history.push('/');
+      // return <Redirect to="/" />;
     }
   }, [isCreated]);
 
@@ -63,14 +63,14 @@ const CreationPage = ({
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log("handleOnSubmit");
+    // console.log("handleOnSubmit");
     onSubmit();
   };
 
   return (
     <section className="create-form">
       <form className="create-form__container" onSubmit={handleOnSubmit}>
-        <h1 className="create-form__title">Crée ton activité :</h1>
+        <h1 className="create-form__title">Créer ton activité :</h1>
 
         <label htmlFor="title" className="create-form__label">
           Nom de l'activité<span className="create-form__required">*</span>
@@ -80,6 +80,7 @@ const CreationPage = ({
           type="text"
           placeholder="Nom de l'activité"
           name="title"
+          id="title"
           value={title}
           onChange={handleChange}
         />
@@ -93,7 +94,7 @@ const CreationPage = ({
               required
               className="create-form__input create-form__input--select"
               type="date"
-              // id="date"
+              id="date"
               value={date}
               min={todayFormat}
               max="2025-12-31"
@@ -140,7 +141,7 @@ const CreationPage = ({
         {/* <h2 className="create-form__subtitle">Information</h2> */}
         <div className="create-form__container-inner">
           <div>
-            <label className="create-form__label">
+            <label htmlFor="sport-select" className="create-form__label">
               Sport<span className="create-form__required">*</span>
             </label>
             <select
@@ -151,17 +152,15 @@ const CreationPage = ({
               onChange={handleSelectInput}
             >
               <option value="">Choisis un sport</option>
-              {sports.map((sport) => {
-                return (
-                  <option
-                    className="create-form__input create-form__input--black"
-                    key={sport.id}
-                    value={sport.id}
-                  >
-                    {sport.name}
-                  </option>
-                );
-              })}
+              {sports.map((sport) => (
+                <option
+                  className="create-form__input create-form__input--black"
+                  key={sport.id}
+                  value={sport.id}
+                >
+                  {sport.name}
+                </option>
+              ))}
             </select>
           </div>
           <div>
@@ -174,7 +173,7 @@ const CreationPage = ({
               name="min_participant"
               min="1"
               max="40"
-              value={min_participant}
+              value={minParticipant}
               onChange={handleChange}
             />
           </div>
@@ -218,7 +217,7 @@ const CreationPage = ({
               type="text"
               placeholder="Code postal"
               name="zip_code"
-              value={zip_code}
+              value={zipCode}
               onChange={handleChange}
             />
           </div>
@@ -250,17 +249,23 @@ const CreationPage = ({
 };
 
 CreationPage.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
-  min_participant: PropTypes.node.isRequired,
+  minParticipant: PropTypes.node.isRequired,
   description: PropTypes.string.isRequired,
   adress: PropTypes.string.isRequired,
-  zip_code: PropTypes.string.isRequired,
+  zipCode: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
   onChangeForm: PropTypes.func.isRequired,
   fetchSports: PropTypes.func.isRequired,
   createdPassToFalse: PropTypes.func.isRequired,
+  duration: PropTypes.string.isRequired,
+  onChangeFormSelect: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  sports: PropTypes.array.isRequired,
+  isCreated: PropTypes.bool.isRequired,
 };
 
 export default CreationPage;

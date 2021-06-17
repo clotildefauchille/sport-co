@@ -22,7 +22,7 @@ import './styles.css';
 const App = ({ getUser, isLogged }) => {
   useEffect(() => {
     getUser();
-  }, []); 
+  }, []);
   // console.log(isLogged);
 
   return (
@@ -38,7 +38,7 @@ const App = ({ getUser, isLogged }) => {
         </Route>
     
         <Route path="/inscription" exact>
-            <Registration />
+          <Registration />
         </Route>
 
         <Route path="/search">
