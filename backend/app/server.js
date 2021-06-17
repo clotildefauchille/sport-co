@@ -9,10 +9,10 @@ const app = express();
 app.use(cookieParser());
 
 app.use(
-  cors({ origin: '*',
+  cors({ 
     //origin: 'http://ec2-54-160-66-108.compute-1.amazonaws.com',
-    // origin: process.env.FRONTEND_URL,
-    // credentials: true,
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
   }),
 );
 
