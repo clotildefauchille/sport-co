@@ -12,8 +12,8 @@ const newActivityController = {
       const min_participant = parseInt(req.body.min_participant);
       const { title, description, creator_id, date, time, duration } = req.body;
       const dataPlace = req.body.place;
-      // console.log('---------->dataplace', dataPlace);
-      // console.log('------------------>zipcode', dataPlace.zip_code);
+      console.log('---------->dataplace', dataPlace);
+      console.log('------------------>zipcode', dataPlace.zip_code);
       // console.log('------------>', sport_id);
       // console.log('-------------------> 0 creator_id', creator_id);
       // On crée la nouvelle activité :
@@ -30,7 +30,7 @@ const newActivityController = {
           participant_count: 1,
           sport_id,
           activity_place: {
-            adress: `${dataPlace.number} ${dataPlace.street}`,
+            adress: dataPlace.adress,
             city: dataPlace.city,
             zip_code: dataPlace.zip_code,
             region: dataPlace.region,
@@ -46,10 +46,7 @@ const newActivityController = {
       const user = await User.findByPk(creator_id);
       const new_reward_count = user.dataValues.reward_count + 100;
       user.reward_count = new_reward_count;
-
-      // console.log('-------------------> 3 new_reward_count', new_reward_count);
-      
-      // on verif à quel user_grade corresponde les points
+      // it check which grade correspond with the amount of user's point
       const grades = await UserGrade.findAll({
         where: {
           point: {
@@ -58,13 +55,7 @@ const newActivityController = {
         },
         order: [['point', 'DESC']],
       });
-
-      // console.log('-------------------> 4 grades', grades);
-
       user.user_grade_id = grades[0].id;
-
-      // console.log('-------------------> 5 user.user_grade_id', user.user_grade_id);
-
       await user.save();
       await newActivity.addUser(user);
 

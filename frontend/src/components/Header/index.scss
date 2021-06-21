@@ -58,10 +58,8 @@
     z-index: 0;
   }
   &__points{
-    // display: none;
     margin-left: -3000px;
     transition: transform ease-out 0.2s;
-    // display: block;
     padding: 1rem 1.5rem;
     color: v.$primaryColor;
     text-align: center;

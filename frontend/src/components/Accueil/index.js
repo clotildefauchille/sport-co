@@ -17,7 +17,7 @@ const Accueil = ({
   myCreatedActivities,
   pageValue,
   paginationReset,
-  fetchUserActivities, 
+  fetchUserActivities,
 }) => {
   useEffect(() => {
     paginationReset();
@@ -144,7 +144,7 @@ Accueil.propTypes = {
   user: PropTypes.object.isRequired,
   points: PropTypes.number,
   pageValue: PropTypes.number.isRequired,
-
+  paginationReset: PropTypes.func.isRequired,
 };
 
 Accueil.defaultProps = {

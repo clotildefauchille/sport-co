@@ -9,7 +9,7 @@ import {
 } from "src/actions/creationPage";
 
 import { fetchUserActivities } from "src/actions/cards";
-const apiKey = "eb10b11d9271f0d376f20456833f4f9b";
+const apiKey = "pk.eyJ1IjoiY2xvdGlsZGVmYXVjaGlsbGUiLCJhIjoiY2ttbHNmN2NqMDkybTJxbGV1cXVtajN1ciJ9.HwrFTMH3ACUvSoQQ1NBB_g";
 // const apiKey = '82a0b22e81932aad65c97e8bcc2f192a';
 
 const creationPage = (store) => (next) => (action) => {
@@ -18,14 +18,16 @@ const creationPage = (store) => (next) => (action) => {
       {
         // console.log('sendActivityInformation')
         const { creationPage, login } = store.getState();
+        console.log("creationPage.adress", creationPage.adress)
         axios
           .get(
-            `http://api.positionstack.com/v1/forward?access_key=${apiKey}&country=FR&limit=1&query=${creationPage.adress},${creationPage.zip_code},${creationPage.city}`
+            `https://api.mapbox.com/geocoding/v5/mapbox.places/${creationPage.address} ${creationPage.city} ${creationPage.zip_code}.json?access_token=${apiKey}&autocomplete=true&country=fr&types=address%2Cpoi%2Cpostcode%2Clocality%2Cplace&limit=1`,
           )
           .then((response) => {
-            const responseApiPlace = response.data.data[0];
+            console.log('response creationPage middleware', response.data.features[0]);
+            const responseApiPlace = response.data.features[0];
 
-            if (!responseApiPlace || !responseApiPlace.name) {
+            if (!responseApiPlace) {
               console.log("error");
               store.dispatch(
                 errorNotFoundPlace(
@@ -34,18 +36,20 @@ const creationPage = (store) => (next) => (action) => {
               );
               return;
             }
-            /*
-            // avec token stocké dans le local storage
-            let token;
-            if (localStorage.fairplayUser) {
-              const user = JSON.parse(localStorage.fairplayUser);
-              token = user.token;
-            } else {
-              return;
+            let name = '';
+            if (responseApiPlace.matching_text) {
+              name = responseApiPlace.matching_text
+            } else if (responseApiPlace.text) {
+              name = responseApiPlace.text
             }
-            console.log('token ----> ', token);
-            */
+            const placeObj = responseApiPlace.context.find(item => item.id.startsWith('place'));
+            const regionObj = responseApiPlace.context.find(item => item.id.startsWith('region'));
+            const postcodeObj = responseApiPlace.context.find(item => item.id.startsWith('postcode'));
 
+            const place = placeObj ? placeObj.text : '';
+            const region = regionObj ? regionObj.text : '';
+            const postcode = postcodeObj ? postcodeObj.text : '';
+            console.log('place, region, postcode', place, region, postcode);
             axios
               .post(
                 `${process.env.API_URL}/api/newactivity`,
@@ -58,13 +62,12 @@ const creationPage = (store) => (next) => (action) => {
                   min_participant: creationPage.min_participant,
                   creator_id: login.user.id,
                   place: {
-                    city: responseApiPlace.locality,
-                    number: responseApiPlace.number,
-                    street: responseApiPlace.street,
-                    zip_code: responseApiPlace.postal_code,
-                    region: responseApiPlace.region,
-                    latitude: responseApiPlace.latitude,
-                    longitude: responseApiPlace.longitude,
+                    city: place,
+                    adress: creationPage.adress,
+                    zip_code: postcode,
+                    region,
+                    latitude: responseApiPlace.geometry.coordinates[1],
+                    longitude: responseApiPlace.geometry.coordinates[0],
                   },
                   activity_status_id: 3,
                   sport_id: creationPage.sport_id,

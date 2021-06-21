@@ -11,7 +11,6 @@ import {
 
 const initialState = {
   inputValue: '',
-  //currentSearch: '',
   validLocalisation: {
     query: '',
   },
@@ -25,13 +24,12 @@ const initialState = {
 
 const searchBar = (state = initialState, action = {}) => {
   switch (action.type) {
-
     case CHANGE_INPUT_VALUE_SEARCHBAR: {
       return {
         ...state,
         errorLocalisation: false,
         inputValue: action.value,
-      }
+      };
     }
 
     case SAVE_AUTOCOMPLETION_LIST: {
@@ -40,8 +38,8 @@ const searchBar = (state = initialState, action = {}) => {
         autocomplete: {
           query: state.inputValue,
           list: [...action.data],
-        }
-      }
+        },
+      };
     }
 
     case SAVE_VALID_LOCALISATION: {
@@ -52,14 +50,14 @@ const searchBar = (state = initialState, action = {}) => {
         validLocalisation: {
           ...action.data,
         },
-      }
+      };
     }
 
     case CONFIRM_VALID_LOCALISATION: {
       return {
         ...state,
         searchQueryInProcess: true,
-      }
+      };
     }
 
     case CHANGE_SEARCH_QUERY_IN_PROCESS_STATUT: {
@@ -67,7 +65,7 @@ const searchBar = (state = initialState, action = {}) => {
         ...state,
         inputValue: '',
         searchQueryInProcess: false,
-      }
+      };
     }
 
     case CHANGE_VALID_LOCALISATION: {
@@ -76,9 +74,9 @@ const searchBar = (state = initialState, action = {}) => {
         errorLocalisation: false,
         inputValue: state.autocomplete.list[action.index].name,
         validLocalisation: {
-          ...state.autocomplete.list[action.index]
+          ...state.autocomplete.list[action.index],
         },
-      }
+      };
     }
 
     case CLEAR_LIST_AUTOCOMPLETE_DATA: {
@@ -87,18 +85,18 @@ const searchBar = (state = initialState, action = {}) => {
         autocomplete: {
           query: '',
           list: [],
-        }
-      }
+        },
+      };
     }
 
     case NO_RESULT_IN_VERIF_LOCALISATION: {
       return {
         ...state,
         errorLocalisation: true,
-      }
+      };
     }
-    default: 
-      return state; 
+    default:
+      return state;
   }
 };
 

@@ -55,6 +55,7 @@ const activityController = {
           },
         ],
         where: {
+          //operators from Sequelize Op.gte is for number comparisons
           [Op.and]: [
             {
               activity_status_id: 3,
@@ -85,7 +86,6 @@ const activityController = {
       res.status(500).json(error.toString());
     }
   },
-
 
   
   getOneActivity: async (req, res) => {
@@ -172,7 +172,6 @@ const activityController = {
     try {
       const activities = await Activity.findAndCountAll({
         attributes: { 
-          // exclude: ['activity_status_id','activity_place_id','sport_id','creator_id'] 
           exclude: ['activity_place_id','sport_id','creator_id'] 
         },
         include: [
@@ -196,11 +195,6 @@ const activityController = {
           },
           {
             association: 'activity_place',
-            /*
-            attributes: {
-              include: [[sequelize.literal(distanceCalculSQL(lat, lng)), 'distance']],
-            },
-            */
           },
         ],
         where: {
@@ -231,13 +225,6 @@ const activityController = {
         return;
       }
 
-      //formatedaActivities = formatActivitiesFilterByDistance(activities, activityController.defaultLimitDistance);
-      /*
-      if(formatedaActivities.length < 1) {
-        res.status(204).json("Error : can't find Activity");
-        return;
-      }
-      */
       formatedaActivities = formatActivities(activities.rows);
       res.json({ activities: formatedaActivities, count: activities.count });
     } catch (error) {

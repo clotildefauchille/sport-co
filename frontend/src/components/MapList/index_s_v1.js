@@ -21,21 +21,20 @@ const MapList = ({ activities, lat, lng, userActivitiesIds, userActivitiesCreato
 
   useEffect(() => {
     // console.log(activities);
-  }, [activities])
+  }, [activities]);
+  const [viewport, setViewport] = useState({
+    latitude: parseFloat(lat),
+    longitude: parseFloat(lng),
+    zoom: 12,
+  });
 
   useEffect(() => {
     setViewport({
       latitude: parseFloat(lat),
       longitude: parseFloat(lng),
       zoom: 12,
-    })
-  }, [lat, lng])
-
-  const [viewport, setViewport] = useState({
-    latitude: parseFloat(lat),
-    longitude: parseFloat(lng),
-    zoom: 12,
-  });
+    });
+  }, [lat, lng]);
 
   const map = useRef(null);
   const [btOpenMapTxt, setbtOpenMapTxt] = useState('Voir sur la carte');

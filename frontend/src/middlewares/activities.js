@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 import {
   FETCH_LAST_ACTIVITIES,
@@ -7,14 +7,14 @@ import {
   fetchUserActivities,
   saveActivities,
   saveUserActivities,
-} from 'src/actions/cards';
+} from "src/actions/cards";
 
 import {
   FETCH_ACTIVITIES_BY_LOCALISATION,
   FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS,
   saveSearchedActivities,
   saveAllSearchedActivities,
-} from 'src/actions/search';
+} from "src/actions/search";
 
 import {
   FETCH_DATA_ACTTIVITY,
@@ -23,12 +23,9 @@ import {
   QUIT_ACTIVITY,
   updateStatus,
   errorStatus,
-} from 'src/actions/details';
+} from "src/actions/details";
 
-import { 
-  saveUserPoints, 
-  disconnect,
-} from 'src/actions/login';
+import { saveUserPoints, disconnect } from "src/actions/login";
 
 const activities = (store) => (next) => (action) => {
   const { moreResults } = store.getState();
@@ -47,9 +44,7 @@ const activities = (store) => (next) => (action) => {
         .then((response) => {
           // console.log("page", page);
           // if page > 1
-          
           // console.log('response.data.activities', response.data.activities);
-          
           if (page > 1) {
             store.dispatch(saveAllActivities(response.data));
           } else {
@@ -57,41 +52,41 @@ const activities = (store) => (next) => (action) => {
           }
         })
         .catch((error) => {
-          console.log('error', error);
+          console.log("error", error);
         });
       break;
 
-      
     case FETCH_USER_ACTIVITIES:
       const userId = store.getState().login.user.id;
       axios
-        .get(`${process.env.API_URL}/api/activities/user/${userId}`,
-          { withCredentials: true }
-        )
+        .get(`${process.env.API_URL}/api/activities/user/${userId}`, {
+          withCredentials: true,
+        })
         .then((response) => {
           store.dispatch(saveUserActivities(response.data));
           store.dispatch(saveUserPoints(response.data.user));
         })
         .catch((error) => {
-          if(error.response.status === 401) {
+          if (error.response.status === 401) {
             store.dispatch(disconnect());
           }
-          console.log('error', error);
+          console.log("error", error);
         });
       break;
 
     case FETCH_DATA_ACTTIVITY:
       axios
-        .get(`${process.env.API_URL}/api/activity/${idParams}`,
-        { withCredentials: true })
+        .get(`${process.env.API_URL}/api/activity/${idParams}`, {
+          withCredentials: true,
+        })
         .then((response) => {
           store.dispatch(saveActivity(response.data));
         })
         .catch((error) => {
-          if(error.response.status === 401) {
+          if (error.response.status === 401) {
             store.dispatch(disconnect());
           }
-          console.log('error', error);
+          console.log("error", error);
         });
       break;
 
@@ -103,7 +98,7 @@ const activities = (store) => (next) => (action) => {
         // console.log('FETCH_ACTIVITIES_BY_LOCALISATION');
         axios
           .get(
-            `${process.env.API_URL}/api/place?lat=${lat}&lng=${lng}&page=${page}`,
+            `${process.env.API_URL}/api/place?lat=${lat}&lng=${lng}&page=${page}`
           )
           .then((response) => {
             if (page > 1) {
@@ -113,7 +108,7 @@ const activities = (store) => (next) => (action) => {
             }
           })
           .catch((error) => {
-            console.log('error', error);
+            console.log("error", error);
           });
       }
       break;
@@ -121,7 +116,7 @@ const activities = (store) => (next) => (action) => {
     case JOIN_ACTIVITY:
       if (!user.pseudo) {
         console.error(
-          'ERROR il faut être connecté pour rejoindre une activité',
+          "ERROR il faut être connecté pour rejoindre une activité"
         );
         break;
       }
@@ -132,26 +127,26 @@ const activities = (store) => (next) => (action) => {
             id: details.id,
             pseudo: user.pseudo,
           },
-          { withCredentials: true },
+          { withCredentials: true }
         )
         .then((response) => {
           // console.log('activité rejointe', response);
-          store.dispatch(updateStatus('+'));
+          store.dispatch(updateStatus("+"));
           store.dispatch(fetchUserActivities());
         })
         .catch((error) => {
-          if(error.response.status === 401) {
+          if (error.response.status === 401) {
             store.dispatch(disconnect());
           } else {
             store.dispatch(errorStatus());
           }
-          console.log('error', error.response.data);
+          console.log("error", error.response.data);
         });
       break;
 
     case QUIT_ACTIVITY:
       if (!user.pseudo) {
-        console.error('ERROR il faut être connecté pour quitter une activité');
+        console.error("ERROR il faut être connecté pour quitter une activité");
         break;
       }
       axios
@@ -161,23 +156,22 @@ const activities = (store) => (next) => (action) => {
             id: details.id,
             pseudo: user.pseudo,
           },
-          { withCredentials: true },
+          { withCredentials: true }
         )
         .then((response) => {
           // console.log('activité quittée', response);
-          store.dispatch(updateStatus('-'));
+          store.dispatch(updateStatus("-"));
           store.dispatch(fetchUserActivities());
         })
         .catch((error) => {
-          if(error.response.status === 401) {
+          if (error.response.status === 401) {
             store.dispatch(disconnect());
           } else {
             store.dispatch(errorStatus());
           }
-          console.log('error', error.response.data);
+          console.log("error", error.response.data);
         });
       break;
-
 
     case FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS:
       // console.log(
@@ -194,13 +188,13 @@ const activities = (store) => (next) => (action) => {
         // console.log('FETCH_ACTIVITIES_BY_LOCALISATION_AND_SPORTS');
         axios
           .get(
-            `${process.env.API_URL}/api/activities/sports/?lat=${lat2}&lng=${lng2}&sports=${sports}&page=1`,
+            `${process.env.API_URL}/api/activities/sports/?lat=${lat2}&lng=${lng2}&sports=${sports}&page=1`
           )
           .then((response) => {
             store.dispatch(saveSearchedActivities(response.data));
           })
           .catch((error) => {
-            console.log('error', error);
+            console.log("error", error);
           });
       }
       break;
