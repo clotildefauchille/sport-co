@@ -19,12 +19,10 @@ const Registration = ({
   address,
   presentation,
   isLogged,
-
   passwordError,
   emailError,
   pseudoError,
   cityError,
-
   OnSubmitForm,
   OnChangeValue,
 }) => {

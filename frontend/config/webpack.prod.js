@@ -20,7 +20,7 @@ module.exports = merge(common, {
     // API backend ONLINE
     new webpack.DefinePlugin({
       "process.env.API_URL": JSON.stringify(
-        "https://fairplay.dev:4000"
+        "https://api.fairplay.dev"
       ),
     }),
   ],

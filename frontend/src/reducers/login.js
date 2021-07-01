@@ -6,7 +6,7 @@ import {
   SAVE_USER_POINTS,
 } from 'src/actions/login';
 
-const initialState = {
+export const initialState = {
   /*
   email: 'clotildefauchille@gmail.com',
   password: 'pass',

@@ -12,6 +12,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   OnChangeValue: (event) => {
     dispatch(saveLogin(event.target.value, event.target.type));
+    console.log('event.target.value, event.target.type', event.target.value, event.target.type);
   },
   OnClickLoginForm: (event) => {
     event.preventDefault();

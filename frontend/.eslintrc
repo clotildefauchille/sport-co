@@ -6,6 +6,7 @@
   },
   "rules": {
     "brace-style": ["error", "stroustrup"],
+     "quotes": [2, "double", "single", { "avoidEscape": true }],
     "no-param-reassign": [
       "error",
       {

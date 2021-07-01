@@ -74,14 +74,6 @@ const creationPage = (store) => (next) => (action) => {
                 },
                 // pour set/get cookies /!\
                 { withCredentials: true }
-                // pour passer token de localStorage
-                /*, {
-                headers: {
-                  //Authorization: `bearer ${state.user.token}`,
-                  // recup token in localStorage
-                  Authorization: `bearer ${token}`,
-                }
-              }*/
               )
               .then((response) => {
                 store.dispatch(activityCreated());

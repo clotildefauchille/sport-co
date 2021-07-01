@@ -12,11 +12,6 @@ const newActivityController = {
       const min_participant = parseInt(req.body.min_participant);
       const { title, description, creator_id, date, time, duration } = req.body;
       const dataPlace = req.body.place;
-      console.log('---------->dataplace', dataPlace);
-      console.log('------------------>zipcode', dataPlace.zip_code);
-      // console.log('------------>', sport_id);
-      // console.log('-------------------> 0 creator_id', creator_id);
-      // On crée la nouvelle activité :
       const newActivity = await Activity.create(
         {
           title,
